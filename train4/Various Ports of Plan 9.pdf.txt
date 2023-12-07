@@ -1,0 +1,256 @@
+The Various Ports
+
+6DEI @o?KmAnJ ?ollA?JI ?ommAnJI =>oKJ JDA L=HEoKI =H?DEJA?JKHAI IKFFoHJA@ >O
+2l=n '. 6DA IOIJAm JHEAI Jo DE@A moIJ oB JDA @EBBAHAn?AI >AJMAAn m=?DEnAI, Io JDA
+m=?DEnAI =I IAAn >O = 2l=n ' KIAH look @EBBAHAnJ BHom DoM JDAO =HA FAH?AELA@ JDHoKCD
+?ommAH?E=l IoBJM=HA. )lIo, >A?=KIA MA =HA = Im=ll CHoKF, MA ?oKl@nߣJ @o ALAHOJDEnC:
+ANFloEJ ALAHO oFJEmEz=JEon, IKFFoHJ ALAHO mo@Al, @HELA ALAHO @ALE?A. 6DEI @o?KmAnJ
+HA?oH@I MD=J MA have @onA. 6DA BEHIJ IA?JEon @EI?KIIAI JDA ?omFElAH/=IIAm>lAH/lo=@AH
+IKEJA BoH A=?D m=?DEnA. 6DA IA?on@ J=lkI =>oKJ JDA oFAH=JEnC IOIJAm EmFlAmAnJA@ on
+A=?DoBJDAL=HEoKIm=?DEnAI.
+The Motorola MC68020 compiler
+6DEI EI JDA ol@AIJ ?omFElAH oB JDA >Kn?D. 4Al=JELA Jo EJI ?omFAJEJoHIߞ?ommAH?E=l
+?omFElAHI BoH JDA I=mA m=?DEnAߞEJ CAnAH=JAI GKEJA Coo@ ?o@A. 1J =IIKmAI =J lA=IJ =
+$&  =H?DEJA?JKHA: IomA oB JDA =@@HAIIEnC mo@AI EJ CAnAH=JAI =HA noJ on JDA $& oH
+$&.
+9A =lIo KIA JDEI ?omFElAH BoH JDA $&". -N?AFJ BoH = BAM EnIJHK?JEonI =n@ HACEI­
+JAHI =L=El=>lA onlO BHom =IIAm>lO l=nCK=CA, JDA onlO KIAH-LEIE>lA @EBBAHAn?A >AJMAAn
+JDAIA m=?DEnAI EI En Blo=JEnC FoEnJ. OKH $& I =ll D=LA $&&& oH $&&& Blo=JEnC FoEnJ
+KnEJI =JJ=?DA@, Io Jo ANA?KJA Blo=JEnC FoEnJ FHoCH=mI MA @AFAn@ on JDAHA >AEnC =FFHo­
+FHE=JA D=H@M=HA. 7nBoHJKn=JAlO, JDA $&" EI noJ GKEJA Io JDoHoKCD En EJI EmFlAmAnJ=­
+JEon oB JDA 1--- %#" IJ=n@=H@ oH En EJI FHoLEIEon oB >KElJ-En EnIJHK?JEonI BoH JDA JH=nI?An­
+@AnJ=l BKn?JEonI. 6DA l=JJAH M=I A=IO Jo CAJ =HoKn@: MA @onߣJ KIA JDAm on JDA $& 
+AEJDAH, >KJ MA @o D=LA = lE>H=HO, -l68881, JD=J OoK ?=n KIA EB OoK nAA@ JDA FAHBoH­
+m=n?A MDE?D ?=n >A IK>IJ=nJE=l: astro HKnI JME?A =I B=IJ. 9A @onߣJ KIA JDEI lE>H=HO
+>O @AB=KlJ >A?=KIA MA M=nJ Jo HKn JDA I=mA >En=HEAI on >oJD m=?DEnAI =n@ @onߣJ M=nJ
+JoAmKl=JA FCΧSH EnJDAoFAH=JEnCIOIJAm.
+6DA FHo>lAm MEJD 1--- EI n=IJEAH. 9A @E@nߣJ HA=llO M=nJ Jo @A=l MEJD CH=@K=l Kn@AH­
+BloM =n@ =ll JD=J, AIFA?E=llO IEn?A MA D=@ D=lB = @ozAn m=?DEnAI MAߣ@ nAA@ Jo @o EJ on,
+Io on JDA $&" MA EmFlAmAnJ non-JH=FFEnC Kn@AHBloM =I JHKn?=JEon Jo zAHo =n@ @o
+noJDEnC =>oKJ @AnoHm=lEzA@ nKm>AHI =n@ noJ-=-nKm>AHI. 6DEI mA=nI JDA $&  =n@
+JDA$&"=HAnoJFHA?EIAlO?omF=JE>lA.
+The Motorola MC68000 compiler
+6DEI ?omFElAH EI = IJHEFFA@-@oMn LAHIEon oB JDA M+$&  ?omFElAH >KElJ BoH =n
+=>oHJELA FoHJ Jo JDA ,H=Con>=ll FHo?AIIoH on JDA 2=lm 2EloJ. 1J CAnAH=JAI FoIEJEonEn@AFAn@AnJ?o@AMDoIAoLAH=llGK=lEJOEImK?DFooHAHJD=nJDA?o@ABoHJDAM+$& .
+The MIPS compiler
+6DEI ?omFElAH CAnAH=JAI ?o@A BoH JDA 4 , 4!, =n@ 4" m=?DEnAI ?onBEC­
+KHA@ Jo >A >EC-An@E=nI. 6DA ?omFElAH CAnAH=JAI no 4"-IFA?EBE? EnIJHK?JEonI
+=lJDoKCD JDA =IIAm>lAH =n@ lo=@AH IKFFoHJ JDA nAM KIAH-mo@A EnIJHK?JEonI. 6DAHA EI
+no IKFFoHJ BoH lEJJlA-An@E=n m=?DEnAI. ) lEJJlA-An@E=n FoHJ ANEIJI,>KJEInoJEn?lK@A@En
+JDA @EIJHE>KJEon. +onJ=?J KI EB OoK nAA@ EJ. +onIE@AHEnC EJI IFAA@, JDA 2l=n ' ?omFElAH
+CAnAH=JAI Coo@ ?o@A, >KJ JDA ?ommAH?E=l M125 ?omFElAH MEJD =ll JDA IJoFI FKllA@ oKJ
+?onIEIJAnJlO>A=JIEJ>O oHIo,IomAJEmAImoHA. 5En?AoKHI?omFElAI=>oKJJEmAI
+B=IJAH =n@ MA IFAn@ moIJ oB oKH JEmA ?omFElEnC =nOM=O, MA =HA ?onJAnJ MEJD JDA
+
+­ ­
+JH=@AoBB.
+6DA ?omFElAH EI IolE@: MAߣLA KIA@ EJ BoH IALAH=l >EC FHojA?JI =n@, oB ?oKHIA, =ll oKH
+=FFlE?=JEonI HKn Kn@AH EJ. 6DA >AD=LEoH oB Blo=JEnC-FoEnJ FHoCH=mI EI mK?D lEkA on JDA
+$&": JDA oFAH=JEnC IOIJAm AmKl=JAI MDAHA nA?AII=HO Jo CAJ F=IJ non-JH=FFEnC Kn@AH­
+BloM =n@ oLAHBloM, >KJ @oAI noJ D=n@lA CH=@K=l Kn@AHBloM oH @AnoHm=lEzA@ nKm>AHI oH
+noJ-=-nKm>AHI.
+The SPARC compiler
+6DA 52)4+ ?omFElAH EI =lIo IolE@ =n@ B=IJ, =lJDoKCD MA D=LAnߣJ KIA@ EJ BoH = BAM
+OA=HI, @KA Jo = l=?k oB ?KHHAnJ D=H@M=HA. 9A D=LA IAAn EJ @o mK?D >AJJAH JD=n /++ MEJD
+=llJDAoFJEmEz=JEonI,>KJon=LAH=CAEJEIFHo>=>lO=>oKJJDAI=mA.
+9A KIA@ Jo HKn IomA ol@ 52)4+ m=?DEnAI MEJD no mKlJEFlO oH @ELE@A EnIJHK?JEonI,
+Io JDA ?omFElAH @oAI noJ FHo@K?A JDAm >O @AB=KlJ. 1nIJA=@ EJ ?=llI EnJAHn=l IK>HoKJEnAI.
+) lo=@AH Bl=C, -M, ?=KIAI JDA EnIJHK?JEonI Jo >A AmEJJA@. 6DA oFAH=JEnC IOIJAm D=I JH=F
+?o@A Jo AmKl=JA JDAm EB nA?AII=HO, >KJ JDA JH=FI =HA IloMAH JD=n AmKl=JEnC JDAm En KIAH
+mo@A. 1n =nO mo@AHn l=>, En MDE?D 52)4+5 D=LA JDA EnIJHK?JEonI, EJ MoKl@ >A MoHJD
+An=>lEnCJDA -M Bl=C>O@AB=KlJ.
+6DABlo=JEnCFoEnJIJoHOEIJDAI=mA=IonJDAM125.
+The Intel i386 compiler
+6DEI EI HA=llO =n x&$ ?omFElAH, BoH x> . 1J MoHkI onlO EB JDA m=?DEnA EI En ! ->EJ
+FHoJA?JA@ mo@A. 1J EI IolE@ =n@ CAnAH=JAI JolAH=>lA ?o@A; EJ EI oKH m=En ?omFElAH JDAIA
+@=OI.
+.lo=JEnC FoEnJ EI MAll->AD=LA@, >KJ JDA ?omFElAH =IIKmAI E!&%-?omF=JE>lA D=H@­
+M=HA Jo ANA?KJA JDA EnIJHK?JEonI. 9EJD !&% D=H@M=HA, JDA IOIJAm @oAI JDA BKll 1--- %#"
+jo>, jKIJ lEkA JDA M+$&&&. *O @AB=KlJ, JDA lE>H=HEAI @onߣJ KIA JDA !&% >KElJ-EnI BoH JH=n­
+I?An@AnJ=lI. 1BOoKM=nJJDAm,>KEl@JDA?o@AEn /sys/src/libc/386/387.
+The Intel i960 compiler
+6DEI ?omFElAH M=I >KElJ =I = MAAkAn@ D=?k Jo lAJ KI CAJ JDA +O?lonA >o=H@I HKn­
+nEnC. 1J D=I onlO >AAn KIA@ Jo HKn onA FHoCH=mߞJDA on->o=H@ ?o@A En JDA +O?lonAߞ
+=n@ EI JDAHABoHA lEkAlO Jo >A >KCCO. 6DAHA =HA = nKm>AH oB o>LEoKI oFJEmEz=JEonI Jo JDA
+?o@A JD=J D=LA nALAH >AAn =JJAmFJA@. .oH AN=mFlA, JDA ?omFElAH @oAI noJ IKFFoHJ
+FEFAlEnEnC. 6DA?o@AHKnIEnlEJJlA-An@E=nmo@A.
+The DEC Alpha compiler
+6DA )lFD= ?omFElAH EI >=IA@ on = FoHJ @onA >O ,=LE@ 0oC=n MDElA IJK@OEnC =J JDA
+*=IIAH ,AF=HJmAnJ oB +omFKJAH 5?EAn?A, 7nELAHIEJO oB 5O@nAO. 1J D=I >AAn KIA@ Jo >KEl@
+= HKnnEnC LAHIEon oB JDA oFAH=JEnC IOIJAm, >KJ D=I noJ >AAn IJHAIIA@ =I mK?D =I IomA
+oBJDAoJDAH?omFElAHI.
+)lJDoKCD JDA )lFD= EI = $"->EJ =H?DEJA?JKHA, JDEI ?omFElAH JHA=JI intI, longI =n@
+FoEnJAHI =I ! >EJI. )??AII Jo JDA $"->EJ oFAH=JEonI EI =L=El=>lA JDHoKCD JDA vlong
+JOFA,=IMEJDJDAoJDAH=H?DEJA?JKHAI.
+6DA ?omFElAH =IIKmAI JD=J JDA J=HCAJ +27 IKFFoHJI JDA oFJEon=l >OJA =n@ MoH@
+mAmoHO oFAH=JEonI JDA ߢߢ*9:ߣߣ ANJAnIEon. 1B OoK D=LA =n ol@ IOIJAm, OoK ?=n CAnAH=JA
+?o@AMEJDoKJKIEnCJDAANJAnIEon>OF=IIEnCJDAlo=@AHJDA -x oFJEon.
+6DAHA =HA = nKm>AH oB oFJEmEz=JEonI JD=J JDA )lFD= )H?DEJA?JKHA 0=n@>ook HA?om­
+mAn@I, >KJ JDEI ?omFElAH @oAI noJ @o. 1n F=HJE?Kl=H, JDAHA EI ?KHHAnJlO no IKFFoHJ BoH
+JDA?o@A=lECnmAnJ=n@?o@AI?DA@KlEnCoFJEmEz=JEonI.
+6DA ?omFElAH JHEAI Jo ?onBoHm Jo 1---, >KJ IomA )lFD= +27I @o noJ EmFlAmAnJ =ll
+oB JDA HoKn@EnC =n@ JH=FFEnC mo@AI En IElE?on. .ENEnC JDEI FHo>lAm HAGKEHAI IomA
+
+­!­
+IoBJM=HAAmKl=JEon?o@AEnJDAkAHnAl;Jo@=JA,JDEID=InoJ>AAn=JJAmFJA@.
+The PowerPC compiler
+6DA 2oMAH2+ ?omFElAH IKFFoHJI JDA ! ->EJ 2oMAH2+ =H?DEJA?JKHA onlO; EJ @oAI noJ
+IKFFoHJ AEJDAH JDA $"->EJ ANJAnIEonI oH JDA 2O9-4 ?omF=JE>ElEJO EnIJHK?JEonI. 1J D=I
+>AAn KIA@ BoH FHo@K?JEon oFAH=JEnC IOIJAm MoHk on JDA $!, $!A, $"A, & , & !, =n@
+&$. On JDA &NN Blo=JEnC-FoEnJ EnIJHK?JEonI mKIJ >A AmKl=JA@. 1nIJHK?JEon I?DA@KlEnC
+EI noJ EmFlAmAnJA@; oJDAHMEIA JDA ?o@A CAnAH=JA@ EI IEmEl=H Jo JD=J BoH JDA oJDAH lo=@IJoHA =H?DEJA?JKHAI. 6DA ?omFElAH m=kAI lEJJlA oH no KIA oB KnKIK=l 2oMAH2+ BA=JKHAI
+IK?D =I JDA ?oKnJAH HACEIJAH, IALAH=l ?on@EJEon ?o@A HACEIJAHI, =n@ mKlJEFlO-=??KmKl=JA
+EnIJHK?JEonI, >KJ JDAO =HA IomAJEmAI KIA@ >O =IIAm>lO l=nCK=CA HoKJEnAI En JDA
+lE>H=HEAI.
+The Acorn ARM compiler
+6DA )4M ?omFElAH EI B=EHlO IolE@; EJ D=I >AAn KIA@ BoH IomA FHo@K?JEon oFAH=JEnC
+IOIJAm MoHk En?lK@EnC 1nBAHno =n@ JDA 2l=n ' kAHnAl BoH JDA E2)3, MDE?D KIAI = 5JHon­
+C)Hm 5). 6DA ?omFElAH IKFFoHJI JDA )4ML" =H?DEJA?JKHA; EJ @oAI noJ IKFFoHJ JDA
+6DKm> EnIJHK?JEon IAJ. 1J D=I >AAn KIA@ on )4M%#.- FHo?AIIoHI =n@ JDA 5JHonC=Hm
+5) ?oHA m=?DEnAI. 6DA ?omFElAH CAnAH=JAI EnIJHK?JEonI BoH JDA )4M Blo=JEnC-FoEnJ
+?oFHo?AIIoH.
+The AMD 29000 compiler
+6DEI ?omFElAH M=I KIA@ Jo FoHJ =n oFAH=JEnC IOIJAm Jo =n )M,
+6DAFHojA?JEIlonC=>=n@onA@,>KJJDA?omFElAHlELAIon.
+
+' " FHo?AIIoH.
+
+The Carrera operating system
+9A KIA@ Jo D=LA = nKm>AH oB M125 4"" 2+-lEkA @ALE?AI ?=llA@ +=HHAH=I, MEJD
+?KIJom->KElJ BH=mA >KBBAHI, JD=J MA KIA@ =I JAHmEn=lI. 6DAOߣHA =lmoIJ =ll @A?ommEI­
+IEonA@ noM, >KJ MAߣHA En?lK@EnC JDA IoKH?A =I = HABAHAn?A En ?=IA IomAonA M=nJI Jo CAJ
+=noJDAHM125->=IA@IOIJAmHKnnEnC.
+The IBM PC operating system
+6DA 2+ LAHIEon oB 2l=n ' ?=n >ooJ AEJDAH BHom M5-,O5 oH @EHA?JlO BHom = @EIk ?HA­
+=JA@ >O JDA format ?omm=n@; IAA prep&. 2l=n ' HKnI En ! ->EJ mo@AߞMDE?D
+HAGKEHAI = !&$ oH l=JAH mo@Al N&$ FHo?AIIoHߞ=n@ D=I =n EnJAHHKFJ-@HELAn 1/O IOIJAm,
+Io EJ @oAI noJ KIA JDA *1O5 AN?AFJ BoH = Im=ll FoHJEon oB JDA >ooJ FHoCH=m =n@ BloFFO
+>ooJ >lo?k. 6DEI DAlFI FAHBoHm=n?A >KJ lEmEJI JDA IAJ oB 1/O @ALE?AI JD=J EJ ?=n IKFFoHJ
+MEJDoKJIFA?E=l?o@A.
+2l=n ' IKFFoHJI JDA 15), -15), =n@ 2+1 >KIAI =I MAll =I 2+M+1) =n@ 2+ ?=H@
+@ALE?AI. 1J EI EnBA=IE>lA Jo lEIJ =llJDAIKFFoHJA@m=?DEnAI,>A?=KIAJDA2+-?lonAm=HkAJ­
+Fl=?A EI Joo Lol=JElA =n@ JDAHA EI no CK=H=nJAA JD=J JDA m=?DEnA OoK >KO Jo@=O MEll ?on­
+J=En JDA I=mA ?omFonAnJI =I JDA onA OoK >oKCDJ OAIJAH@=O. .oH oKH l=>, MA >KO ?om­
+FonAnJI =n@ =IIAm>lA JDA m=?DEnAI oKHIAlLAI En =n =JJAmFJ Jo lAIIAn JDEI ABBA?J. *oJD
+1,-/)6) =n@ 5+51 @EIkI =HA IKFFoHJA@, =n@ JDAHA EI IKFFoHJ BoH l=HCA )6) @HELAI. +,4OMI =HA IKFFoHJA@ JMo M=OI, AEJDAH on JDA 5+51 >KI, oH =I )6)21 @ALE?AI. 6DA 5+51
+=@=FJAH mKIJ >A = mAm>AH oB JDA MOlAN MKlJEm=IJAH ol@ *KIloCE? *6-* IAHEAI oH JDA
+5Om>EoI #!+&:: IAHEAI. 5KFFoHJA@ -JDAHnAJ ?=H@I En?lK@A JDA )M,%'+%', !+OM
+-JDAHlEnk 111 =n@ !+#&' IAHEAI, LK?AnJ 9=LAl=n =n@ ?omF=JE>lAI, N- , 9,&!,
+9,&!, 5M+ -lEJA =n@ -lEJA 7lJH=, LEnkIOI +om>o -JDAHnAJ+=H@ =n@ -JDAH.=IJ /,
+=n@ = L=HEAJO oB ?onJHollAHI >=IA@ on JDA 1nJAl E& ##[%&'] =n@ ,ECEJ=l noM 1nJAl "N
+?DEFI. 9A moIJlO KIA -JDAHlEnk 111, E& ##[%&'], =n@ "N, Io JDoIA @HELAHI m=O >A
+moHA Ho>KIJ. 6DAHA mKIJ >A =n ANFlE?EJ 2l=n ' @HELAH BoH FAHEFDAH=lI; EJ ?=nnoJ KIA ,O5
+oH 9En@oMI @HELAHI. )lIo, 2l=n ' ?=nnoJ ANFloEJ IFA?E=l D=H@M=HA-HAl=JA@ BA=JKHAI JD=J
+
+­"­
+B=ll oKJIE@A oB JDA 1*M 2+ mo@Al, IK?D =I FoMAH m=n=CAmAnJ, KnlAII =H?DEJA?JKHA@AFAn@AnJ?o@AEI=@@A@JoJDAkAHnAl. .oHmoHA@AJ=ElIIAA plan9.ini&.
+OLAH JDA OA=HI, 2l=n ' D=I HKn on = nKm>AH oB 8/) ?=H@I. 4A?AnJ ?D=nCAI Jo JDA
+CH=FDE?I IOIJAm D=LA noJ >AAn JAIJA@ on moIJ oB JDA ol@AH ?=H@I; IomA ABBoHJ m=O >A
+nAA@A@ Jo CAJ JDAm MoHkEnC =C=En. 1n oKH l=>, moIJ oB oKH m=?DEnAI KIA JDA )61
+M=?D$", 5! 8E4/-, oH 5! 5=L=CA ?DEFI, Io IK?D @ALE?AI =HA FHo>=>lO JDA moIJ HAlE=>lA.
+9A =lIo KIA = BAM M=JHoN =n@ 6N6 ?=H@I. 6DA IOIJAm HAGKEHAI = D=H@M=HA ?KHIoH. .oH
+moHA
+@AJ=ElI
+IAA
+vgadb$
+=n@
+vga&.
+6DA
+MEkE
+http://plan9.bell-labs.com/wiki/plan9 ?onJ=EnI JDA @ABEnEJELA lEIJ oB
+?=H@IJD=J=HAknoMnJoMoHk;IAAJDAߢߢIKFFoHJA@2+D=H@M=HAߣߣ F=CA.
+.oH =K@Eo, 2l=n ' IKFFoHJI JDA 5oKn@ *l=IJAH $ =n@ ?omF=JE>lAI. NoJA JD=J =K@Eo
+@oAInߣJ MoHk Kn@AH 2l=n ' MEJD &->EJ 5oKn@ *l=IJAHI. 6DAHA EI =lIo KIAH-lALAl IKFFoHJ
+BoH75*=K@Eo@ALE?AI;IAA usb".
+.En=llO, EJߣI EmFoHJ=nJ Jo D=LA = JDHAA->KJJon moKIA MEJD 2l=n '. 6DA IOIJAm ?KH­
+HAnJlO MoHkI onlO MEJD mE?A on JDA 25/ FoHJ oH 75*. 5AHE=l moKIA IKFFoHJ IDoKl@
+HAJKHn>ABoHAlonC.
+On?A OoK D=LA 2l=n ' EnIJ=llA@ IAA JDA MEkEߣI EnIJ=ll=JEon @o?KmAnJ HKn JDA FHo­
+CH=m ld BHom ,O5 oH KIA = >ooJ @EIk. 5AA booting&, 9load&, =n@ prep& BoH moHA
+EnBoHm=JEon.
+The Alpha PC operating system
+2l=n ' HKnI on JDA )lFD= 2+ $". 6DA )lFD= FoHJ D=I noJ >AAn KIA@ =I mK?D =I
+JDAoJDAHI,=n@IDoKl@>A?onIE@AHA@=FHAlEmEn=HOHAlA=IA.
+6DA FoHJ KIAI JDA O5./ Bl=LoH oB 2)L?o@A, =n@ IDoKl@ >A >ooJA@ BHom JDA 54M
+BEHmM=HA >ooJEnC BHom )4+ EI noJ IKFFoHJA@. 5KFFoHJA@@ALE?AI=HA=IK>IAJoBJDA2+
+onAI; ?KHHAnJlO JDEI En?lK@AI ,-+?DEF "N->=IA@ AJDAHnAJ ?=H@I, 5! 8/) ?=H@I, 5oKn@
+*l=IJAH$-?omF=JE>lA=K@Eo,BloFFO@HELAI,=n@)6)D=H@@EIkI.
+6DAIOIJAmD=IJo>A>ooJA@LE=JBJF. 5AA booting&BoH@AJ=ElI.
+The PowerPC operating system
+9A D=LA = LAHIEon oB JDA IOIJAm JD=J HKnI on JDA 2oMAH2+ on = DomA-CHoMn
+m=?DEnA ?=llA@ 8E=@K?J. 6DA 8E=@K?J mEnE>HE?k EI = Im=ll  N'N! ?m loM-?oIJ Am>A@­
+@A@ ?omFKJAH ?onIEIJEnC oB = #MDz M2+&#, $M* I@H=m, M* Bl=ID, =n@ JMo M>
+-JDAHnAJ FoHJI. 1J EI @AIECnA@ BoH DomA/5O0O nAJMoHkEnC =FFlE?=JEonI IK?D =I 82N,
+BEHAM=llI,N)6,AJ?.
+6DA kAHnAl D=I =lIo >AAn FoHJA@ Jo JDA MoJoHol= M6: Am>A@@A@ moJDAH>o=H@; JD=J
+FoHJ EI En?lK@A@ En JDA @EIJHE>KJEon. 6DA FoHJ onlO MoHkI MEJD = $"A FHo?AIIoH JDA
+$!AEIIK>IJ=nJE=llO@EBBAHAnJ=n@=JFHAIAnJonlO=IEnClA+27EIFAHmEJJA@.
+The Compaq iPAQ operating system
+2l=n'M=IFoHJA@Jo+omF=GߣIE2)32o?kAJ2+,MDE?DKIAI JDA 5JHonC)Hm 5) FHo­
+?AIIoH. 6DA mo@Al MA D=LA EI = !$!; nAECD>oHEnC mo@AlI =lIo MoHk. 6DA kAHnAl ?=n
+@HELA = 2+M+1) IlAALA MEJD = 9=LAL)N ?=H@, >KJ no oJDAH 2+M+1) @ALE?AI D=LA >AAn
+FoHJA@OAJ.
+6DA E2)3 HKnI rio MEJD = Im=ll kAO>o=H@ =FFlE?=JEon JD=J =lloMI 2=lm-IJOlA D=n@­
+MHEJEnCEnFKJ=IMAll=IJOFEnCMEJDJDAIJOlKIon=mEnE=JKHAkAO>o=H@.
+.?o. J. *=llAIJAHoI nemo@plan9.escet.urjc.es =@@A@ IKFFoHJ BoH DE>AHn=­
+JEon, >KJ MA D=LAnߣJ >AAn =>lA Jo CAJ JD=J Jo MoHk =C=En En JDA nAM kAHnAl; JDA ?o@A EI
+JDAHA,
+DoMALAH,
+BoH
+LolKnJAAHI
+Jo
+Fl=O
+MEJD.
+5AA
+JDA
+BElA
+/sys/src/9/bitsy/Booting101 BoH EnBoHm=JEon =>oKJ EnIJ=llEnC 2l=n ' on JDA
+E2)3.
+
+­#­
+The file server
+6DA BElA IAHLAH HKnI on onlO = D=n@BKl oB @EIJEn?J m=?DEnAI. 1J EI = IJ=n@-=lonA FHo­
+CH=m, @EIJ=nJlO HAl=JA@ Jo JDA +27 IAHLAH ?o@A, JD=J HKnI no KIAH ?o@A: =ll EJ @oAI EI
+IAHLA BElAI on nAJMoHk ?onnA?JEonI. 1J IKFFoHJI onlO 5+51 @EIkI, MDE?D ?=n >A EnJAH­
+lA=LA@ BoH B=IJAH JDHoKCDFKJ. ) ,O5 BElA on =n 1,- @HELA ?=n Dol@ JDA ?onBECKH=JEon
+EnBoHm=JEon. 5AA fsconfig&BoH=nANFl=n=JEonoBDoMJo?onBECKHA=BElAIAHLAH.
+6o >ooJ = BElA IAHLAH, BolloM JDA @EHA?JEonI BoH >ooJEnC = +27 IAHLAH KIEnC JDA BElA
+n=mA 9machtypefs MDAHA machtype EI pc, AJ?. =I =FFHoFHE=JA. 9A =HA HAlA=IEnC onlO
+JDA2+LAHIEon.
+The IBM PC file server
+-N?AFJ BoH JDA HAIJHE?JEon Jo 5+51 @EIkI, JDA 2+ BElA IAHLAH D=I JDA I=mA D=H@M=HA
+HAGKEHAmAnJI =I JDA HACKl=H 2+ oFAH=JEnC IOIJAm. 0oMALAH, onlO = IK>IAJ oB JDA IKF­
+FoHJA@ 5+51 )@=FJA? #" , MOlAN MKlJEm=IJAH, =n@ 5Om>EoI #!+&:: =n@ -JDAHnAJ ,EC­
+EJ=l "N, 1nJAl & ##N, =n@ !+om ?onJHollAHI m=O >A KIA@. )nO oB JDA >ooJ mAJDo@I
+@AI?HE>A@En 9load&MEllMoHk.
+6o >ooJ =nO 2+, JDA BElA 9load mKIJ HAIE@A on = M5-,O5 BoHm=JJA@ BloFFO, 1,@EIk, oH 5+51 @EIk. 0oMALAH, 2+I D=LA no non-Lol=JElA 4)M En MDE?D JDA BElA IAHLAH ?=n
+IJoHA EJI ?onBECKH=JEon EnBoHm=JEon, Io JDA IOIJAm IJoHAI EJ En = BElA on =n M5-,O5 BElA
+IOIJAm EnIJA=@. 6DEI BElA, DoMALAH, ?=nnoJ lELA on = 5+51 @EIk, onlO = BloFFO oH 1,-.
+6DEI HAIJHE?JEon =LoE@I = loJ oB @KFlE?=JA@ EnJAHB=?AI En JDA IOIJAm. 6DKI JDA BElA IAHLAH
+?=nnoJ >A =ll-5+51. 5AA plan9.ini& BoH @AJ=ElI =>oKJ JDA nvr L=HE=>lA =n@ IFA?EBOEnC JDA
+?onIolA@ALE?A.
+Backup
+OKH m=En BElA IAHLAH EI KnlEkAlO Jo >A mK?D lEkA OoKHI. 1J EI = 2+ MEJD  & mAC=­
+>OJAI oB ?=?DA mAmoHO, #$ CEC=>OJAI oB 5+51 m=CnAJE? @EIk, =n@ = 0AMlAJJ-2=?k=H@
+5KHA5JoHA OFJE?=l  AN m=CnAJo-oFJE?=l jKkA>oN, MEJD . JAH=>OJAI oB IJoH=CA. 6DEI
+@HELAH HKnI JDA 5+51 IJ=n@=H@ jKkA>oN FHoJo?ol. 9A =lIo D=LA = @HELAH BoH = nonIJ=n@=H@ 5ON; 9,)-$ 9HEJ=>lA ,EIk )KJo +D=nCAH 9O4M, MDE?D IJoHAI =lmoIJ !#
+CEC=>OJAIoB@=J=.
+6DA 9O4M EI =?JK=llO JDA FHEmA IJoH=CA; JDA 5+51 @EIk EI jKIJ = ?=?DA Jo EmFHoLA
+FAHBoHm=n?A. -=HlO A=?D moHnEnC JDA IOIJAm ?onIJHK?JI on 9O4M =n Em=CA oB JDA
+AnJEHA IOIJAm =I EJ =FFA=HI JD=J @=O. OKH >=?kKF IOIJAm EI JDAHABoHA jKIJ = BElA IAHLAH
+JD=JlAJIOoKlook=JOAIJAH@=OߣIoHl=IJOA=HߣIBElAIOIJAm.
+1B OoK @onߣJ D=LA = m=CnAJo-oFJE?=l jKkA>oN, OoK mECDJ ?onIE@AH =JJ=?DEnC = +,-4
+jKkA>oN oH ALAn jKIJ KIEnC = IEnClA 9O4M @HELA =n@ m=n=CEnC JDA @KmFI = lEJJlA lAII
+=KJom=JE?=llO. 6DEI EI jKIJ = lonC M=O oB I=OEnC JD=J JDA IOIJAm =I @EIJHE>KJA@ D=I no
+ANFlE?EJmAJDo@oB>=?kKFoJDAHJD=nJDHoKCDJDA9O4MjKkA>oN.
+NoJ ALAHOonA ?=n EnLAIJ En IK?D ANFAnIELA D=H@M=HA, DoMALAH. )lJDoKCD EJ
+MoKl@nߣJ >A =I lKNKHEoKI, EJ MoKl@ >A FoIIE>lAJoKIA mkfs&Jo>KEl@HACKl=HBElAIOIJAm
+=H?DELAI =n@ KIA scuzz& Jo IJHA=m JDAm Jo = 5+51 &mm J=FA @HELA. Mkext ?oKl@ JDAn
+ANJH=?J JDAm. )noJDAH =lJAHn=JELA EI Jo KIA dump9660 IAA mk9660&, MDE?D IJoHAI
+En?HAmAnJ=l>=?kKFIon+,Em=CAIEnJDABoHmoB=@KmFDEAH=H?DO.
+1J EI =lIo FoIIE>lA Jo JHA=J = HACKl=H @EIk, oH ALAn = F=HJ oB = @EIk, =I = B=kA 9O4M,
+MDE?D ?=nJDAn>AIJHA=mA@JoJ=FAMDAnEJBEllI. 6DEIEI=>=@E@A=BoH=FHo@K?JEonIOI­
+JAm >KJ = Coo@ M=O Jo lA=Hn =>oKJ JDA 9O4M IoBJM=HA. )C=En, IAA fsconfig& BoH
+@AJ=ElI.
+
+

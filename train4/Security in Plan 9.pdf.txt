@@ -1,0 +1,1033 @@
+Security in Plan 9
+Russ Cox, MIT LCS
+Eric Grosse, Bell Labs
+Rob Pike, Bell Labs
+Dave Presotto, Avaya Labs and Bell Labs
+Sean Quinlan, Bell Labs
+{rsc,ehg,rob,presotto,seanq}@plan9.bell−labs.com
+
+ABSTRACT
+6DA IA?KHEJO =H?DEJA?JKHA oB JDA 2l=n '" oFAH=JEnC IOIJAm D=I
+HA?AnJlO >AAn HA@AIECnA@ Jo =@@HAII IomA JA?DnE?=l IDoHJ?omEnCI. 6DEI
+HA@AIECn FHoLE@A@ =n oFFoHJKnEJO =lIo Jo m=kA JDA IOIJAm moHA ?onLA­
+nEAnJ Jo KIA IA?KHAlO. 2l=n ' D=I JDKI EmFHoLA@ En JMo M=OI noJ KIK=llO
+IAAnJoCAJDAH:EJD=I>A?omAmoHAIA?KHA and A=IEAHJoKIA.
+6DA ?AnJH=l ?omFonAnJ oB JDA nAM =H?DEJA?JKHA EI = FAH-KIAH IAlB?onJ=EnA@ =CAnJ ?=llA@ factotum. Factotum IA?KHAlO Dol@I = ?oFO oB
+JDA KIAHI kAOI =n@ nACoJE=JAI =KJDAnJE?=JEon FHoJo?olI, on >AD=lB oB JDA
+KIAH, MEJD IA?KHA IAHLE?AI =HoKn@ JDA nAJMoHk. +on?AnJH=JEnC IA?KHEJO
+?o@A En = IEnClA FHoCH=m oBBAHI IALAH=l =@L=nJ=CAI En?lK@EnC: A=IA oB
+KF@=JA oH HAF=EH Jo >HokAn IA?KHEJO IoBJM=HA =n@ FHoJo?olI; JDA =>ElEJO Jo
+HKn IA?KHA IAHLE?AI =J = loMAH FHELElACA lALAl; KnEBoHm m=n=CAmAnJ oB
+kAOI BoH =ll IAHLE?AI; =n@ =n oFFoHJKnEJO Jo FHoLE@A IEnClA IECn on, ALAn
+Jo Kn?D=nCA@ lAC=?O =FFlE?=JEonI. Factotum D=I =n KnKIK=l =H?DEJA?­
+JKHA:EJEIEmFlAmAnJA@=I=2l=n'BElAIAHLAH.
+1. Introduction
+5A?KHA ?omFKJEnC IOIJAmI B=?A JMo ?D=llAnCAI: BEHIJ, JDAO mKIJ AmFloO IoFDEIJE?=JA@
+JA?DnoloCO JD=J EI @EBBE?KlJ Jo @AIECn =n@ FHoLA ?oHHA?J; =n@ IA?on@, JDAO mKIJ >A A=IO
+BoH HACKl=H FAoFlA Jo KIA. 6DA GKAIJEon oB A=IA oB KIA EI IomAJEmAI nAClA?JA@, >KJ EJ EI
+AIIAnJE=l: MA=k >KJ A=IO-Jo-KIA IA?KHEJO ?=n >A moHA ABBA?JELA JD=n IJHonC >KJ
+@EBBE?KlJ-Jo-KIA IA?KHEJO EB EJ EI moHA lEkAlO Jo >A KIA@. 2AoFlA lo?k JDAEH BHonJ @ooHI
+MDAn JDAOlA=LAJDADoKIA,knoMEnCBKllMAllJD=J=>KHCl=HEI?=F=>lAoBFE?kEnCJDAlo?k
+oH =LoE@EnC JDA @ooH =lJoCAJDAH; OAJ BAM MoKl@ =??AFJ JDA ?oIJ =n@ =MkM=H@nAII oB =
+>=nk L=KlJ @ooH on JDA DoKIA ALAn JDoKCD JD=J mECDJ HA@K?A JDA FHo>=>ElEJO oB = Ho>­
+>AHO. ) HAl=JA@ FoEnJ EI JD=J KIAHI nAA@ = ?lA=H mo@Al oB DoM JDA IA?KHEJO oFAH=JAI EB
+noJ DoM EJ =?JK=llO FHoLE@AI IA?KHEJO En oH@AH Jo KIA EJ MAll; BoH AN=mFlA, JDA ?l=HEJO oB =
+lo?k E?on on = MA> >HoMIAH EI oBBIAJ >O JDA ?onBKIEnC =n@ JOFE?=llO EnIA?KHA IJAFI BoH
+EnIJ=llEnC:.#'?AHJEBE?=JAI.
+6DA IA?KHEJO =H?DEJA?JKHA oB JDA 2l=n ' oFAH=JEnC IOIJAm [2EkA'#] D=I HA?AnJlO >AAn
+HA@AIECnA@ Jo m=kA EJ >oJD moHA IA?KHA =n@ A=IEAH Jo KIA. *O security MA mA=n JDHAA
+JDEnCI: BEHIJ, JDA >KIEnAII oB =KJDAnJE?=JEnC KIAHI =n@ IAHLE?AI; IA?on@, JDA I=BA D=n­
+@lEnC, @AFloOmAnJ, =n@ KIA oB kAOI =n@ oJDAH IA?HAJ EnBoHm=JEon; =n@ JDEH@, JDA KIA oB
+__________________
+6o =FFA=H, En = IlECDJlO @EBBAHAnJ BoHm, En Proc. of the 2002 Usenix Security Symposium, 5=n
+.H=n?EI?o.
+
+­ ­
+An?HOFJEon=n@EnJACHEJO?DA?kIJoI=BACK=H@?ommKnE?=JEonIBHomFHOEnCAOAI.
+6DA ol@ IA?KHEJO =H?DEJA?JKHA oB 2l=n ' D=@ IALAH=l AnCEnAAHEnC FHo>lAmI En ?ommon
+MEJD oJDAH oFAH=JEnC IOIJAmI. .EHIJ, EJ D=@ =n En=@AGK=JA noJEon oB IA?KHEJO @om=En.
+On?A = KIAH FHoLE@A@ = F=IIMoH@ Jo ?onnA?J Jo = lo?=l BElA IJoHA, JDA IOIJAm HAGKEHA@
+JD=J JDA I=mA F=IIMoH@ >A KIA@ Jo =??AII =ll JDA oJDAH BElA IJoHAI. 6D=J EI, JDA IOIJAm
+JHA=JA@=llnAJMoHkIAHLE?AI=I>AlonCEnCJoJDAI=mAIA?KHEJO@om=En.
+5A?on@, JDA =lCoHEJDmI =n@ FHoJo?olI KIA@ En =KJDAnJE?=JEon, >O n=JKHA JHE?kO =n@ @EBBE­
+?KlJ Jo CAJ HECDJ, MAHA ?omFElA@ EnJo JDA L=HEoKI =FFlE?=JEonI, kAHnAl mo@KlAI, =n@ BElA
+IAHLAHI. +D=nCAI =n@ BENAI Jo = IA?KHEJO FHoJo?ol HAGKEHA@ JD=J =ll ?omFonAnJI KIEnC
+JD=JFHoJo?olnAA@A@Jo>AHA?omFElA@,oH=JlA=IJHAlEnkA@,=n@HAIJ=HJA@.
+6DEH@, JDA BElA JH=nIFoHJ FHoJo?ol, '2 [2EkA'!], JD=J BoHmI JDA ?oHA oB JDA 2l=n ' IOIJAm,
+D=@ EJI =KJDAnJE?=JEon FHoJo?ol Am>A@@A@ En EJI @AIECn. 6DEI mA=nJ JD=J BENEnC oH
+?D=nCEnC JDA =KJDAnJE?=JEon KIA@ >O '2 HAGKEHA@ @AAF ?D=nCAI Jo JDA IOIJAm. 1B IomA­
+onA MAHA Jo BEn@ = M=O Jo >HA=k JDA FHoJo?ol, JDA IOIJAm MoKl@ >A ME@A oFAn =n@ LAHO
+D=H@JoBEN.
+6DAIA =n@ = nKm>AH oB lAIIAH FHo>lAmI, ?om>EnA@ MEJD = @AIEHA BoH moHA ME@AIFHA=@
+KIA oB An?HOFJEon En JDA IOIJAm, IFKHHA@ KI Jo HAJDEnk JDA AnJEHA IA?KHEJO =H?DEJA?JKHA oB
+2l=n'.
+6DA ?AnJAHFEA?A oB JDA nAM =H?DEJA?JKHA EI =n =CAnJ, ?=llA@ factotum, JD=J D=n@lAI JDA
+KIAHI kAOI =n@ nACoJE=JAI =ll IA?KHEJO EnJAH=?JEonI MEJD IOIJAm IAHLE?AI =n@ =FFlE?=­
+JEonI. LEkA = JHKIJA@ =IIEIJ=nJ MEJD = ?oFO oB JDA oMnAHI kAOI, factotum @oAI =ll JDA
+nACoJE=JEon BoH IA?KHEJO =n@ =KJDAnJE?=JEon. 2HoCH=mI no lonCAH nAA@ Jo >A ?omFElA@
+MEJD ?HOFJoCH=FDE? ?o@A; EnIJA=@ JDAO ?ommKnE?=JA MEJD factotum =CAnJI JD=J HAFHA­
+IAnJ @EIJEn?J AnJEJEAI En JDA ?HOFJoCH=FDE? AN?D=nCA, IK?D =I = KIAH =n@ IAHLAH oB =
+IA?KHA IAHLE?A. 1B = IA?KHEJO FHoJo?ol nAA@I Jo >A =@@A@, @AlAJA@, oH mo@EBEA@, onlO
+factotum nAA@IJo>AKF@=JA@BoH=llIOIJAmIAHLE?AIJo>AkAFJIA?KHA.
+*KEl@EnC on factotum, MA mo@EBEA@ IA?KHA IAHLE?AI En JDA IOIJAm Jo moLA KIAH
+=KJDAnJE?=JEon ?o@A EnJo factotum; m=@A =KJDAnJE?=JEon = IAF=H=>lA ?omFonAnJ oB
+JDA BElA IAHLAH FHoJo?ol; @AFloOA@ nAM IA?KHEJO FHoJo?olI; @AIECnA@ = IA?KHA BElA IJoHA,
+?=llA@ secstore, Jo FHoJA?J oKH kAOI >KJ m=kA JDAm A=IO Jo CAJ MDAn JDAO =HA
+nAA@A@; @AIECnA@ = nAM kAHnAl mo@KlA Jo IKFFoHJ JH=nIF=HAnJ KIA oB 6H=nIFoHJ L=OAH
+5A?KHEJO 6L5 [4.+ "$]; =n@ >AC=n KIEnC An?HOFJEon BoH =ll ?ommKnE?=JEonI MEJDEn JDA
+IOIJAm. 6DAoLAH=ll=H?DEJA?JKHAEIEllKIJH=JA@En.ECKHA=.
+5A?KHA FHoJo?olI =n@ =lCoHEJDmI =HA MAll Kn@AHIJoo@ =n@ =HA KIK=llO noJ JDA MA=kAIJ
+lEnk En = IOIJAmI IA?KHEJO. 1n FH=?JE?A, moIJ IA?KHEJO FHo>lAmI =HEIA BHom >KCCO
+IAHLAHI, ?onBKIEnC IoBJM=HA, oH =@mEnEIJH=JELA oLAHIECDJI. 1J EI JDAIA FH=?JE?=l FHo>lAmI
+JD=J MA =HA =@@HAIIEnC. )lJDoKCD JDEI F=FAH @AI?HE>AI JDA =lCoHEJDmI =n@ FHoJo?olI MA
+=HA KIEnC, JDAO =HA En?lK@A@ m=EnlO BoH ?on?HAJAnAII. OKH m=En EnJAnJ EI Jo FHAIAnJ =
+IEmFlA IA?KHEJO =H?DEJA?JKHA >KElJ KFon = Im=ll JHKIJA@ ?o@A >=IA JD=J EI A=IO Jo LAHEBO
+MDAJDAH>Om=nK=loH=KJom=JE?mA=nI,A=IOJoKn@AHIJ=n@,=n@A=IOJoKIA.
+)lJDoKCD EJ EI = IK>jA?JELA =IIAIImAnJ, MA >AlEALA MA D=LA =?DEALA@ oKH Co=l oB A=IA oB
+KIA. 6D=J MA D=LA =?DEALA@ oKH Co=l oB EmFHoLA@ IA?KHEJO EI IKFFoHJA@ >O oKH Fl=n Jo
+moLA oKH ?KHHAnJlO FHEL=JA ?omFKJEnC AnLEHonmAnJ onJo JDA 1nJAHnAJ oKJIE@A JDA ?oHFo­
+H=JA BEHAM=ll. 6DA HAIJ oB JDEI F=FAH ANFl=EnI JDA =H?DEJA?JKHA =n@ DoM EJ EI KIA@, Jo
+ANFl=En MDO = IOIJAm JD=J EI A=IO Jo KIA IA?KHAlO EI =lIo I=BA AnoKCD Jo HKn En JDA oFAn
+nAJMoHk.
+2. An Agent for Security
+OnA oB JDA FHEm=HO HA=IonI BoH JDA HA@AIECn oB JDA 2l=n ' IA?KHEJO EnBH=IJHK?JKHA M=I Jo
+HAmoLA JDA =KJDAnJE?=JEon mAJDo@ >oJD BHom JDA =FFlE?=JEonI =n@ BHom JDA kAHnAl.
++HOFJoCH=FDE? ?o@A EI l=HCA =n@ EnJHE?=JA, Io EJ IDoKl@ >A F=?k=CA@ =I = IAF=H=JA ?om­
+FonAnJ JD=J ?=n >A HAF=EHA@ oH mo@EBEA@ MEJDoKJ =lJAHEnC oH ALAn HAlEnkEnC =FFlE?=JEonI
+
+­!­
+
+5A?IJoHA
+FT
+
+FC
+
+PT
+6AHmEn=l
+
+)KJD5AHLAH
+
+PC
++27 5AHLAH
+
+FF
+PF
+.ElA 5AHLAH
+
+.ECKHA =. +omFonAnJI oB JDA IA?KHEJO =H?DEJA?JKHA. -=?D >oN EI = JOFE?=llO IAF=H=JA m=?DEnA;
+A=?D AllEFIA = FHo?AII. 6DA AllEFIAI l=>AlA@ F X =HA factotum FHo?AIIAI; JDoIA l=>AlA@ P X =HA
+JDA FEA?AI =n@ FHoNEAI oB = @EIJHE>KJA@ FHoCH=m. 6DA =KJDAnJE?=JEon IAHLAH EI onA oB IALAH=l
+HAFoIEJoHEAI BoH KIAHI IA?KHEJO EnBoHm=JEon JD=J factotum FHo?AIIAI ?onIKlJ =I HAGKEHA@.
+Secstore EI = ID=HA@ HAIoKH?A BoH IJoHEnC FHEL=JA EnBoHm=JEon IK?D =I kAOI; factotum ?on­
+IKlJI EJ BoH JDA KIAH @KHEnC >ooJIJH=F.
+
+=n@ IAHLE?AI JD=J @AFAn@ on EJ. 1B = IA?KHEJO FHoJo?ol EI >HokAn, EJ IDoKl@ >A JHELE=l Jo
+HAF=EH, @EI=>lA, oH HAFl=?A EJ on JDA BlO. 5EmEl=HlO, EJ IDoKl@ >A FoIIE>lA BoH mKlJEFlA FHo­
+CH=mIJoKIA=?ommonIA?KHEJOFHoJo?olMEJDoKJAm>A@@EnCEJEnA=?DFHoCH=m.
+5omA IOIJAmI KIA @On=mE?=llO lEnkA@ lE>H=HEAI ,LLI Jo =@@HAII JDAIA ?onBECKH=JEon
+EIIKAI. 6DA FHo>lAm MEJD JDEI =FFHo=?D EI JD=J EJ lA=LAI IA?KHEJO ?o@A En JDA I=mA
+=@@HAII IF=?A =I JDA FHoCH=m KIEnC EJ. 6DA EnJAH=?JEonI >AJMAAn JDA FHoCH=m =n@ JDA
+,LL ?=n JDAHABoHA =??E@AnJ=llO oH @AlE>AH=JAlO LEol=JA JDA EnJAHB=?A, MA=kAnEnC IA?KHEJO.
+)lIo, = FHoCH=m KIEnC = lE>H=HO Jo EmFlAmAnJ IA?KHA IAHLE?AI mKIJ HKn =J = FHELElACA
+lALAl nA?AII=HO Jo FHoLE@A JDA IAHLE?A; IAF=H=JEnC JDA IA?KHEJO Jo = @EBBAHAnJ FHoCH=m
+m=kAI EJ FoIIE>lA Jo HKn JDA IAHLE?AI =J = MA=kAH FHELElACA lALAl, EIol=JEnC JDA FHELElACA@
+?o@AJo=IEnClA,moHAJHKIJMoHJDO?omFonAnJ.
+.olloMEnC JDA lA=@ oB JDA 550 =CAnJ [;lon'$], MA CELA A=?D KIAH =n =CAnJ FHo?AII
+HAIFonIE>lA BoH Dol@EnC =n@ KIEnC JDA KIAHI kAOI. 6DA =CAnJ FHoCH=m EI ?=llA@
+factotum >A?=KIA oB EJI IEmEl=HEJO Jo JDA FHoLAH>E=l IAHL=nJ MEJD JDA FoMAH Jo =?J on
+>AD=lB oB DEI m=IJAH >A?=KIA DA Dol@I JDA kAOI Jo =ll JDA m=IJAHI FoIIAIIEonI. 1J EI
+AIIAnJE=l JD=J factotum kAAF JDA kAOI IA?HAJ =n@ KIA JDAm onlO En JDA oMnAHI EnJAH­
+AIJ. L=JAH MAll @EI?KII IomA ?D=nCAI Jo JDA kAHnAl Jo HA@K?A JDA FoIIE>ElEJO oB
+factotum lA=kEnCEnBoHm=JEonEn=@LAHJAnJlO.
+Factotum EI EmFlAmAnJA@, lEkA moIJ 2l=n ' IAHLE?AI, =I = BElA IAHLAH. 1J EI ?onLAnJEon­
+=llO moKnJA@ KFon JDA @EHA?JoHO /mnt/factotum, =n@ JDA BElAI EJ IAHLAI JDAHA =HA
+=n=loCoKI Jo LEHJK=l @ALE?AI JD=J FHoLE@A =??AII Jo, =n@ ?onJHol oB, JDA IAHLE?AI oB JDA
+factotum. 6DA nANJ BAM IA?JEonI @AI?HE>A JDA @AIECn oB factotum =n@ DoM EJ oFAH­
+=JAIMEJDJDAoJDAHFEA?AIoB2l=n'JoFHoLE@AIA?KHEJOIAHLE?AI.
+2.1. Logging in
+6o m=kA JDA @EI?KIIEonI JD=J BolloM moHA ?on?HAJA, MA >ACEn MEJD = ?oKFlA oB AN=mFlAI
+IDoMEnC DoM JDA 2l=n ' IA?KHEJO =H?DEJA?JKHA =FFA=HI Jo JDA KIAH. 6DAIA AN=mFlAI >oJD
+EnLolLA = KIAH gre loCCEnC En =BJAH >ooJEnC = lo?=l m=?DEnA. 6DA KIAH m=O oH m=O noJ
+D=LA = IA?KHA IJoHA En MDE?D =ll DEI kAOI =HA kAFJ. 1B DA @oAI, factotum MEll FHomFJ
+DEm BoH JDA F=IIMoH@ Jo JDA IA?KHA IJoHA =n@ o>J=En kAOI BHom EJ, FHomFJEnC onlO MDAn
+=kAOEInJBoKn@EnJDAIJoHA. OJDAHMEIA, factotum mKIJFHomFJBoHA=?DkAO.
+1n JDA JOFAI?HEFJI, \n HAFHAIAnJI = lEJAH=l nAMlEnA ?D=H=?JAH JOFA@ Jo BoH?A = @AB=KlJ
+
+­"­
+HAIFonIA. 7IAHEnFKJEIEnEJ=lE?I,=n@lonClEnAI=HABol@A@=n@En@AnJA@JoBEJ.
+6DEI BEHIJ AN=mFlA IDoMI = KIAH loCCEnC En MEJDoKJ DAlF BHom JDA IA?KHA IJoHA. .EHIJ,
+factotum FHomFJIBoH=KIAHn=mAJD=JJDAlo?=lkAHnAlMEllKIA:
+user[none]: gre
+
+,AB=KlJ HAIFonIAI =FFA=H En IGK=HA >H=?kAJI. 6DA kAHnAl JDAn IJ=HJI =??AIIEnC lo?=l
+HAIoKH?AI=n@HAGKAIJI,JDHoKCD factotum,=KIAH/F=IIMoH@F=EHJo@oIo:
+!Adding key: dom=cs.bell−labs.com
+proto=p9sk1
+user[gre]: \n
+password: ****
+
+NoMJDAKIAHEIloCCA@EnJoJDAlo?=lIOIJAm,=n@JDAm=El?lEAnJIJ=HJIKF:
+!Adding key: proto=apop
+server=plan9.bell−labs.com
+user[gre]: \n
+password: ****
+
+Factotum EI @oEnC =ll JDA FHomFJEnC =n@ JDA =FFlE?=JEonI >AEnC IJ=HJA@ =HA noJ ALAn
+JoK?DEnCJDAkAOI. NoJAJD=JEJI=lM=OI?lA=HMDE?DkAOEI>AEnCHAGKAIJA@.
+NoM ?onIE@AH JDA I=mA loCEn IAGKAn?A, >KJ En JDA ?=IA MDAHA gre D=I = IA?KHA IJoHA
+=??oKnJ:
+user[none]: gre
+secstore password: *********
+STA PIN+SecurID: *********
+
+6D=JI JDA l=IJ gre MEll DA=H BHom factotum KnlAII =n =JJAmFJ EI m=@A Jo ?onJ=?J =
+IOIJAmBoHMDE?DnokAOEIkAFJEnJDAIA?KHAIJoHA.
+2.2. The factotum
+-=?D ?omFKJAH HKnnEnC 2l=n ' D=I onA KIAH E@ JD=J oMnI =ll JDA HAIoKH?AI on JD=J IOI­
+JAm  JDA I?DA@KlAH, lo?=l @EIkI, nAJMoHk EnJAHB=?AI, AJ?. 6D=J KIAH, JDA host owner, EI
+JDA ?loIAIJ =n=loCKA En 2l=n ' Jo = 7nEN root =??oKnJ =lJDoKCD EJ EI B=H MA=kAH; H=JDAH
+JD=n D=LEnC IFA?E=l FoMAHI, =I EJI n=mA EmFlEAI JDA DoIJ oMnAH EI jKIJ = HACKl=H KIAH
+JD=J D=FFAnI Jo oMn JDA HAIoKH?AI oB JDA lo?=l m=?DEnA. On = IEnClA-KIAH IOIJAm,
+MDE?D MA ?=ll = JAHmEn=l, JDA DoIJ oMnAH EI JDA E@ oB JDA JAHmEn=lI KIAH. 5D=HA@ IAHLAHI
+IK?D =I +27 IAHLAHI noHm=llO D=LA = FIAK@o-KIAH JD=J EnEJE=llO oMnI =ll HAIoKH?AI. )J
+>ooJ JEmA, JDA 2l=n ' kAHnAl IJ=HJI = factotum ANA?KJEnC =I, =n@ JDAHABoHA MEJD JDA
+FHELElACAIoB,JDADoIJoMnAH.
+NAM FHo?AIIAI HKn =I JDA I=mA KIAH =I JDA FHo?AII MDE?D ?HA=JA@ JDAm. 9DAn = FHo­
+?AII mKIJ J=kA on JDA E@AnJEJO oB = nAM KIAH, IK?D =I Jo FHoLE@A = loCEn IDAll on =
+ID=HA@ +27 IAHLAH, EJ @oAI Io >O FHoLEnC Jo JDA DoIJ oMnAHI factotum JD=J EJ EI
+=KJDoHEzA@ Jo @o Io. 6DEI EI @onA >O HKnnEnC =n =KJDAnJE?=JEon FHoJo?ol MEJD
+factotum Jo FHoLA JD=J JDA FHo?AII D=I =??AII Jo IA?HAJ EnBoHm=JEon MDE?D onlO JDA
+nAM KIAH IDoKl@FoIIAII. .oHAN=mFlA,?onIE@AHJDAIAJKFEn.ECKHA=. 1B=KIAHonJDA
+JAHmEn=l M=nJI Jo loC En Jo JDA +27 IAHLAH KIEnC JDA 2l=n ' cpu IAHLE?A [2EkA'!], JDAn
+P T mECDJ >A JDA cpu ?lEAnJ FHoCH=m =n@ P C JDA cpu IAHLAH. NAEJDAH P C noH P T knoMI
+JDA @AJ=ElI oB JDA =KJDAnJE?=JEon. 6DAO @o nAA@ Jo >A =>lA Jo IDKJJlA mAII=CAI >=?k =n@
+BoHJD >AJMAAn JDA JMo factotums, >KJ JDEI EI = CAnAHE? BKn?JEon A=IElO FAHBoHmA@
+MEJDoKJ knoMEnC, oH >AEnC =>lA Jo ANJH=?J, IA?HAJI En JDA mAII=CAI. P T MEll m=kA = nAJ­
+MoHk ?onnA?JEon Jo P C . P T =n@ P C MEll JDAn HAl=O mAII=CAI >AJMAAn JDA factotum
+oMnA@ >O JDA KIAH, F T , =n@ JDA onA oMnA@ >O JDA +27 IAHLAH, F C , KnJEl mKJK=l =KJDAnJE­
+?=JEon D=I >AAn AIJ=>lEIDA@. L=JAH IA?JEonI @AI?HE>A JDA 42+ >AJMAAn factotum =n@
+=FFlE?=JEonI=n@JDAlE>H=HOBKn?JEonIJoIKFFoHJFHoNOoFAH=JEonI.
+
+­#­
+6DA kAHnAl =lM=OI KIAI = IEnClA lo?=l EnIJ=n?A oB factotum, HKnnEnC =I JDA DoIJ
+oMnAH, BoH EJI =KJDAnJE?=JEon FKHFoIAI, >KJ = HACKl=H KIAH m=O IJ=HJ oJDAH factotum
+=CAnJI. 1n B=?J, JDA factotum HAFHAIAnJEnC JDA KIAH nAA@ noJ >A HKnnEnC on JDA I=mA
+m=?DEnA =I EJI ?lEAnJ. .oH EnIJ=n?A, EJ EI A=IO BoH = KIAH on = +27 IAHLAH, JDHoKCD IJ=n­
+@=H@ 2l=n ' oFAH=JEonI, Jo HAFl=?A JDA /mnt/factotum En JDA KIAHI FHEL=JA BElA n=mA
+IF=?A on JDA IAHLAH MEJD = ?onnA?JEon Jo JDA factotum HKnnEnC on JDA JAHmEn=l. 6DA
+KIK=l BElA IOIJAm FAHmEIIEonI FHALAnJ EnJAHloFAHI BHom @oEnC Io m=lE?EoKIlO. 6DEI FAH­
+mEJI IA?KHAoFAH=JEonIonJDA+27IAHLAHJo>AJH=nIF=HAnJlOL=lE@=JA@>OJDAKIAHIoMn
+factotum, Io IA?HAJI nAA@ nALAH lA=LA JDA KIAHI JAHmEn=l. 6DA 550 =CAnJ [;lon'$]
+@oAI mK?D JDA I=mA MEJD IFA?E=l 550 FHoJo?ol mAII=CAI, >KJ =n =@L=nJ=CA Jo m=kEnC
+oKH =CAnJ = BElA IOIJAm EI JD=J MA nAA@ no nAM mA?D=nEIm Jo =??AII oKH HAmoJA =CAnJ;
+HAmoJABElA=??AIIEIIKBBE?EAnJ.
+9EJDEn factotum, A=?D FHoJo?ol EI EmFlAmAnJA@ =I = IJ=JA m=?DEnA MEJD = CAnAHE?
+EnJAHB=?A, Io FHoJo?olI =HA En AIIAn?A FlKCC=>lA mo@KlAI, A=IO Jo =@@, mo@EBO, oH @HoF.
+9HEJEnC = mAII=CA Jo =n@ HA=@EnC = mAII=CA BHom factotum A=?D HAGKEHA = IAF=H=JA
+42+ =n@ HAIKlJ En = IEnClA IJ=JA JH=nIEJEon. 6DAHABoHA factotum =lM=OI HKnI Jo ?om­
+FlAJEon on ALAHO 42+ =n@ nALAH >lo?kI M=EJEnC BoH EnFKJ @KHEnC =nO =KJDAnJE?=JEon.
+MoHAoLAH, JDA nKm>AH oB IEmKlJ=nAoKI =KJDAnJE?=JEonI EI lEmEJA@ onlO >O JDA =moKnJ oB
+mAmoHOMAHAMEllEnCJo@A@E?=JAJoHAFHAIAnJEnCJDAIJ=JAm=?DEnAI.
+)KJDAnJE?=JEon FHoJo?olI =HA EmFlAmAnJA@ onlO MEJDEn factotum, >KJ =@@EnC =n@
+HAmoLEnC FHoJo?olI @oAI HAGKEHA HAlEnkEnC JDA >En=HO, Io factotum FHo?AIIAI >KJ no
+oJDAHInAA@Jo>AHAIJ=HJA@EnoH@AHJoJ=kA=@L=nJ=CAoBnAMoHHAF=EHA@FHoJo?olI.
+)J JDA JEmA oB MHEJEnC, factotum ?onJ=EnI =KJDAnJE?=JEon mo@KlAI BoH JDA 2l=n '
+ID=HA@ kAO FHoJo?ol F'Ik, 550I 45) =KJDAnJE?=JEon, F=IIMoH@I En JDA ?lA=H, )2O2,
++4)M,222I+0)2,ME?HoIoBJ222IM5+0)2,=n@8N+I?D=llAnCA/HAIFonIA.
+2.3. Local capabilities
+) ?=F=>ElEJO IOIJAm, m=n=CA@ >O JDA kAHnAl, EI KIA@ Jo AmFoMAH factotum Jo CH=nJ
+FAHmEIIEon Jo =noJDAH FHo?AII Jo ?D=nCA EJI KIAH E@. ) kAHnAl @ALE?A @HELAH EmFlAmAnJI
+JMo BElAI, /dev/caphash =n@ /dev/capuse. 6DA MHEJA-onlO BElA /dev/caphash
+?=n >A oFAnA@ onlO >O JDA DoIJ oMnAH, =n@ onlO on?A. Factotum oFAnI JDEI BElA
+EmmA@E=JAlO=BJAH>ooJEnC.
+6o KIA JDA BElAI, factotum ?HA=JAI = IJHEnC oB JDA BoHm userid1@userid2@random−
+string, KIAI 50) 0M)+ Jo D=ID userid1@userid2 MEJD kAO random−string, =n@ MHEJAI
+JD=J D=ID Jo /dev/caphash. Factotum JDAn F=IIAI JDA oHECEn=l IJHEnC Jo =noJDAH
+FHo?AII on JDA I=mA m=?DEnA, HKnnEnC =I KIAH userid1, MDE?D MHEJAI JDA IJHEnC Jo
+/dev/capuse. 6DA kAHnAl D=IDAI JDA IJHEnC =n@ lookI BoH = m=J?DEnC D=ID En EJI lEIJ.
+1B EJ BEn@I onA, JDA MHEJEnC FHo?AIII KIAH E@ ?D=nCAI BHom userid1 Jo userid2. On?A
+KIA@,oHEB=JEmAoKJANFEHAI,JDA?=F=>ElEJOEI@EI?=H@A@>OJDAkAHnAl.
+6DA ?=F=>ElEJEAI =HA lo?=l Jo JDA m=?DEnA on MDE?D JDAO =HA ?HA=JA@. 0An?A =
+factotum HKnnEnC on onA m=?DEnA ?=nnoJ F=II ?=F=>ElEJEAI Jo FHo?AIIAI on =noJDAH
+=n@ANFA?JJDAmJoMoHk.
+2.4. Keys
+9A @ABEnA JDA MoH@ key Jo mA=n noJ onlO = IA?HAJ, >KJ =lIo = @AI?HEFJEon oB JDA ?onJANJ
+En MDE?D JD=J IA?HAJ EI Jo >A KIA@: JDA FHoJo?ol, IAHLAH, KIAH, AJ?. Jo MDE?D EJ =FFlEAI.
+6D=J EI, = kAO EI = ?om>En=JEon oB IA?HAJ =n@ @AI?HEFJELA EnBoHm=JEon KIA@ Jo =KJDAnJE­
+?=JA JDA E@AnJEJEAI oB F=HJEAI JH=nImEJJEnC oH HA?AELEnC EnBoHm=JEon. 6DA IAJ oB kAOI KIA@
+En =nO =KJDAnJE?=JEon @AFAn@I >oJD on JDA FHoJo?ol =n@ on F=H=mAJAHI F=IIA@ >O JDA
+FHoCH=mHAGKAIJEnCJDA=KJDAnJE?=JEon.
+6=kEnC = JEF BHom 5,51 [4EL=], MDE?D HAFHAIAnJI IA?KHEJO EnBoHm=JEon =I JANJK=l 5ANFHAIIEonI, kAOI En 2l=n ' =HA HAFHAIAnJA@ =I Fl=En 76.-& JANJ. 6ANJ EI A=IElO
+
+­$­
+Kn@AHIJoo@ =n@ m=nEFKl=JA@ >O KIAHI. *O ?onJH=IJ, = >En=HO oH oJDAH ?HOFJE? BoHm=J ?=n
+=?JK=llO HA@K?A oLAH=ll IA?KHEJO. *En=HO BoHm=JI =HA @EBBE?KlJ BoH KIAHI Jo AN=mEnA =n@
+?=n onlO >A ?H=?kA@ >O IFA?E=l JoolI, JDAmIAlLAI FooHlO Kn@AHIJoo@ >O moIJ KIAHI. .oH
+AN=mFlA, LAHO BAM FAoFlA knoM oH Kn@AHIJ=n@ MD=JI EnIE@A JDAEH :.#' ?AHJEBE?=JAI.
+MoIJ @onJ ALAn knoM MDAHA En JDA IOIJAm Jo BEn@ JDAm. 6DAHABoHA, JDAO D=LA no E@A=
+MD=J JDAO =HA JHKIJEnC, =n@ MDO, =n@ =HA FoMAHlAII Jo ?D=nCA JDAEH JHKIJ HAl=JEonIDEFI.
+6ANJK=l,?AnJH=llOIJoHA@=n@m=n=CA@kAOI=HAA=IEAHJoKIA=n@I=BAH.
+2l=n ' D=I DEIJoHE?=llO HAFHAIAnJA@ @=J=>=IAI =I =JJHE>KJA/L=lKA F=EHI, IEn?A JDAO =HA =
+Coo@ BoKn@=JEon BoH IAlA?JEon =n@ FHojA?JEon oFAH=JEonI. Factotum JDAHABoHA HAFHA­
+IAnJI JDA kAOI En JDA BoHm=J attribute=value, MDAHA attribute EI =n E@AnJEBEAH, FoIIE>lO
+MEJD = IEnClA-?D=H=?JAH FHABEN, =n@ value EI =n =H>EJH=HO GKoJA@ IJHEnC. 6DA F=EHI JDAm­
+IAlLAI =HA IAF=H=JA@ >O MDEJA IF=?A. .oH AN=mFlA, = 2l=n ' kAO =n@ =n )2O2 kAO mECDJ
+>AHAFHAIAnJA@lEkAJDEI:
+dom=bell−labs.com proto=p9sk1 user=gre
+!password=’don’’t tell’
+proto=apop server=x.y.com user=gre
+!password=’open sesame’
+
+1B = L=lKA EI AmFJO oH ?onJ=EnI MDEJA IF=?A oH IEnClA GKoJAI, EJ mKIJ >A GKoJA@; GKoJAI
+=HA HAFHAIAnJA@ >O @oK>lA@ IEnClA GKoJAI. )JJHE>KJAI JD=J >ACEn MEJD =n AN?l=m=JEon
+m=Hk ! =HA ?onIE@AHA@ secret. Factotum MEll nALAH lAJ = IA?HAJ L=lKA AI?=FA EJI
+=@@HAIIIF=?A=n@MEllIKFFHAIIkAO>o=H@A?DoMDAn=IkEnCJDAKIAHJoJOFAonA.
+) FHoCH=m HAGKAIJEnC =KJDAnJE?=JEon IAlA?JI = kAO >O FHoLE@EnC = query, = lEIJ oB AlA­
+mAnJI Jo >A m=J?DA@ >O JDA kAO. -=?D AlAmAnJ En JDA lEIJ EI AEJDAH =n attribute=value
+F=EH, MDE?D EI I=JEIBEA@ >O kAOI MEJD AN=?JlO JD=J F=EH; oH =n =JJHE>KJA BolloMA@ >O = GKAI­
+JEon m=Hk, attribute?, MDE?D EI I=JEIBEA@ >O kAOI MEJD IomA F=EH IFA?EBOEnC JDA =JJHE>KJA.
+) kAO m=J?DAI = GKAHO EB ALAHO AlAmAnJ En JDA lEIJ EI I=JEIBEA@. .oH EnIJ=n?A, Jo IAlA?J JDA
+)2O2kAOEnJDAFHALEoKIAN=mFlA,=n)2O2?lEAnJFHo?AIImECDJIFA?EBOJDAGKAHO
+server=x.y.com proto=apop
+
+1nJAHn=llO, factotumI )2O2 mo@KlA MoKl@ =@@ JDA HAGKEHAmAnJI oB D=LEnC user =n@
+!password =JJHE>KJAI,BoHmEnCJDAGKAHO
+server=x.y.com proto=apop user? !password?
+
+MDAnIA=H?DEnCBoH=n=FFHoFHE=JAkAO.
+Factotum mo@KlAIANFA?JkAOIJoD=LAIomA MAll-knoMn =JJHE>KJAI. .oH EnIJ=n?A, JDA
+proto =JJHE>KJA IFA?EBEAI JDA FHoJo?ol mo@KlA HAIFonIE>lA BoH KIEnC = F=HJE?Kl=H kAO,
+=n@ FHoJo?ol mo@KlAI m=O ANFA?J oJDAH MAll-knoMn =JJHE>KJAI m=nO ANFA?J kAOI Jo
+D=LA !password =JJHE>KJAI, BoH AN=mFlA. )@@EJEon=l =JJHE>KJAI ?=n >A KIA@ =I ?om­
+mAnJI oH BoH BKHJDAH @EI?HEmEn=JEon MEJDoKJ EnJAHLAnJEon >O factotum; BoH AN=mFlA,
+JDA )2O2 =n@ 1M)2 m=El ?lEAnJI ?onLAnJEon=llO En?lK@A = server =JJHE>KJA Jo IAlA?J =n
+=FFHoFHE=JAkAOBoH=KJDAnJE?=JEon.
+7nlEkA En 5,51, kAOI En 2l=n ' D=LA no nAIJA@ IJHK?JKHA. 6DEI @AIECn kAAFI JDA HAFHAIAn­
+J=JEon IEmFlA =n@ IJH=ECDJBoHM=H@. 1B nA?AII=HO, MA ?oKl@ =@@ = nAIJA@ =JJHE>KJA oH, En
+JDAm=nnAHoBHAl=JEon=l@=J=>=IAI,=n=JJHE>KJAJD=J IAlA?JI =noJDAH JKFlA, >KJ Io B=H JDA
+IEmFlA@AIECnD=I>AAnIKBBE?EAnJ.
+) IEmFlA ?ommon IJHK?JKHA BoH =ll kAOI m=kAI JDAm A=IO BoH KIAHI Jo =@mEnEIJAH, >KJ
+JDA IAJ oB =JJHE>KJAI =n@ JDAEH EnJAHFHAJ=JEon EI IJEll FHoJo?ol-IFA?EBE? =n@ ?=n >A IK>JlA.
+7IAHI m=O IJEll nAA@ Jo ?onIKlJ = m=nK=l Jo Kn@AHIJ=n@ =ll @AJ=ElI. M=nO =JJHE>KJAI
+proto, user, password, server =HA IAlB-ANFl=n=JoHO =n@ oKH IDoHJ ANFAHEAn?A
+D=I noJ Kn?oLAHA@ =nO F=HJE?Kl=H @EBBE?KlJO En D=n@lEnC kAOI. 6DEnCI MEll lEkAlO CAJ mAI­
+IEAH,DoMALAH,MDAnMACH=FFlAMEJDFK>lE?kAOI=n@JDAEHmOHE=@?omFonAnJI.
+
+­%­
+2.5. Protecting keys
+5A?HAJImKIJ>AFHALAnJA@BHomAI?=FEnC factotum. 6DAHA =HA = nKm>AH oB M=OI JDAO
+?oKl@ lA=k: =noJDAH FHo?AII mECDJ >A =>lA Jo @A>KC JDA =CAnJ FHo?AII, JDA =CAnJ mECDJ
+IM=F oKJ Jo @EIk, oH JDA FHo?AII mECDJ MEllEnClO @EI?loIA JDA kAO. 6DA l=IJ EI JDA A=IEAIJ
+Jo=LoE@:IA?HAJEnBoHm=JEonEn=kAOEIm=HkA@=IIK?D,=n@MDAnALAH factotum FHEnJI
+kAOI oH GKAHEAI BoH nAM onAI, EJ EI ?=HABKl Jo =LoE@ @EIFl=OEnC IA?HAJ EnBoHm=JEon. 6DA
+onlO AN?AFJEon Jo JDEI EI JDA Fl=EnJANJ F=IIMoH@ FHoJo?ol, MDE?D ?onIEIJI oB IAn@EnC
+JDA L=lKAI oB JDA user =n@ !password =JJHE>KJAI. OnlO kAOI J=CCA@ MEJD
+proto=pass ?=nD=LAJDAEHF=IIMoH@I@EI?loIA@>OJDEImA?D=nEIm.
+2HALAnJEnC JDA BEHIJ JMo BoHmI oB lA=k=CA HAGKEHAI DAlF BHom JDA kAHnAl. 1n 2l=n ', ALAHO
+FHo?AII EI HAFHAIAnJA@ >O = @EHA?JoHO En JDA /proc BElA IOIJAm. 7IEnC JDA BElAI En JDEI
+@EHA?JoHO, oJDAH FHo?AIIAI ?oKl@ MEJD =FFHoFHE=JA =??AII FAHmEIIEon AN=mEnA
+factotumI mAmoHO =n@ HACEIJAHI. Factotum EI FHoJA?JA@ BHom FHo?AIIAI oB oJDAH
+KIAHI >O JDA @AB=KlJ =??AII >EJI oB EJI /proc @EHA?JoHO. 0oMALAH, MA@ =lIo lEkA Jo FHo­
+JA?J JDA =CAnJ BHom oJDAH FHo?AIIAI oMnA@ >O JDA I=mA KIAH, >oJD Jo =LoE@ DonAIJ mEI­
+J=kAI =n@ Jo FHALAnJ =n Kn=JJAn@A@ JAHmEn=l >AEnC ANFloEJA@ Jo @EI?oLAH IA?HAJ F=II­
+MoH@I. 6o @o JDEI, MA =@@A@ = ?onJHol mAII=CA Jo /proc ?=llA@ private. On?A JDA
+factotum FHo?AII D=I MHEJJAn private Jo EJI /proc/pid/ctl BElA, no FHo?AII ?=n
+=??AII factotumI mAmoHO JDHoKCD /proc. 2l=n ' D=I no oJDAH mA?D=nEIm, IK?D
+=I /dev/kmem,BoH=??AIIEnC=FHo?AIIImAmoHO.
+5EmEl=HlO, JDA =CAnJI =@@HAII IF=?A IDoKl@ noJ >A IM=FFA@ oKJ, Jo FHALAnJ @EI?oLAHEnC
+KnAn?HOFJA@ kAOI on JDA IM=FFEnC mA@E=. 6DA noswap ?onJHol mAII=CA En /proc
+FHALAnJI JDEI I?An=HEo. NAEJDAH private noH noswap EI IFA?EBE? Jo factotum.
+7IAH-lALAl BElA IAHLAHI IK?D =I dossrv, MDE?D EnJAHFHAJI .)6 BElA IOIJAmI, ?oKl@ KIA
+noswap JokAAFJDAEH>KBBAH?=?DAIBHom>AEnCIM=FFA@Jo@EIk.
+,AIFEJA oKH FHA?=KJEonI, =JJ=?kAHI mECDJ IJEll BEn@ = M=O Jo C=En =??AII Jo = FHo?AII HKn­
+nEnC =I JDA DoIJ oMnAH on = m=?DEnA. )lJDoKCD JDAO ?oKl@ noJ @EHA?JlO =??AII JDA kAOI,
+=JJ=?kAHI ?oKl@ KIA JDA lo?=l factotum Jo FAHBoHm =KJDAnJE?=JEonI BoH JDAm. 1n JDA
+?=IA oB IomA kAOI, BoH AN=mFlA JDoIA lo?kEnC >=nk =??oKnJI, MA M=nJ = M=O Jo @EI=>lA
+oH =J lA=IJ @AJA?J IK?D =??AII. 6D=J EI JDA HolA oB JDA confirm =JJHE>KJA En = kAO.
+9DAnALAH = kAO MEJD = confirm =JJHE>KJA EI =??AIIA@, JDA lo?=l KIAH mKIJ ?onBEHm KIA
+oBJDAkAOLE==lo?=l/71. 6DAnANJIA?JEon@AI?HE>AIJDA=?JK=lmA?D=nEIm.
+9A D=LA noJ =@@HAIIA@ lA=kI FoIIE>lA =I = HAIKlJ oB IomAonA HA>ooJEnC oH HAIAJJEnC =
+m=?DEnA HKnnEnC factotum. .oH AN=mFlA, IomAonA ?oKl@ HAIAJ = m=?DEnA =n@ HA>ooJ
+EJ MEJD = @A>KCCAH EnIJA=@ oB = kAHnAl, =lloMEnC JDAm Jo AN=mEnA JDA ?onJAnJI oB mAm­
+oHO=n@BEn@kAOI. 9AD=LAnoJBoKn@=I=JEIB=?JoHOIolKJEonJoJDEIFHo>lAm.
+2.6. Factotum transactions
+-NJAHn=l FHoCH=mI m=n=CA factotumI EnJAHn=l kAO IJ=JA JDHoKCD EJI BElA EnJAHB=?A,
+MHEJEnC JANJK=l key =n@ delkey ?omm=n@I Jo JDA /mnt/factotum/ctl BElA. *oJD
+?omm=n@I J=kA = lEIJ oB =JJHE>KJAI =I =n =HCKmAnJ. Key ?HA=JAI = kAO MEJD JDA CELAn
+=JJHE>KJAI, HAFl=?EnC =nO ANJ=nJ kAO MEJD =n E@AnJE?=l IAJ oB FK>lE? =JJHE>KJAI. Delkey
+@AlAJAI =ll kAOI JD=J m=J?D JDA CELAn IAJ oB =JJHE>KJAI. 4A=@EnC JDA ctl BElA HAJKHnI =
+lEIJ oB kAOI, onA FAH lEnA, @EIFl=OEnC onlO FK>lE? =JJHE>KJAI. 6DA BolloMEnC AN=mFlA EllKI­
+JH=JAIJDAIAEnJAH=?JEonI.
+
+­&­
+% cd /mnt/factotum
+% ls −l
+−lrw−−−−−−− gre gre 0 Jan 30 22:17 confirm
+−−rw−−−−−−− gre gre 0 Jan 30 22:17 ctl
+−lr−−−−−−−− gre gre 0 Jan 30 22:17 log
+−lrw−−−−−−− gre gre 0 Jan 30 22:17 needkey
+−−r−−r−−r−− gre gre 0 Jan 30 22:17 proto
+−−rw−rw−rw− gre gre 0 Jan 30 22:17 rpc
+% cat >ctl
+key dom=bell−labs.com proto=p9sk1 user=gre
+!password=’don’’t tell’
+key proto=apop server=x.y.com user=gre
+!password=’bite me’
+^D
+% cat ctl
+key dom=bell−labs.com proto=p9sk1 user=gre
+key proto=apop server=x.y.com user=gre
+% echo ’delkey proto=apop’ >ctl
+% cat ctl
+key dom=bell−labs.com proto=p9sk1 user=gre
+%
+
+)BElAMEJDJDA l >EJIAJ?=n>AoFAnA@>OonlOonAFHo?AII=J=JEmA.
+6DA DA=HJ oB JDA EnJAHB=?A EI JDA rpc BElA. 2HoCH=mI =KJDAnJE?=JA MEJD factotum >O
+MHEJEnC = HAGKAIJ Jo JDA rpc BElA =n@ HA=@EnC >=?k JDA HAFlO; JDEI IAGKAn?A EI ?=llA@ =n
+42+ transaction. 4AGKAIJI=n@HAFlEAID=LAJDAI=mABoHm=J:=JANJK=lLAH>FoIIE>lOBol­
+loMA@ >O =HCKmAnJI, MDE?D m=O >A JANJK=l oH >En=HO. 6DA moIJ ?ommon HAFlO LAH> EI
+ok, En@E?=JEnC IK??AII. )n 42+ IAIIEon >ACEnI MEJD = start JH=nI=?JEon; JDA =HCKmAnJ
+EI = kAO GKAHO =I @AI?HE>A@ A=HlEAH. On?A IJ=HJA@, =n 42+ ?onLAHI=JEon KIK=llO ?onIEIJI
+oB = IAGKAn?A oB read =n@ write JH=nI=?JEonI. 1B JDA ?onLAHI=JEon EI IK??AIIBKl, =n
+authinfo JH=nI=?JEon MEll HAJKHn EnBoHm=JEon =>oKJ JDA E@AnJEJEAI lA=HnA@ @KHEnC JDA
+JH=nI=?JEon. 6DA attr JH=nI=?JEon HAJKHnI = lEIJ oB =JJHE>KJAI BoH JDA ?KHHAnJ ?onLAHI=­
+JEon; JDA lEIJ En?lK@AI =nO =JJHE>KJAI CELAn En JDA start GKAHO =I MAll =I =nO FK>lE?
+=JJHE>KJAIBHomkAOI>AEnCKIA@.
+)I =n AN=mFlA oB JDA rpc BElA En =?JEon, ?onIE@AH = m=El ?lEAnJ ?onnA?JEnC Jo = m=El
+IAHLAH =n@ =KJDAnJE?=JEnC KIEnC JDA 2O2! FHoJo?olI )2O2 ?D=llAnCA-HAIFonIA ?om­
+m=n@. 6DAHA =HA BoKH FHoCH=mI EnLolLA@: JDA m=El ?lEAnJ P C , JDA ?lEAnJ factotum F C ,
+JDA m=El IAHLAH P S , =n@ JDA IAHLAH factotum F S . )ll =KJDAnJE?=JEon ?omFKJ=JEonI =HA
+D=n@lA@ >O JDA factotum FHo?AIIAI. 6DA m=El FHoCH=mI HolA EI jKIJ Jo HAl=O mAI­
+I=CAI.
+)J IJ=HJKF, JDA m=El IAHLAH =J x.y.com >ACEnI =n )2O2 ?onLAHI=JEon MEJD EJI
+factotum Joo>J=EnJDA>=nnAHCHAAJEnC,MDE?DEn?lK@AI=?D=llAnCA:
+
+P S →F S : start proto=apop role=server
+F S →P S : ok
+P S →F S : read
+F S →P S : ok +OK POP3 challenge
+0=LEnCo>J=EnA@JDA?D=llAnCA,JDAIAHLAHCHAAJIJDA?lEAnJ:
+
+P S →P C : +OK POP3 challenge
+6DA?lEAnJJDAnKIAI=n)2O2?onLAHI=JEonMEJDEJI factotum Joo>J=En=HAIFonIA:
+
+­'­
+
+P C →F C : start proto=apop role=client
+server=x.y.com
+
+F C →P C : ok
+P C →F C : write +OK POP3 challenge
+F C →P C : ok
+P C →F C : read
+F C →P C : ok APOP gre response
+Factotum HAGKEHAI JD=J start HAGKAIJI En?lK@A = proto =JJHE>KJA, =n@ JDA )2O2
+mo@KlA HAGKEHAI =n =@@EJEon=l role =JJHE>KJA, >KJ JDA oJDAH =JJHE>KJAI =HA oFJEon=l =n@
+onlO HAIJHE?J JDA kAO IF=?A. *ABoHA HAIFon@EnC Jo JDA start JH=nI=?JEon, JDA ?lEAnJ
+factotum lookI BoH = kAO Jo KIA BoH JDA HAIJ oB JDA ?onLAHI=JEon. *A?=KIA oB JDA =HCK­
+mAnJI En JDA start HAGKAIJ, JDA kAO mKIJ D=LA FK>lE? =JJHE>KJAI proto=apop =n@
+server=x.y.com; =I mAnJEonA@ A=HlEAH, JDA )2O2 mo@KlA =@@EJEon=llO HAGKEHAI JD=J
+JDA kAO D=LA user =n@ !password =JJHE>KJAI. NoM JD=J JDA ?lEAnJ D=I o>J=EnA@ =
+HAIFonIABHomEJI factotum,EJA?DoAIJD=JHAIFonIAJoJDAIAHLAH:
+
+P C →P S : APOP gre response
+5EmEl=HlO, JDA IAHLAH F=IIAI JDEI mAII=CA Jo EJI factotum =n@ o>J=EnI =noJDAH Jo IAn@
+>=?k.
+
+P S →F S : write APOP gre response
+F S →P S : ok
+P S →F S : read
+F S →P S : ok +OK welcome
+P S →P C : +OK welcome
+NoM JDA =KJDAnJE?=JEon FHoJo?ol EI @onA, =n@ JDA IAHLAH ?=n HAJHEALA EnBoHm=JEon =>oKJ
+MD=JJDAFHoJo?olAIJ=>lEIDA@.
+
+P S →F S : authinfo
+F S →P S : ok client=gre
+capability=capability
+
+6DA authinfo @=J= EI = lEIJ oB attr=value F=EHI, DAHA = ?lEAnJ KIAH n=mA =n@ = ?=F=>El­
+EJO. 2HoJo?olI JD=J AIJ=>lEID ID=HA@ IA?HAJI oH FHoLE@A mKJK=l =KJDAnJE?=JEon En@E?=JA
+JDEI>O=@@EnC=FFHoFHE=JA attr=value F=EHI. 6DA?=F=>ElEJO?=n>AKIA@>OJDAIAHLAHJo
+?D=nCA EJI E@AnJEJO Jo JD=J oB JDA ?lEAnJ, =I @AI?HE>A@ A=HlEAH. On?A EJ D=I ?D=nCA@ EJI
+E@AnJEJO,JDAIAHLAH?=n=??AII=n@IAHLAJDA?lEAnJIm=El>oN.
+6Mo moHA BElAI FHoLE@A DookI BoH = CH=FDE?=l factotum ?onJHol EnJAHB=?A. 6DA BEHIJ,
+confirm, =lloMI JDA KIAH @AJ=ElA@ ?onJHol oLAH JDA KIA oB ?AHJ=En kAOI. 1B = kAO D=I =
+confirm= =JJHE>KJA, JDAn JDA KIAH mKIJ =FFHoLA A=?D KIA oB JDA kAO. ) IAF=H=JA FHo­
+CH=m MEJD = CH=FDE?=l EnJAHB=?A HA=@I BHom JDA confirm BElA Jo IAA MDAn = ?onBEHm=­
+JEonEInA?AII=HO. 6DAHA=@>lo?kIKnJEl=kAOKI=CAnAA@IJo>A=FFHoLA@,MDAHAKFonEJ
+MEllHAJKHn=lEnAoBJDABoHm
+confirm tag=1 attributes
+
+HAGKAIJEnC FAHmEIIEon Jo KIA JDA kAO MEJD JDoIA FK>lE? =JJHE>KJAI. 6DA CH=FDE?=l EnJAH­
+B=?AJDAnFHomFJIJDAKIAHBoH=FFHoL=l=n@MHEJAI>=?k
+tag=1 answer=yes
+
+oH answer=no.
+6DA IA?on@ BElA, needkey, @ELAHJI kAO HAGKAIJI. 1n JDA )2O2 AN=mFlA, EB = IKEJ=>lA kAO
+D=@ noJ >AAn BoKn@ @KHEnC JDA start JH=nI=?JEon, factotum MoKl@ D=LA En@E?=JA@
+B=ElKHA>OHAJKHnEnC=HAIFonIAEn@E?=JEnCMD=JkAOM=InAA@A@:
+
+­­
+
+F C →P C : needkey proto=apop
+server=x.y.com user? !password?
+
+) JOFE?=l ?lEAnJ MoKl@ JDAn FHomFJ JDA KIAH BoH JDA @AIEHA@ kAO EnBoHm=JEon, ?HA=JA =
+nAM kAO LE= JDA ctl BElA, =n@ JDAn HAEIIKA JDA start HAGKAIJ. 1B JDA needkey BElA EI
+oFAn, JDAn EnIJA=@ oB B=ElEnC, JDA JH=nI=?JEon MEll >lo?k, =n@ JDA nANJ HA=@ BHom JDA
+/mnt/factotum/needkey BElAMEllHAJKHn=lEnAoBJDABoHm
+needkey tag=1 attributes
+
+6DA CH=FDE?=l EnJAHB=?A JDAn FHomFJI JDA KIAH BoH JDA nAA@A@ kAO EnBoHm=JEon, ?HA=JAI
+JDAkAOLE=JDA ctl BElA,=n@MHEJAI>=?k tag=1 JoHAIKmAJDAJH=nI=?JEon.
+6DA HAm=EnEnC BElAI =HA EnBoHm=JEon=l =n@ KIA@ BoH @A>KCCEnC. 6DA proto BElA ?onJ=EnI
+= lEIJ oB IKFFoHJA@ FHoJo?olI Jo IAA MD=J FHoJo?olI JDA IOIJAm IKFFoHJI, cat
+/mnt/factotum/proto, =n@ JDA log BElA ?onJ=EnI = loC oB oFAH=JEonI =n@ @A>KC­
+CEnCoKJFKJAn=>lA@>O= debug ?onJHolmAII=CA.
+6DAnANJBAMIA?JEonIANFl=EnDoM factotum EIKIA@>OIOIJAmIAHLE?AI.
+3. Authentication in 9P
+2l=n ' KIAI = HAmoJA BElA =??AII FHoJo?ol, '2 [2EkA'!], Jo ?onnA?J Jo HAIoKH?AI IK?D =I
+JDA BElA IAHLAH =n@ HAmoJA FHo?AIIAI. 6DA oHECEn=l @AIECn BoH '2 En?lK@A@ IFA?E=l mAI­
+I=CAI =J JDA IJ=HJ oB = ?onLAHI=JEon Jo =KJDAnJE?=JA JDA KIAH. MKlJEFlA KIAHI ?=n ID=HA =
+IEnClA ?onnA?JEon, IK?D =I MDAn = +27 IAHLAH HKnI FHo?AIIAI BoH m=nO KIAHI ?onnA?JA@
+Jo = IEnClA BElA IAHLAH, >KJ A=?D mKIJ =KJDAnJE?=JA IAF=H=JAlO. 6DA =KJDAnJE?=JEon FHoJo­
+?ol, IEmEl=H Jo JD=J oB KAH>AHoI [5JAE&&], KIA@ = IAGKAn?A oB mAII=CAI F=IIA@ >AJMAAn
+?lEAnJ, BElA IAHLAH, =n@ =KJDAnJE?=JEon IAHLAH Jo LAHEBO JDA E@AnJEJEAI oB JDA KIAH, ?=llEnC
+m=?DEnA, =n@ IAHLEnC m=?DEnA. OnA m=joH @H=M>=?k Jo JDA @AIECn M=I JD=J JDA =KJDAn­
+JE?=JEon mAJDo@ M=I @ABEnA@ >O '2 EJIAlB =n@ ?oKl@ noJ >A ?D=nCA@. MoHAoLAH, JDAHA M=I
+no mA?D=nEIm Jo HAlAC=JA =KJDAnJE?=JEon Jo =n ANJAHn=l JHKIJA@ =CAnJ, Io = FHo?AII
+EmFlAmAnJEnC '2 nAA@A@, >AIE@AI IKFFoHJ BoH BElA IAHLE?A, = IK>IJ=nJE=l >o@O oB ?HOFJo­
+CH=FDE??o@AJoEmFlAmAnJ=D=n@BKloBIJ=HJKFmAII=CAIEnJDAFHoJo?ol.
+) HA?AnJ HA@AIECn oB '2 =@@HAIIA@ = nKm>AH oB BElA IAHLE?A EIIKAI oKJIE@A JDA I?oFA oB
+JDEI F=FAH. On EIIKAI oB =KJDAnJE?=JEon, JDAHA MAHA JMo Co=lI: BEHIJ, Jo HAmoLA @AJ=ElI
+=>oKJ =KJDAnJE?=JEon BHom JDA FHoJo?ol EJIAlB; IA?on@, Jo =lloM =n ANJAHn=l FHoCH=m Jo
+ANA?KJA JDA =KJDAnJE?=JEon F=HJ oB JDA FHoJo?ol. 1n F=HJE?Kl=H, MA M=nJA@ = M=O Jo
+GKE?klOEn?oHFoH=JAE@A=IBoKn@EnoJDAHIOIJAmIIK?D=I5.5[M=zE''].
+5En?A '2 EI = BElA IAHLE?A FHoJo?ol, JDA IolKJEon EnLolLA@ ?HA=JEnC = nAM JOFA oB BElA Jo >A
+IAHLA@: =n authentication file. +onnA?JEonI Jo = '2 IAHLE?A >ACEn En = IJ=JA JD=J =lloMI
+no CAnAH=l BElA =??AII >KJ FAHmEJI JDA ?lEAnJ Jo oFAn =n =KJDAnJE?=JEon BElA >O IAn@EnC =
+IFA?E=lmAII=CA,CAnAH=JA@>OJDAnAM fauth IOIJAm?=ll:
+afd = fauth(int fd, char *servicename);
+
+0AHA fd EI JDA KIAHI BElA @AI?HEFJoH BoH JDA AIJ=>lEIDA@ nAJMoHk ?onnA?JEon Jo JDA '2
+IAHLAH =n@ servicename EI JDA n=mA oB JDA @AIEHA@ IAHLE?A oBBAHA@ on JD=J IAHLAH,
+JOFE?=llO JDA BElA IK>IOIJAm Jo >A =??AIIA@. 6DA HAJKHnA@ BElA @AI?HEFJoH, afd, EI =
+KnEGKA D=n@lA HAFHAIAnJEnC JDA =KJDAnJE?=JEon BElA ?HA=JA@ BoH JDEI ?onnA?JEon Jo =KJDAn­
+JE?=JA Jo JDEI IAHLE?A; EJ EI =n=loCoKI Jo = ?=F=>ElEJO. 6DA =KJDAnJE?=JEon BElA HAFHAIAnJA@
+>O afd EInoJoJDAHMEIA=@@HAII=>lAonJDAIAHLAH,IK?D=IJDHoKCDJDABElAn=mADEAH=H­
+?DO. 1n =ll oJDAH HAIFA?JI, EJ >AD=LAI lEkA = HACKl=H BElA; moIJ EmFoHJ=nJ, EJ =??AFJI IJ=n­
+@=H@HA=@=n@MHEJAoFAH=JEonI.
+6o FHoLA EJI E@AnJEJO, JDA KIAH FHo?AII LE= factotum ANA?KJAI JDA =KJDAnJE?=JEon FHo­
+Jo?ol, @AI?HE>A@ En JDA nANJ IA?JEon oB JDEI F=FAH, oLAH JDA afd BElA @AI?HEFJoH MEJD oH@E­
+n=HO HA=@I =n@ MHEJAI. 9DAn ?lEAnJ =n@ IAHLAH D=LA IK??AIIBKllO nACoJE=JA@, JDA =KJDAn­
+JE?=JEonBElA?D=nCAIIJ=JAIoEJ?=n>AKIA@=IALE@An?AoB=KJDoHEJOEn mount.
+
+­­
+On?A E@AnJEJO EI AIJ=>lEIDA@, JDA FHo?AII FHAIAnJI JDA noM LAHEBEA@ afd =I FHooB oB
+E@AnJEJOJoJDA mount IOIJAm?=ll:
+mount(int fd, int afd, char *mountpoint,
+int flag, char *servicename)
+
+1B JDA mount IK??AA@I, JDA KIAH noM D=I =FFHoFHE=JA FAHmEIIEonI BoH JDA BElA DEAH=H?DO
+m=@ALEIE>lA=JJDAmoKnJFoEnJ.
+6DEI IAGKAn?A oB ALAnJI D=I IALAH=l =@L=nJ=CAI. .EHIJ, JDA =?JK=l =KJDAnJE?=JEon FHoJo­
+?ol EI EmFlAmAnJA@ KIEnC HACKl=H HA=@I =n@ MHEJAI, noJ IFA?E=l '2 mAII=CAI, Io JDAO ?=n
+>A FHo?AIIA@, BoHM=H@A@, FHoNEA@, =n@ Io on >O =nO '2 =CAnJ MEJDoKJ IFA?E=l =HH=nCA­
+mAnJ. 5A?on@, JDA >KIEnAII oB nACoJE=JEnC JDA =KJDAnJE?=JEon >O HA=@EnC =n@MHEJEnCJDA
+=KJDAnJE?=JEon BElA ?=n >A @AlAC=JA@ Jo =n oKJIE@A =CAnJ, En F=HJE?Kl=H factotum; JDA
+FHoCH=mI JD=J EmFlAmAnJ JDA ?lEAnJ =n@ IAHLAH An@I oB = '2 ?onLAHI=JEon nAA@ no
+=KJDAnJE?=JEon oH ?HOFJoCH=FDE? ?o@A. 6DEH@, IEn?A JDA =KJDAnJE?=JEon FHoJo?ol EI noJ
+@ABEnA@ >O '2 EJIAlB, EJ EI A=IO Jo ?D=nCA =n@ ?=n ALAn >A nACoJE=JA@ @On=mE?=llO.
+.En=llO, IEn?A afd =?JI lEkA = ?=F=>ElEJO, EJ ?=n >A JHA=JA@ lEkA onA: D=n@A@ Jo =noJDAH
+FHo?AII Jo CELA EJ IFA?E=l FAHmEIIEonI; kAFJ =HoKn@ BoH l=JAH KIA MDAn =KJDAnJE?=JEon EI
+=C=EnHAGKEHA@;oH?loIA@Jom=kAIKHAnooJDAHFHo?AII?=nKIAEJ.
+)ll JDAIA =@L=nJ=CAI IJAm BHom moLEnC JDA =KJDAnJE?=JEon nACoJE=JEon EnJo HA=@I =n@
+MHEJAI on = IAF=H=JA BElA. )I EI oBJAn JDA ?=IA En 2l=n ', m=kEnC = HAIoKH?A DAHA =KJDAn­
+JE?=JEon =??AIIE>lA MEJD = BElA-lEkA EnJAHB=?A HA@K?AI a priori JDA nAA@ BoH IFA?E=l EnJAH­
+B=?AI.
+3.1. Plan 9 shared key protocol
+1n =@@EJEon Jo JDA L=HEoKI IJ=n@=H@ FHoJo?olI IKFFoHJA@ >O factotum, MA KIA = ID=HA@
+kAO FHoJo?ol BoH n=JELA 2l=n ' =KJDAnJE?=JEon. 6DEI FHoJo?ol FHoLE@AI >=?kM=H@ ?omF=JE­
+>ElEJO MEJD ol@AH LAHIEonI oB JDA IOIJAm. OnA HA=Ion BoH JDA nAM =H?DEJA?JKHA EI Jo lAJ KI
+HAFl=?AIK?DFHoJo?olIEnJDAnA=HBKJKHAMEJDmoHA?HOFJoCH=FDE?=llOIA?KHAonAI.
+P9sk1 EI = ID=HA@ kAO FHoJo?ol JD=J KIAI JE?kAJI mK?D lEkA JDoIA En JDA oHECEn=l KAH­
+>AHoI. 6DA @EBBAHAn?A EI JD=J MALA HAFl=?A@ JDA ANFEH=JEon JEmA En KAH>AHoI JE?kAJI MEJD
+=H=n@omnon?AF=H=mAJAH=n@=?oKnJAH. 9AIKmm=HEzAEJDAHA:
+
+C→S:
+S→C:
+
+nonce C
+nonce S ,uid S ,domain S
+
+C→A:
+
+nonce S ,uid S ,domain S ,uid C ,
+factotum C
+K C {nonce S ,uid C ,uid S, K n },
+K S {nonce S ,uid C ,uid S, K n }
+
+A→C:
+C→S:
+S→C:
+
+K S {nonce S ,uid C ,uid S ,K n },
+K n {nonce S ,counter}
+K n {nonce C ,counter}
+
+0AHA K{x} En@E?=JAI x An?HOFJA@ MEJD ,-5 kAO K. 6DA BEHIJ JMo mAII=CAI AN?D=nCA
+non?AI =n@ IAHLAH E@AnJEBE?=JEon. )BJAH JDEI EnEJE=l AN?D=nCA, JDA ?lEAnJ ?onJ=?JI JDA
+=KJDAnJE?=JEon IAHLAH Jo o>J=En = F=EH oB An?HOFJA@ JE?kAJI, onA An?HOFJA@ MEJD JDA ?lEAnJ
+kAO =n@ onA MEJD JDA IAHLAH kAO. 6DA ?lEAnJ HAl=OI JDA IAHLAH JE?kAJ Jo JDA IAHLAH. 6DA
+IAHLAH >AlEALAI JD=J JDA JE?kAJ EI nAM >A?=KIA EJ ?onJ=EnI nonce S =n@ JD=J JDA JE?kAJ EI
+BHom JDA =KJDAnJE?=JEonIAHLAH>A?=KIAEJEIAn?HOFJA@EnJDAIAHLAHkAO K S . 6DAJE?kAJEI
+>=IE?=llO = IJ=JAmAnJ BHom JDA =KJDAnJE?=JEon IAHLAH JD=J noM uid C =n@ uid S ID=HA =
+IA?HAJ K n . 6DA =KJDAnJE?=JoH K n {nonce S ,counter} ?onLEn?AI JDA IAHLAH JD=J JDA ?lEAnJ
+knoMI K n =n@ JDKI mKIJ >A uid C . 5EmEl=HlO, =KJDAnJE?=JoH K n {nonce C ,counter} ?on­
+LEn?AI JDA ?lEAnJ JD=J JDA IAHLAH knoMI K n =n@ JDKI mKIJ >A uid S . 6E?kAJI ?=n >A
+HAKIA@, MEJDoKJ ?onJ=?JEnC JDA =KJDAnJE?=JEon IAHLAH =C=En, >O En?HAmAnJEnC JDA ?oKnJAH
+
+­ ­
+>ABoHAA=?D=KJDAnJE?=JoHEICAnAH=JA@.
+1n JDA BKJKHA MA DoFA Jo EnJHo@K?A = FK>lE? kAO LAHIEon oB F'Ik, MDE?D MoKl@ =lloM
+=KJDAnJE?=JEonALAnMDAnJDA=KJDAnJE?=JEonIAHLAHEInoJ=L=El=>lA.
+3.2. The authentication server
+-=?D 2l=n ' IA?KHEJO @om=En D=I =n =KJDAnJE?=JEon IAHLAH )5 JD=J =ll KIAHI JHKIJ Jo kAAF
+JDA ?omFlAJA IAJ oB ID=HA@ kAOI. 1J =lIo oBBAHI IAHLE?AI BoH KIAHI =n@ =@mEnEIJH=JoHI Jo
+m=n=CA JDA kAOI, ?HA=JA =n@ @EI=>lA =??oKnJI, =n@ Io on. 1J JOFE?=llO HKnI on = IJ=n­
+@=lonA m=?DEnA MEJD BAM oJDAH IAHLE?AI. 6DA )5 ?omFHEIAI JMo IAHLE?AI, keyfs =n@
+authsrv.
+Keyfs EI=KIAH-lALAlBElAIOIJAmJD=Jm=n=CAI=nAn?HOFJA@@=J=>=IAoBKIAH=??oKnJI.
+-=?D =??oKnJ EI HAFHAIAnJA@ >O = @EHA?JoHO ?onJ=EnEnC JDA BElAI key, ?onJ=EnEnC JDA 2l=n
+' kAO BoH F'Ik; secret BoH JDA ?D=llAnCA/HAIFonIA FHoJo?olI )2O2, 8N+, +0)2,
+M5+0)2, +4)M; log BoH =KJDAnJE?=JEon oKJ?omAI; expire BoH =n ANFEH=JEon JEmA; =n@
+status. 1B JDA ANFEH=JEon JEmA F=IIAI, EB JDA nKm>AH oB IK??AIIELA B=ElA@ =KJDAnJE?=­
+JEonI AN?AA@I #, oH EB disabled EI MHEJJAn Jo JDAIJ=JKIBElA,=nO=JJAmFJJo=??AIIJDA
+key oH secret BElAIMEllB=El.
+Authsrv EI = nAJMoHk IAHLE?A JD=J >HokAHI ID=HA@ kAO =KJDAnJE?=JEonI BoH JDA FHoJo?olI
+F'Ik, )2O2, 8N+, +0)2, M5+0)2, =n@ +4)M. 4AmoJA KIAHI ?=n =lIo ?=ll authsrv Jo
+?D=nCAJDAEHF=IIMoH@I.
+6DA F'Ik FHoJo?ol M=I @AI?HE>A@ En JDA FHALEoKI IA?JEon. 6DA ?D=llAnCA/HAIFonIA FHo­
+Jo?olI@EBBAHEn@AJ=El>KJ=llBolloMJDACAnAH=lIJHK?JKHA:
+
+C→S:
+S→C:
+C→A:
+A→C:
+C→S:
+S→C:
+
+nonce C
+nonce S ,uid S ,domain S
+nonce S ,uid S ,domain S ,
+hostid C ,uid C
+K C {nonce S ,uid C ,uid S, K n },
+K S {nonce S ,uid C ,uid S, K n }
+K S {nonce S ,uid C ,uid S, K n },
+K n {nonce S }
+K n {nonce C }
+
+6DAF=IIMoH@FHoJo?olEI:
+
+C→A:
+A→C:
+C→A:
+A→C:
+
+uid C
+K c {K n }
+K n {password old ,password new }
+OK
+
+6o =LoE@ HAFl=O =JJ=?kI, JDA FHA-An?HOFJEon ?lA=H JANJ BoH A=?D oB JDA FHoJo?olI =I MAll
+=I BoH F'Ik En?lK@AI = J=C En@E?=JEnC JDA An?HOFJEonI HolA En JDA FHoJo?ol. 9A AlE@A@
+JDAmEnJDAIAoKJlEnAI.
+3.3. Protocol negotiation
+4=JDAH JD=n HAGKEHA F=HJE?Kl=H FHoJo?olI BoH F=HJE?Kl=H IAHLE?AI, MA EmFlAmAnJA@ = nACo­
+JE=JEon mAJ=FHoJo?ol, p9any, MDE?D ?DooIAI JDA =?JK=l =KJDAnJE?=JEon FHoJo?ol Jo KIA.
+2'=nOEIKIA@noM>O=lln=JELAIAHLE?AIon2l=n'.
+6DAmAJ=FHoJo?olEIIEmFlA. 6DA?=llAAIAn@I=nKll-JAHmEn=JA@IJHEnCoBJDABoHm:
+v.n
+
+proto  @domain  proto @domain
+
+...
+
+MDAHA n EI = @A?Em=l LAHIEon nKm>AH, proto k EI JDA n=mA oB = FHoJo?ol BoH MDE?D JDA
+factotum D=I = kAO, =n@ domain k EI JDA n=mA oB JDA @om=En En MDE?D JDA kAO EI
+L=lE@. 6DA?=llAHJDAnHAIFon@I
+
+­!­
+proto@domain
+
+En@E?=JEnCEJI?DoE?A. .En=llOJDA?=llAAHAIFon@I
+OK
+
+)nO oJDAH IJHEnC En@E?=JAI B=ElKHA. )J JDEI FoEnJ JDA ?DoIAn FHoJo?ol ?ommAn?AI. 6DA
+BEn=l BENA@-lAnCJD HAFlO EI KIA@ Jo m=kA EJ A=IO Jo @AlEmEJ JDA 1/O IJHA=m IDoKl@ JDA ?Do­
+IAnFHoJo?olHAGKEHAJDA?=llAHH=JDAHJD=nJDA?=llAAJoIAn@JDABEHIJmAII=CA.
+9EJD JDEI nACoJE=JEon mAJ=FHoJo?ol, JDA Kn@AHlOEnC =KJDAnJE?=JEon FHoJo?olI KIA@ BoH
+2l=n ' IAHLE?AI ?=n >A ?D=nCA@ Kn@AH =nO =FFlE?=JEon jKIJ >O ?D=nCEnC JDA kAOI knoMn
+>OJDA factotum =CAnJI=JA=?DAn@.
+2'=nOEILKlnAH=>lAJom=nEnJDAmE@@lA=JJ=?kIJoJDAANJAnJJD=JJDA=JJ=?kAHm=O?on­
+IJH=En JDA FoIIE>lA ?DoE?AI >O ?D=nCEnC JDA IJHA=m. 0oMALAH, MA >AlEALA JDEI EI =??AFJ­
+=>lA IEn?A JDA =JJ=?kAH ?=nnoJ BoH?A AEJDAH IE@A Jo ?DooIA =lCoHEJDmI JD=J EJ EI KnMEllEnC
+JoKIA.
+4. Library Interface to Factotum
+)lJDoKCD FHoCH=mI ?=n =??AII factotumI IAHLE?AI JDHoKCD EJI BElA IOIJAm EnJAHB=?A, EJ
+EI moHA ?ommon Jo KIA = + lE>H=HO JD=J F=?k=CAI JDA EnJAH=?JEon. 6DAHA =HA =nKm>AHoB
+HoKJEnAIEnJDAlE>H=HO,noJ=lloBMDE?D=HAHAlAL=nJDAHA,>KJ= BAM AN=mFlAI IDoKl@ CELA
+JDAEHBl=LoH.
+.EHIJ, ?onIE@AH JDA FHo>lAm oB moKnJEnC = HAmoJA BElA IAHLAH KIEnC '2. )n A=HlEAH @EI?KI­
+IEon IDoMA@ DoM JDA fauth =n@ mount IOIJAm ?=llI KIA =n =KJDAnJE?=JEon BElA, afd,
+=I = ?=F=>ElEJO, >KJ noJ DoM factotum m=n=CAI afd. 6DA lE>H=HO ?onJ=EnI = HoKJEnA,
+amount =KJDAnJE?=JA@ moKnJ, JD=J EI KIA@ >O moIJ FHoCH=mI En FHABAHAn?A Jo JDA H=M
+fauth =n@ mount ?=llI. Amount AnC=CAI factotum Jo L=lE@=JA afd; DAHA EI JDA
+?omFlAJA?o@A:
+int
+amount(int fd, char *mntpt,
+int flags, char *aname)
+{
+int afd, ret;
+AuthInfo *ai;
+afd = fauth(fd, aname);
+if(afd >= 0){
+ai = auth_proxy(afd, amount_getkey,
+"proto=p9any role=client");
+if(ai != NULL)
+auth_freeAI(ai);
+}
+ret = mount(fd, afd, mntpt,
+flags, aname);
+if(afd >= 0)
+close(afd);
+return ret;
+}
+
+MDAHA F=H=mAJAH fd EI = BElA @AI?HEFJoH HAJKHnA@ >O open oH dial BoH = nAM ?onnA?­
+JEon Jo = BElA IAHLAH. 6DA ?onLAHI=JEon MEJD factotum o??KHI En JDA ?=ll Jo
+auth_proxy, MDE?D IFA?EBEAI, =I = kAO GKAHO, MDE?D =KJDAnJE?=JEon FHoJo?ol Jo KIA
+DAHA JDA mAJ=FHoJo?ol p9any =n@ JDA HolA >AEnC Fl=OA@ client. Auth_proxy
+MEll HA=@ =n@ MHEJA JDA factotum BElAI, =n@ JDA =KJDAnJE?=JEon BElA @AI?HEFJoH afd, Jo
+L=lE@=JA JDA KIAHI HECDJ Jo =??AII JDA IAHLE?A. 1B JDA ?=ll EI IK??AIIBKl, =nO =KNElE=HO
+@=J=, DAl@ En =n AuthInfo IJHK?JKHA, EI BHAA@. 1n =nO ?=IA, JDA mount EI JDAn ?=llA@
+MEJD JDA FAHD=FI L=lE@=JA@ afd. ) '2 IAHLAH ?=n ?=KIA JDA fauth IOIJAm ?=ll Jo B=El,
+
+­"­
+=I=nEn@E?=JEonJD=J=KJDAnJE?=JEonEInoJHAGKEHA@Jo=??AIIJDAIAHLE?A.
+6DA IA?on@ =HCKmAnJ Jo auth_proxy EI = BKn?JEon, DAHA amount_getkey, Jo >A
+?=llA@ EB IA?HAJ EnBoHm=JEon IK?D =I = F=IIMoH@ oH HAIFonIA Jo = ?D=llAnCA EI HAGKEHA@ =I
+F=HJ oB JDA =KJDAnJE?=JEon. 6DEI BKn?JEon, oB ?oKHIA, MEll FHoLE@A JDEI @=J= Jo factotum
+=I= key mAII=CAonJDA /mnt/factotum/ctl BElA.
+)lJDoKCD JDA BEn=l =HCKmAnJ Jo auth_proxy En JDEI AN=mFlA EI = IEmFlA IJHEnC, En CAn­
+AH=l EJ ?=n >A = BoHm=JJA@-FHEnJ IFA?EBEAH En JDA m=nnAH oB printf, Jo An=>lA JDA ?on­
+IJHK?JEonoBmoHAAl=>oH=JAkAOGKAHEAI.
+)I =noJDAH AN=mFlA, ?onIE@AH JDA 2l=n ' cpu IAHLE?A, MDE?D ANFoHJI lo?=l @ALE?AI Jo =
+IDAll FHo?AII on = HAmoJA m=?DEnA, JOFE?=llO Jo ?onnA?J JDA lo?=lI?HAAn=n@kAO>o=H@Jo
+= moHA FoMAHBKl ?omFKJAH. )J DA=HJ, cpu EI = IKFAHIAJ oB = IAHLE?A ?=llA@ exportfs
+[2EkA'!], MDE?D =lloMI onA m=?DEnA Jo IAA =n =H>EJH=HO FoHJEon oB JDA BElA n=mA IF=?A oB
+=noJDAH m=?DEnA, IK?D =I Jo ANFoHJ JDA nAJMoHk @ALE?A Jo =noJDAH m=?DEnA BoH C=JAM=O­
+EnC. 0oMALAH, cpu EI noJ jKIJ exportfs >A?=KIA EJ =lIo @AlELAHI IECn=lI IK?D =I EnJAH­
+HKFJ=n@nACoJE=JAIJDAEnEJE=lAnLEHonmAnJBoHJDAHAmoJAIDAll.
+6o =KJDAnJE?=JA =n EnIJ=n?A oB cpu HAGKEHAI factotum FHo?AIIAI on >oJD An@I: JDA
+lo?=l,?lEAnJAn@HKnnEnC=IJDAKIAHon=JAHmEn=l=n@JDAHAmoJA,IAHLAHAn@HKnnEnC=I
+JDADoIJoMnAHoBJDAIAHLAHm=?DEnA. 0AHAEII?DAm=JE??o@ABoHJDAJMoAn@I:
+/* client */
+int
+p9auth(int fd)
+{
+AuthInfo *ai;
+ai = auth_proxy(fd, auth_getkey,
+"proto=p9any role=client");
+if(ai == NULL)
+return −1;
+/* start cpu protocol here */
+}
+/* server */
+int
+srvp9auth(int fd, char *user)
+{
+AuthInfo *ai;
+ai = auth_proxy(fd, NULL,
+"proto=p9any role=server");
+if(ai == NULL)
+return −1;
+/* set user id for server process */
+if(auth_chuid(ai, NULL) < 0)
+return −1;
+/* start cpu protocol here */
+}
+
+Auth_chuid An?=FIKl=JAI JDA nACoJE=JEon Jo ?D=nCA = KIAH E@ KIEnC JDA caphash
+=n@ capuse BElAI oB JDA IAHLAH kAHnAl. NoJA JD=J =lJDoKCD JDA ?lEAnJ FHo?AII m=O =Ik
+JDA KIAH BoH nAM kAOI, KIEnC auth_getkey, JDA IAHLAH m=?DEnA, FHAIKm=>lO = ID=HA@
+m=?DEnAMEJD=FIAK@o-KIAHBoHJDADoIJoMnAH,IAJIJDAkAO-CAJJEnCBKn?JEonJo NULL.
+
+­#­
+5. Secure Store
+Factotum kAAFI EJI kAOI En Lol=JElA mAmoHO, MDE?D mKIJ IomADoM >A EnEJE=lEzA@ =J
+>ooJ JEmA. 6DAHABoHA, factotum mKIJ >A IKFFlAmAnJA@ >O = FAHIEIJAnJ IJoHA, FAHD=FI
+= BloFFO @EIk ?onJ=EnEnC = kAO BElA oB ?omm=n@I Jo >A ?oFEA@ EnJo
+/mnt/factotum/ctl @KHEnC >ooJIJH=F. *KJ HAmoL=>lA mA@E= =HA = nKEI=n?A Jo
+?=HHO =n@ =HA LKlnAH=>lA Jo JDABJ. KAOI ?oKl@ >A IJoHA@ An?HOFJA@ on = ID=HA@ BElA IOI­
+JAm, >KJ onlO EB JDoIA kAOI =HA noJ nA?AII=HO BoH =KJDAnJE?=JEnC Jo JDA BElA IOIJAm En JDA
+BEHIJFl=?A. -LAnEBJDAkAOI=HA An?HOFJA@ Kn@AH = KIAH F=IIMoH@, = JDEAB mECDJ MAll IK?­
+?AA@ MEJD = @E?JEon=HO =JJ=?k. OJDAH HEIkI oB lo?=l IJoH=CA =HA loII oB JDA ?onJAnJI
+JDHoKCD mA?D=nE?=l mEID=F oH @A=@ >=JJAHEAI. 6DKI BoH ?onLAnEAn?A =n@ I=BAJO MA FHo­
+LE@A = secstore IA?KHA IJoHA IAHLAH En JDA nAJMoHk Jo Dol@ A=?D KIAHI FAHm=nAnJ
+lEIJoBkAOI,= key file.
+Secstore EI = BElA IAHLAH BoH An?HOFJA@ @=J=, KIA@ onlO @KHEnC >ooJIJH=FFEnC. 1J mKIJ
+FHoLE@A IJHonC =KJDAnJE?=JEon =n@ HAIEIJ=n?A Jo F=IIELA =n@ =?JELA FHoJo?ol=JJ=?kIMDElA
+=IIKmEnC noJDEnC moHA BHom JDA ?lEAnJ JD=n = F=IIMoH@. On?A factotum D=I lo=@A@
+JDA kAOBElA,BKHJDAHAn?HOFJA@oH=KJDAnJE?=JA@BElAIJoH=CA?=n>A=??omFlEIDA@>OIJ=n­
+@=H@mA?D=nEImI.
+6DA ?HOFJoCH=FDE? JA?DnoloCO JD=J An=>lAI secstore EI = BoHm oB An?HOFJA@ kAO
+AN?D=nCA ?=llA@ 2)K [*oOk], =n=loCoKI Jo -K- [*All'!], 542 [9K'&], oH 52-K- [J=>l].
+2)K M=I ?DoIAn >A?=KIA EJ ?omAI MEJD = FHooB oB AGKEL=lAn?A En IJHAnCJD Jo ,EBBEA0Allm=n; IK>JlA Bl=MI En IomA A=HlEAH An?HOFJA@ kAO AN?D=nCA FHoJo?olI =n@ EmFlAmAn­
+J=JEonID=LAAn?oKH=CA@KIJoJ=kAIFA?E=l?=HA. 1noKJlEnA,JDA2)KFHoJo?olEI:
+
+C→S: C,g x H
+S→C: S,g y ,hashg xy ,C,S
+C→S: hashg xy ,S,C
+MDAHA H EI = FHAID=HA@ IA?HAJ >AJMAAn ?lEAnJ C =n@ IAHLAH S. 6DAHA =HA IALAH=l L=HE=nJI
+oB 2)K, =ll FHAIAnJA@ En F=FAHI m=EnlO ?on?AHnA@ MEJD FHooBI oB ?HOFJoCH=FDE? FHoFAH­
+JEAI. 6o =E@ EmFlAmAnJAHI, MA D=LA @EIJEllA@ = @AI?HEFJEon oB JDA IFA?EBE? LAHIEon MA KIA
+EnJo =n )FFAn@EN Jo JDEI F=FAH. 6DA 2l=n ' oFAn IoKH?A lE?AnIA FHoLE@AI BoH KIA oB
+LK?AnJIAn?HOFJA@kAOAN?D=nCAF=JAnJIEnJDEI?onJANJ.
+)I = BKHJDAH l=OAH oB @ABAnIA =C=EnIJ F=IIMoH@ JDABJ, MA FHoLE@A MEJDEn JDA An?HOFJA@
+?D=nnAl CS EnBoHm=JEon JD=J EI L=lE@=JA@ =J = 4),175 IAHLAH, IK?D =I JDA @ECEJI BHom =
+D=H@M=HA JokAn [4.+ !&]. 6DEI FHoLE@AI JMo-B=?JoH =KJDAnJE?=JEon, MDE?D FoJAnJE=llO
+HAGKEHAIJHE?kEnCJMoEn@AFAn@AnJ=@mEnEIJH=JoHIEn=nO=JJ=?k>OIo?E=lAnCEnAAHEnC.
+6DA kAO BElA IJoHA@ on JDA IAHLAH EI An?HOFJA@ MEJD )-5 4Ejn@=Al KIEnC +*+ MEJD = >OJA EnEJE=lEz=JEon LA?JoH =n@ JH=ElEnC =KJDAnJE?=JEon F=@@EnC. )ll JDEI EI EnLEIE>lA Jo JDA
+KIAH oB secstore. .oH JD=J m=JJAH, EJ EI EnLEIE>lA Jo JDA secstore IAHLAH =I MAll; EB
+JDA )-5 Mo@AI oB OFAH=JEon =HA IJ=n@=H@EzA@ =n@ = nAM An?HOFJEon BoHm=J @AIECnA@, EJ
+?=n >A EmFlAmAnJA@ >O = ?lEAnJ MEJDoKJ ?D=nCA Jo JDA IAHLAH. 6DA secstore EI @AlE>­
+AH=JAlO noJ >=?kA@ KF; JDA KIAH EI ANFA?JA@ Jo KIA moHA JD=n onA secstore oH I=LA
+JDA kAO BElA on HAmoL=>lA mA@E= =n@ lo?k EJ =M=O. 6DA KIAHI F=IIMoH@ EI D=IDA@ Jo ?HA­
+=JA JDA H KIA@ En JDA 2)K FHoJo?ol; = @EBBAHAnJ D=ID oB JDA F=IIMoH@ EI KIA@ =I JDA BElA
+An?HOFJEon kAO. .En=llO, JDAHA EI = ?omm=n@ EnIE@A JDA =KJDAnJE?=JA@, An?HOFJA@ ?D=n­
+nAl >AJMAAn ?lEAnJ =n@ secstore Jo ?D=nCA F=IIMoH@I >O IAn@EnC = nAM H; BoH ?on­
+IEIJAn?O,JDA?lEAnJFHo?AIImKIJ=JJDAI=mAJEmABAJ?D=n@HA-An?HOFJ=llBElAI.
+9DAn factotum IJ=HJI, EJ @E=lI JDA lo?=l secstore =n@ ?DA?kI MDAJDAH JDA KIAH D=I
+=n =??oKnJ. 1B Io, EJ FHomFJI BoH JDA KIAHI secstore F=IIMoH@ =n@ BAJ?DAI JDA kAO
+BElA. 6DA 2)K FHoJo?ol AnIKHAI mKJK=l =KJDAnJE?=JEon =n@ FHALAnJI @E?JEon=HO =JJ=?kI on
+JDA F=IIMoH@ >O F=IIELA MEHAJ=FFAHI oH =?JELA EnJAHmA@E=HEAI. 2=IIMoH@I I=LA@ En JDA
+kAO BElA ?=n >A lonC H=n@om IJHEnCI IKEJ=>lA BoH IEmFlAH ?D=llAnCA/HAIFonIA =KJDAnJE?=­
+JEon FHoJo?olI. 6DKI JDA KIAH nAA@ onlO HAmAm>AH = IEnClA, MA=kAH F=IIMoH@ Jo An=>lA
+IJHonC, IEnClA IECn on =KJDAnJE?=JEon Jo Kn?D=nCA@ lAC=?O =FFlE?=JEonI I?=JJAHA@
+
+­$­
+=?HoIImKlJEFlA=KJDAnJE?=JEon@om=EnI.
+6. Transport Layer Security
+5En?A JDA 2l=n ' oFAH=JEnC IOIJAm EI @AIECnA@ BoH KIA En nAJMoHk AlAmAnJI JD=J mKIJ
+MEJDIJ=n@ @EHA?J =JJ=?k, KnCK=H@A@ >O BEHAM=ll oH 82N, MA IAAk Jo AnIKHA JD=J =ll=FFlE?=­
+JEonI KIA ?D=nnAlI MEJD =FFHoFHE=JA mKJK=l =KJDAnJE?=JEon =n@ An?HOFJEon. ) FHEn?EF=l
+Jool BoH JDEI EI 6L5 . [4.+ "$]. 6L5 . EI nA=HlO JDA I=mA =I 55L !., =n@ oKH IoBJ­
+M=HAEI@AIECnA@JoEnJAHoFAH=JAMEJDEmFlAmAnJ=JEonIoBAEJDAHIJ=n@=H@.
+6L5 @ABEnAI = HA?oH@ l=OAH FHoJo?ol BoH mAII=CA EnJACHEJO =n@ FHEL=?O JDHoKCD JDA KIA oB
+mAII=CA @ECAIJEnC =n@ An?HOFJEon MEJD ID=HA@ IA?HAJI. 9A EmFlAmAnJ JDEI IAHLE?A =I =
+kAHnAl @ALE?A, JDoKCD EJ ?oKl@ >A FAHBoHmA@ =J IlECDJlO DECDAH ?oIJ >O EnLokEnC = IAF=­
+H=JAFHoCH=m. 6DAlE>H=HOEnJAHB=?AJoJDA6L5kAHnAl@ALE?AEI:
+int pushtls(int fd, char *hashalg,
+char *cryptalg, int isclient,
+char *secret, char *dir);
+
+/ELAn = BElA @AI?HEFJoH, JDA n=mAI oB mAII=CA @ECAIJ =n@ An?HOFJEon =lCoHEJDmI, =n@ JDA
+ID=HA@ IA?HAJ, pushtls HAJKHnI = nAM BElA @AI?HEFJoH BoH JDA An?HOFJA@ ?onnA?JEon.
+6DA BEn=l =HCKmAnJ dir HA?AELAI JDA n=mA oB JDA @EHA?JoHO En JDA 6L5 @ALE?A JD=J EI
+=IIo?E=JA@ MEJD JDA nAM?onnA?JEon. 6DABKn?JEonEIn=mA@>O=n=loCOMEJDJDAFKID
+oFAH=JEon IKFFoHJA@ >O JDA IJHA=m 1/O IOIJAm oB 4AIA=H?D 7nEN =n@ JDA BEHIJ JMo A@E­
+JEonI oB 2l=n '. *A?=KIA =@@EnC An?HOFJEon EI =I IEmFlA =I HAFl=?EnC onA BElA @AI?HEFJoH
+MEJD=noJDAH,=@@EnCAn?HOFJEonJo=F=HJE?Kl=HnAJMoHkIAHLE?AEIKIK=llOJHELE=l.
+6DA2l=n'ID=HA@kAO=KJDAnJE?=JEonFHoJo?olIAIJ=>lEID=ID=HA@#$->EJIA?HAJ=I = IE@A
+ABBA?J. N=JELA 2l=n ' nAJMoHk IAHLE?AI IK?D =I cpu =n@ exportfs KIA JDAIA FHoJo?olI
+BoH=KJDAnJE?=JEon=n@JDAnEnLokA pushtls MEJDJDAID=HA@IA?HAJ.
+)>oLA JDA HA?oH@ l=OAH, 6L5 IFA?EBEAI = D=n@ID=kA FHoJo?ol KIEnC FK>lE? kAOI Jo AIJ=>­
+lEID JDA IAIIEon IA?HAJ. 6DEI FHoJo?ol EI ME@AlO KIA@ MEJD 0662 =n@ 1M)2" Jo FHoLE@A
+IAHLAH =KJDAnJE?=JEon, JDoKCD MEJD ?lEAnJ ?AHJEBE?=JAI EJ ?oKl@ FHoLE@A mKJK=l =KJDAnJE?=­
+JEon. 6DAlE>H=HOBKn?JEon
+int tlsClient(int fd, TLSconn *conn)
+
+D=n@lAI JDA EnEJE=l D=n@ID=kA =n@ HAJKHnI JDA HAIKlJ oB pushtls. On HAJKHn, EJ BEllI JDA
+conn IJHK?JKHA MEJD JDA IAIIEon 1, KIA@ =n@ JDA :.#' ?AHJEBE?=JA FHAIAnJA@ >O JDA
+IAHLAH, >KJ m=kAI no ABBoHJ Jo LAHEBO JDA ?AHJEBE?=JA. )lJDoKCD JDA oHECEn=l @AIECn EnJAnJ
+oB :.#' ?AHJEBE?=JAI ANFA?JA@ JD=J JDAO MoKl@ >A KIA@ MEJD = 2K>lE? KAO 1nBH=IJHK?JKHA,
+HAlE=>lA@AFloOmAnJD=I>AAnIo lonC @Al=OA@ =n@ FHo>lAm=JE? JD=J MA D=LA =@oFJA@ JDA
+IEmFlAH FolE?O oB jKIJ KIEnC JDA :.#' ?AHJEBE?=JA =I = HAFHAIAnJ=JEon oB JDA FK>lE? kAO,
+@AFAn@EnC on = lo?=llO-=@mEnEIJAHA@ @EHA?JoHO oB 50) JDKm>FHEnJI Jo =lloM =FFlE?=­
+JEonIJo@A?E@AMDE?DFK>lE?kAOIJoJHKIJBoHMDE?DFKHFoIAI.
+7. Related Work and Discussion
+KAH>AHoI, onA oB JDA A=HlEAIJ @EIJHE>KJA@ =KJDAnJE?=JEon IOIJAmI, kAAFI = IAJ oB =KJDAnJE­
+?=JEon JE?kAJI En = JAmFoH=HO BElA ?=llA@ = JE?kAJ ?=?DA. 6DA JE?kAJ ?=?DA EI FHoJA?JA@ >O
+7nEN BElA FAHmEIIEonI. )n AnLEHonmAnJ L=HE=>lA ?onJ=EnEnC JDA BElA n=mA oB JDA JE?kAJ
+?=?DA =lloMI BoH @EBBAHAnJ JE?kAJ ?=?DAI En @EBBAHAnJ IEmKlJ=nAoKI loCEn IAIIEonI. ) KIAH
+loCI En >O JOFEnC DEI oH DAH KAH>AHoI F=IIMoH@. 6DA loCEn FHoCH=m KIAI JDA KAH>AHoI
+F=IIMoH@ Jo o>J=En = JAmFoH=HO JE?kAJ-CH=nJEnC JE?kAJ BHom JDA =KJDAnJE?=JEon IAHLAH,
+EnEJE=lEzAI JDA JE?kAJ ?=?DA MEJD JDA JE?kAJ-CH=nJEnC JE?kAJ, =n@ JDAn BoHCAJI JDA F=II­
+MoH@. OJDAH =FFlE?=JEonI ?=n KIA JDA JE?kAJ-CH=nJEnC JE?kAJ Jo IECn JE?kAJI BoH JDAm­
+IAlLAI on >AD=lB oB JDA KIAH @KHEnC JDA loCEn IAIIEon. 6DA JE?kAJ ?=?DA EI HAmoLA@ MDAn
+JDA KIAH loCI oKJ [5JAE&&]. 6DA JE?kAJ ?=?DA HAlEALAI JDA KIAH BHom JOFEnC = F=IIMoH@
+ALAHOJEmA=KJDAnJE?=JEonEInAA@A@.
+
+­%­
+6DA IA?KHA IDAll 550 @ALAloFI JDEI E@A= BKHJDAH, HAFl=?EnC JDA JAmFoH=HO BElA MEJD =
+n=mA@ 7nEN @om=En Io?kAJ ?onnA?JA@ Jo = KIAH-lALAl FHoCH=m, ?=llA@ =n =CAnJ. On?A
+JDA 550 =CAnJ EI IJ=HJA@ =n@ EnEJE=lEzA@ MEJD onA oH moHA 45) FHEL=JA kAOI, 550 ?lEAnJI
+?=n AmFloO EJ Jo FAHBoHm 45) =KJDAnJE?=JEonI on JDAEH >AD=lB. 1n JDA =>IAn?A oB =n
+=CAnJ, 550 JOFE?=llO KIAI 45) kAOI HA=@ BHom An?HOFJA@ @EIk BElAI oH KIAI F=IIFDH=IA>=IA@ =KJDAnJE?=JEon, >oJD oB MDE?D MoKl@ HAGKEHA FHomFJEnC JDA KIAH BoH = F=IIFDH=IA
+MDAnALAH =KJDAnJE?=JEon EI nAA@A@ [;lon'$]. 6DA IAlB-?AHJEBOEnC BElA IOIJAm 5.5 KIAI =
+IEmEl=H =CAnJ [K=mE], noJ onlO BoH mo@AH=JEnC JDA KIA oB ?lEAnJ =KJDAnJE?=JEon kAOI >KJ
+=lIoBoHLAHEBOEnCIAHLAHFK>lE?kAOI[M=zE''].
+Factotum EI = loCE?=l ?onJEnK=JEon oB JDEI ALolKJEon, HAFl=?EnC JDA FHoCH=m-IFA?EBE?
+550 oH 5.5 =CAnJI MEJD = CAnAH=l =CAnJ ?=F=>lA oB IAHLEnC = ME@A L=HEAJO oB FHoCH=mI.
+0=LEnC onA =CAnJ BoH =ll FHoCH=mI HAmoLAI JDA nAA@ Jo D=LA onA =CAnJ BoH A=?D FHo­
+CH=m. 1J =lIo =lloMI JDA FHoCH=mI JDAmIAlLAI Jo >A FHoJo?ol-=CnoIJE?, Io JD=J, BoH
+AN=mFlA, onA ?oKl@ >KEl@ =n 550 MoHk=lEkA ?=F=>lA oB KIEnC =nO FHoJo?ol IKFFoHJA@ >O
+factotum, MEJDoKJ JD=J FHoCH=m knoMEnC =nOJDEnC =>oKJ JDA FHoJo?olI. 6H=@EJEon=llO
+A=?DFHoCH=mnAA@IJo EmFlAmAnJ A=?D =KJDAnJE?=JEon FHoJo?ol BoH EJIAlB, =n On  ?o@­
+EnCFHo>lAmJD=J factotum HA@K?AIJo On.
+2HALEoKI MoHk on =CAnJI D=I ?on?AnJH=JA@ on JDAEH KIA >O ?lEAnJI =KJDAnJE?=JEnC Jo
+IAHLAHI. LookEnC En JDA oJDAH @EHA?JEon, 5Kn ME?HoIOIJAmI FlKCC=>lA =KJDAnJE?=JEon
+mo@KlA 2)M EI onA oB JDA A=HlEAIJ =JJAmFJI Jo FHoLE@A = CAnAH=l =KJDAnJE?=JEon mA?D=­
+nEIm BoH 7nEN-lEkA oFAH=JEnC IOIJAmI [5=m='$]. 9EJDoKJ = ?AnJH=l =KJDoHEJO lEkA 2)M,
+IOIJAm FolE?O EI JEA@ KF En JDA L=HEoKI EmFlAmAnJ=JEonI oB nAJMoHk IAHLE?AI. .oH AN=m­
+FlA, on = JOFE?=l 7nEN, EB = IOIJAm =@mEnEIJH=JoH @A?E@AI noJJo=lloMFl=EnJANJF=IIMoH@I
+BoH =KJDAnJE?=JEon, JDA ?onBECKH=JEon BElAI BoH = D=lB @ozAn @EBBAHAnJ IAHLAHI 
+rlogind, telnetd, ftpd, sshd, =n@ Io on  nAA@ Jo >A A@EJA@. 2)M IolLAI JDEI
+FHo>lAm >O DE@EnC JDA @AJ=ElI oB = CELAn =KJDAnJE?=JEon mA?D=nEIm >ADEn@ = ?ommon
+lE>H=HO EnJAHB=?A. ,EHA?JA@ >O = IOIJAm-ME@A ?onBECKH=JEon BElA, =n =FFlE?=JEon IAlA?JI =
+F=HJE?Kl=H =KJDAnJE?=JEon mA?D=nEIm >O @On=mE?=llO lo=@EnC JDA =FFHoFHE=JA ID=HA@
+lE>H=HO. 2)MEIME@AlOKIA@on5KnI5ol=HEI=n@IomALEnKN@EIJHE>KJEonI.
+Factotum =?DEALAI JDA I=mA Co=lI KIEnC JDA =CAnJ =FFHo=?D. Factotum EI JDA onlO
+FHo?AII JD=J nAA@I Jo ?HA=JA ?=F=>ElEJEAI, Io =ll JDA nAJMoHk IAHLAHI ?=n HKn =I KnJHKIJA@
+KIAHI A.C., 2l=n 'I none oH 7nENI nobody, MDE?D CHA=JlO HA@K?AI JDA D=Hm @onA EB =
+IAHLAH EI >KCCO =n@ EI ?omFHomEIA@. 1n B=?J, EB factotum MAHA EmFlAmAnJA@ on 7nEN
+=lonC MEJD =n =n=loCKA Jo JDA 2l=n ' ?=F=>ElEJO @ALE?A, LAnAH=>lA FHoCH=mI lEkA su =n@
+login MoKl@nolonCAHnAA@Jo>AEnIJ=llA@IAJKE@HooJ.
+5ALAH=l oJDAH IOIJAmI, IK?D =I 2=IIMoH@ 5=BA [5?Dn], IJoHA mKlJEFlA F=IIMoH@I En =n
+An?HOFJA@ BElA, Io JD=J JDA KIAH onlO nAA@I Jo HAmAm>AH onA F=IIMoH@. OKH secstore
+IolKJEon @EBBAHI BHom JDAIA >O Fl=?EnC JDA IJoH=CA En = D=H@AnA@ lo?=JEon En JDA nAJMoHk,
+Io JD=J JDA An?HOFJA@ BElA EI lAII lE=>lA Jo >A IJolAn BoH oBBlEnA @E?JEon=HO =JJ=?k =n@ Io
+JD=J EJ EI =L=El=>lA ALAn MDAn = KIAH D=I IALAH=l ?omFKJAHI. 1n ?onJH=IJ, ME?HoIoBJI
+2=IIFoHJ IOIJAm [ME?H] kAAFI ?HA@AnJE=lI En JDA nAJMoHk, >KJ ?AnJH=lEzA@ =J onA
+ANJHAmAlO-DECD-L=lKA J=HCAJ. 6DA EmFoHJ=nJ BA=JKHA oB 2=IIFoHJ, IAJJEnC KF JHKIJ HAl=­
+JEonIDEFI MEJD A-mAH?D=nJI, EI oKJIE@A oKH I?oFA. 6DA secstore =H?DEJA?JKHA EI
+=lmoIJ E@AnJE?=l Jo 2AHlm=n =n@ K=KBm=nI [2AHl''] >KJ MEJD nAMAH -K- JA?DnoloCO. LEkA
+JDAm, MA ?DoIA Jo @ABAn@ m=EnlO =C=EnIJ oKJIE@A =JJ=?kI on secstore; EB =@@EJEon=l
+@ABAnIA oB JDA BElAI on JDA IAHLAH EJIAlB EI @AIEHA@, onA ?=n KIA @EIJHE>KJA@ JA?DnEGKAI
+[.oH@].
+9A m=@A = ?onI?EoKI ?DoE?A oB Fl=?EnC An?HOFJEon, mAII=CA EnJACHEJO, =n@ kAO m=n=CA­
+mAnJ =J JDA =FFlE?=JEon l=OAH 6L5, jKIJ =>oLA l=OAH " H=JDAH JD=n =J l=OAH !, =I En 12IA?.
+6DEI lA=@I Jo = IEmFlAH IJHK?JKHA BoH JDA nAJMoHk IJ=?k, A=IEAH EnJACH=JEon MEJD =FFlE?=­
+JEonI =n@, moIJ EmFoHJ=nJ, A=IEAH nAJMoHk =@mEnEIJH=JEon IEn?A MA ?=n HA?oCnEzA MDE?D
+=FFlE?=JEonI =HA mEI>AD=LEnC >=IA@ on 6+2 FoHJ nKm>AHI. 6L5 @oAI IKBBAH HAl=JELA Jo
+12IA? BHom JDA FoIIE>ElEJO oB BoHCA@ 6+2 4AIAJ, >KJ MA BAAl JD=J JDEI EI =@AGK=JAlO @A=lJ
+
+­&­
+MEJD >O H=n@omEzA@ 6+2 IAGKAn?A nKm>AHI. 1n ?onJH=IJ MEJD oJDAH 6L5 lE>H=HEAI, 2l=n '
+@oAI noJ HAGKEHA JDA =FFlE?=JEon Jo ?D=nCA write ?=llI Jo sslwrite >KJ IEmFlO Jo
+=@@=BAMlEnAIoB?o@A=JIJ=HJKF[4AI?].
+8. Conclusion
+9HEJEnC I=BA ?o@A EI @EBBE?KlJ. 5J=?k =JJ=?kI, mEIJ=kAI En loCE?, =n@ >KCI En ?omFElAHI
+=n@ oFAH=JEnC IOIJAmI ?=n A=?D m=kA EJ FoIIE>lA BoH =n =JJ=?kAH Jo IK>LAHJ JDA EnJAn@A@
+ANA?KJEon IAGKAn?A oB = IAHLE?A. 1B JDA IAHLAH FHo?AII D=I JDA FHELElACAI oB = FoMAHBKl
+KIAH, IK?D =I root on 7nEN, JDAn Io @oAI JDA =JJ=?kAH. Factotum =lloMI KI Jo ?on­
+IJH=En JDA FHELElACA@ ANA?KJEon Jo = IEnClA FHo?AII MDoIA ?oHA EI = BAM JDoKI=n@ lEnAI oB
+?o@A. 8AHEBOEnC IK?D = FHo?AII, >oJD JDHoKCD m=nK=l =n@ =KJom=JE? mA=nI, EI mK?D
+A=IEAH=n@lAIIAHHoHFHonAJD=nHAGKEHEnCEJoB=llIAHLAHI.
+)n EmFlAmAnJ=JEon oB JDAIA E@A=I EI En 2l=n ' BHom *All L=>I, .oKHJD -@EJEon, BHAAlO =L=El­
+=>lABHom http://plan9.bell−labs.com/plan9.
+Acknowledgments
+9EllE=m JoIAFDIon ?onJHE>KJA@ Jo JDA EmFlAmAnJ=JEon oB F=IIMoH@ ?D=nCEnC En
+secstore. 9A JD=nk 2DEl M=?KAnzEA =n@ M=HJín )>=@E BoH DAlFBKl ?ommAnJI on A=HlO
+F=HJI oB JDA @AIECn. +DK?k *l=kA, 2AJAH *oI?D, .H=nI K==IDoAk, 5=FA MKllAn@AH, =n@
+L=kIDm=n ;. N., FHA@omEn=nJlO ,KJ?DmAn, C=LA DAlFBKl ?ommAnJI on JDA F=FAH. 4KII
++oNEIIKFFoHJA@>O=BAlloMIDEFBHomJDA.=nnEA=n@JoDn0AHJz.oKn@=JEon.
+References
+[*All'!] 5.M. *AlloLEn =n@ M. MAHHEJJ, )KCmAnJA@ -n?HOFJA@ KAO -N?D=nCA, 2Ho?AA@­
+EnCI oB JDA IJ )+M +onBAHAn?A on +omFKJAH =n@ +ommKnE?=JEonI 5A?KHEJO, ''!, FF.
+""- #.
+[*oOk] 8E?JoH *oOko, 2DElEF M=?KAnzEA, =n@ 5=HL=H 2=JAl, 2HoL=>lO 5A?KHA 2=IIMoH@)KJDAnJE?=JA@KAO-N?D=nCAKIEnC,EBBEA-0Allm=n, -KHo?HOFJ ,#$%.
+[4.+
+
+"$]6.,EAHkI=n@+.)llAn,6DA6L52HoJo?ol,8AHIEon., 4.+
+
+"$.
+
+[.oH@]9=HME?k.oH@=n@*KHJon 5. K=lEIkE, JH., 5AHLAH-)IIEIJA@ /AnAH=JEon oB = 5JHonC
+5A?HAJ BHom = 2=IIMoH@, 1--- .EBJD 1nJAHn=JEon=l 9oHkIDoF on -nJAHFHEIA 5A?KHEJO,
+N=JEon=l 1nIJEJKJA oB 5J=n@=H@I =n@ 6A?DnoloCO N156, /=EJDAHI>KHC M,, JKnA " - $,
+.
+[J=>l] ,=LE@ 2. J=>lon, 5JHonC 2=IIMoH@-OnlO )KJDAnJE?=JA@
+http://integritysciences.com/speke97.html.
+
+KAO
+
+-N?D=nCA,
+
+[K=mE]ME?D=AlK=mEnIkO. .lANE>lA KAO M=n=CAmAnJ MEJD 5.5 )CAnJI, M=IJAHI 6DA­
+IEI,M16,M=O .
+[M=?k]2DElEFM=?KAnzEA,FHEL=JA?ommKnE?=JEon.
+[M=zE''] ,=LE@ M=zEèHAI, ME?D=Al K=mEnIkO, M. .H=nI K==IDoAk =n@ -mmAJJ 9EJ?DAl,
+5AF=H=JEnC kAO m=n=CAmAnJ BHom BElA IOIJAm IA?KHEJO, 5OmFoIEKm on OFAH=JEnC 5OI­
+JAmI2HEn?EFlAI,''',FF. "-!'.
+[ME?H]ME?HoIoBJ2=IIFoHJ, http://www.passport.com/.
+[2AHl''] 4=@E= 2AHlm=n =n@ +D=HlEA K=KBm=n, 5A?KHA 2=IIMoH@-*=IA@ 2HoJo?ol BoH
+,oMnlo=@EnC = 2HEL=JA KAO, 2Ho?. ''' NAJMoHk =n@ ,EIJHE>KJA@ 5OIJAm 5A?KHEJO 5Om­
+FoIEKm,1nJAHnAJ5o?EAJO,J=nK=HO'''.
+[2EkA'#] 4o> 2EkA, ,=LA 2HAIoJJo, 5A=n ,oHM=H@, *o> .l=n@HAn=, KAn 6DomFIon, 0oM=H@
+6HE?kAO, =n@ 2DEl 9EnJAH>oJJom, 2l=n ' BHom *All L=>I, +omFKJEnC 5OIJAmI, 8, !, 5Km­
+mAH''#,FF. - #".
+[2EkA'!] 4o> 2EkA, ,=LA 2HAIoJJo, KAn 6DomFIon, 0oM=H@ 6HE?kAO, 2DEl 9EnJAH>oJJom,
+6DA 7IA oB N=mA 5F=?AI En 2l=n ', OFAH=JEnC 5OIJAmI 4ALEAM, 27, , )FHEl ''!, FF.
+
+­'­
+% -%$ HAFHEnJA@ BHom 2Ho?AA@EnCI oB JDA #JD )+M 51/O25 -KHoFA=n 9oHkIDoF, MonJ
+5=EnJ-ME?DAl,'' ,2=FAHnº!".
+[4AI?] -HE? 4AI?oHl=, 55L =n@ 6L5: ,AIECnEnC =n@ *KEl@EnC 5A?KHA 5OIJAmI,
+)@@EIon-9AIlAO, .15*N- -$#'&-!,F.!&%.
+[4.+ !&] +. 4ECnAO, ). 4K>AnI, 9. 5EmFIon, 5. 9EllAnI, 4AmoJA )KJDAnJE?=JEon ,E=l 1n
+7IAH5AHLE?A4),175, 4.+ !&,)FHEl''%.
+[4EL=] 4on=l@ L. 4ELAIJ =n@ *KJlAH L=mFIon, 5,51) 5EmFlA ,EIJHE>KJA@ 5A?KHEJO 1nBH=I­
+JHK?JKHA, http://theory.lcs.mit.edu/~rivest/sdsi10.ps.
+[5?Dn] *HK?A 5?DnAEAH,
+passsafe.html.
+
+2=IIMoH@
+
+5=BA,
+
+http://www.counterpane.com/-
+
+[5=m='$] 8EFEn 5=m=H, 7nEBEA@ LoCEn MEJD 2lKCC=>lA )KJDAnJE?=JEon Mo@KlAI 2)M,
+2Ho?AA@EnCI oB JDA 6DEH@ )+M +onBAHAn?A on +omFKJAH +ommKnE?=JEonI =n@ 5A?KHEJO,
+M=H?D''$,NAM,AlDE,1n@E=.
+[5JAE&&] JAnnEBAH /. 5JAEnAH, +lEBBoH@ NAKm=nn, =n@ JABBHAO 1. 5?DEllAH, Kerberos: )n
+)KJDAnJE?=JEon 5AHLE?A BoH OFAn NAJMoHk 5OIJAmI, 2Ho?AA@EnCI oB 75-N1: 9EnJAH +on­
+BAHAn?A,,=ll=I,6AN=I,.A>HK=HO'&&,FF.'  .
+[9K'&] 6. 9K, 6DA 5A?KHA 4AmoJA 2=IIMoH@ 2HoJo?ol, 2Ho?AA@EnCI oB JDA ''& 1nJAH­
+nAJ 5o?EAJO NAJMoHk =n@ ,EIJHE>KJA@ 5OIJAm 5A?KHEJO 5OmFoIEKm, 5=n ,EACo, +), M=H?D
+''&,FF.'%-.
+[;lon'$] ;lonAn, 6., 5505A?KHA LoCEn +onnA?JEonI OLAH JDA 1nJAHnAJ, $JD 75-N1:
+5A?KHEJO5OmFoIEKm,FF.!%-" .5=nJoIA,+),JKlO''$.
+Appendix: Summary of the PAK protocol
+LAJ q > $ =n@ p >  " >A FHEmAI IK?D JD=J p = rq +  MEJD r noJ = mKlJEFlA oB q.
+6=kA h∈Z *p IK?D JD=J gah r EI noJ . 6DAIA F=H=mAJAHI m=O >A ?DoIAn >O JDA N156
+=lCoHEJDmBoH,5), =n@ =HA FK>lE?, BENA@ L=lKAI. 6DA ?lEAnJ C knoMI = IA?HAJ À =n@ ?om­
+FKJAI HaH  C, À r =n@ H −  , MDAHA H  EI = D=ID BKn?JEon OEAl@EnC = H=n@om AlA­
+mAnJ oB Z *p , =n@ H −  m=O >A ?omFKJA@ >O C?@. )ll =HEJDmAJE? EI mo@Klo p. 6DA ?lEAnJ
+CELAI H −  Jo JDA IAHLAH S =DA=@ oB JEmA >O = FHEL=JA ?D=nnAl. 6o IJ=HJ = nAM ?onnA?­
+JEon, JDA ?lEAnJ CAnAH=JAI = H=n@om L=lKA x, ?omFKJAI mag x H, JDAn ?=llI JDA IAHLAH
+=n@ IAn@I C =n@ m. 6DA IAHLAH ?DA?kI m` mo@ p, CAnAH=JAI H=n@om y, ?omFKJAI
+¼ag y , ÃamH −   y , =n@ IAn@I S, ¼, kasha1IAHLAH,C,S,m,¼,Ã,H −  . NANJ JDA
+?lEAnJ ?omFKJAI Ã = ¼ x , LAHEBEAI k, =n@ IAn@I k′asha1?lEAnJ,C,S,m,¼,Ã,H −  .
+6DA IAHLAH JDAn LAHEBEAI k′ =n@ >oJD IE@AI >ACEn KIEnC IAIIEon kAO
+Kasha1IAIIEon,C,S,m,¼,Ã,H −  . 1n JDA FK>lEIDA@ LAHIEon oB 2)K, JDA IAHLAH
+n=mA S EI En?lK@A@ En JDA EnEJE=l D=ID H, >KJ @oEnC Io EI En?onLAnEAnJ En oKH =FFlE?=JEon,
+=IJDAIAHLAHm=O>AknoMn>OL=HEoKIAGKEL=lAnJn=mAI.
+M=?KAnzEA D=I IDoMn [M=?k] JD=J JDA AGKEL=lAn?A FHooB [*oOk] ?=n >A =@=FJA@ Jo
+?oLAHoKHLAHIEon.
+
+

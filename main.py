@@ -1,3 +1,7 @@
+"""
+    Analyzes text files and makes a database from which
+    it can guess which word comes next in a word sequence
+"""
 from codecs import ascii_encode
 import os
 import random
@@ -17,15 +21,15 @@ class Word:
     def getMostAsc(self):
         best = -1
         cur = Asc("the", 0)
+        max = 3
+        if(len(self.ascs) < max):
+            max = len(self.ascs)
         for asc in self.ascs:
             #print(asc.word + " : " + str(asc.nums))
-            if(asc.nums > best and random.randint(0, 2) == 1):
+            #if(asc.nums > best and random.randint(0, asc.nums * 2 + best + max) > asc.nums):
+            if(asc.nums > best and asc.word not in self.word):
                 best = asc.nums
                 cur = asc
-        """print(best)
-        print(cur)
-        print(h)
-        input()"""
         return cur.word
 class Letter:
     def __init__(self, letter):
@@ -111,29 +115,43 @@ class Mak:
         #    g = random.randint(0, 25)
         return self.lets[g].words[random.randint(0, len(self.lets[g].words))].word
     def finalDump(self):
+        k = 0
+        j = 0
         os.system("rm out.log")
         with open("out.log", "w") as b:
             for letter in self.lets:
-                b.write("LETTER: " + letter.letter + "\n")
+                b.write("=== LETTER: " + letter.letter + " ===\n")
                 for word in letter.words:
-                    b.write("WORD: " + word.word + "\n")
+                    k += 1
+                    b.write("=== WORD: " + word.word + " ===\n")
                     b.write("ASCS: " + str(len(word.ascs)) + "\n")
                     for asc in word.ascs:
+                        j += 1
                         b.write("[ASC] " + asc.word + " - " + str(asc.nums) + "\n")
-
+                    b.write("=== END WORD ===\n")
+                b.write("=== END LETTER ===\n")
+        print("Total words: " + str(k))
+        print("Total ascs: " + str(j))
+        print("Total: " + str(k + j))
 print("Started")
 crazy = Mak()
 print("Reading")
 g = 0
-goof = False
-if("y" in input("? ")):
-    goof = True
-if not goof:
+goof = "nah"
+y = input("? ")
+if("y" in y):
+    goof = "yah"
+if("r" in y):
+    goof = "wow"
+if not "yah" in goof:
     fulltime = 0
-    for filename in os.listdir("train"):
+    path = input("Train Directory ? ")
+    if("wow" in goof):
+        crazy = pickle.load(open("dump.dump", "rb"))
+    for filename in os.listdir(path):
         print("Reading: " + filename)
         tmptime = time.time()
-        with open("train/" + filename, "r") as goof:
+        with open(path + "/" + filename, "r") as goof:
             l = goof.readlines()
             #print(l)
             for line in l:
@@ -154,33 +172,40 @@ if not goof:
                 # print("Completed:" + str((g / (len(l) * len(swag))) * 100), end='\r')
         print("Read in " + str(time.time() - tmptime))
         fulltime += time.time() - tmptime
-    crazy.finalDump()
+    
     print("Finished 'train' in " + str(fulltime))
     pickle.dump(crazy, open("dump.dump", "wb"))
+    print("Dump finished")
+print("Load from dump")
 crazy = pickle.load(open("dump.dump", "rb"))
-print(g)
+crazy.finalDump()
+#print(crazy.g)
 while True:
-    start = input("What to complete: ")
+    start = input("INPUT> ")
     word = start.split(" ")[len(start.split(" ")) - 1]
     print("Start: " + word)
     wow = []
+    tmpback = []
     wow.append(start + " ")
-    for i in range(1000):
-        try:
+    for i in range(300):
+       # try:
+        tmpword = crazy.getAsc(word)
+        while len(tmpword) < 1 or tmpword in tmpback:
             tmpword = crazy.getAsc(word)
-            #while ' ' not in tmpword:
-            #    tmpword = crazy.getAsc(word)
-            if(tmpword == "NAH_NAH"):
-                print(" [TMP->] ", end="")
-                word = crazy.getRandomWord()
-            else:
-                word = tmpword
-            print(word + " ", end="")
-            wow.append(word + " ")
-            if(i  % 20 == 0):
-                wow.append("\n")
-        except:
+        if(tmpword == "NAH_NAH"):
+            print(" [TMP->] ", end="")
             word = crazy.getRandomWord()
+        else:
+            word = tmpword
+        print(word + " ", end="")
+        wow.append(word + " ")
+        tmpback.append(word)
+        if(i  % 20 == 0):
+            tmpback = []
+            wow.append("\n")
+        #except:
+         #   print(" [ERROR->] ", end="")
+         #   word = crazy.getRandomWord()
     print("")
     with open("out.txt", "w") as w:
         w.writelines(wow)

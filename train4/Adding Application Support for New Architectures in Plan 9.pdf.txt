@@ -1,0 +1,439 @@
+Adding Application Support for a New Architecture in
+Plan 9
+Bob Flandrena
+bobf@plan9.bell−labs.com
+
+Introduction
+2l=n ' D=I BELA ?l=IIAI oB =H?DEJA?JKHA-@AFAn@AnJ IoBJM=HA: DA=@AHI, kAHnAlI, ?omFElAHI
+=n@ lo=@AHI, JDA libc IOIJAm lE>H=HO, =n@ = BAM =FFlE?=JEon FHoCH=mI. 1n CAnAH=l,
+=H?DEJA?JKHA-@AFAn@AnJ FHoCH=mI ?onIEIJ oB = FoHJ=>lA F=HJ ID=HA@ >O =ll =H?DEJA?JKHAI
+=n@ = FHo?AIIoH-IFA?EBE? FoHJEon BoH A=?D IKFFoHJA@ =H?DEJA?JKHA. 6DA FoHJ=>lA ?o@A EI
+oBJAn ?omFElA@ =n@ IJoHA@ En = lE>H=HO =IIo?E=JA@ MEJD A=?D =H?DEJA?JKHA. ) FHoCH=m EI
+>KElJ >O ?omFElEnC JDA =H?DEJA?JKHA-IFA?EBE? ?o@A =n@ lo=@EnC EJ MEJD JDA lE>H=HO. 5KFFoHJ
+BoH = nAM =H?DEJA?JKHA EI FHoLE@A@ >O >KEl@EnC = ?omFElAH BoH JDA =H?DEJA?JKHA, KIEnC EJ Jo
+?omFElA JDA FoHJ=>lA ?o@A EnJo lE>H=HEAI, MHEJEnC JDA =H?DEJA?JKHA-IFA?EBE? ?o@A, =n@ JDAn
+lo=@EnCJD=J?o@AMEJDJDAlE>H=HEAI.
+6DEI @o?KmAnJ @AI?HE>AI JDA oHC=nEz=JEon oB JDA =H?DEJA?JKHA-@AFAn@AnJ ?o@A =n@
+DA=@AHI on 2l=n '. 6DA BEHIJ IA?JEon >HEABlO @EI?KIIAI JDA l=OoKJ oB JDA DA=@AHI =n@ JDA
+IoKH?A ?o@A BoH JDA kAHnAlI, ?omFElAHI, lo=@AHI, =n@ JDA IOIJAm lE>H=HO, libc. 6DA IA?­
+on@ IA?JEon FHoLE@AI = @AJ=ElA@ @EI?KIIEon oB JDA IJHK?JKHA oB libmach, = lE>H=HO ?on­
+J=EnEnC =lmoIJ =ll =H?DEJA?JKHA-@AFAn@AnJ ?o@A KIA@ >O =FFlE?=JEon FHoCH=mI. 6DA BEn=l
+IA?JEon @AI?HE>AI JDA IJAFI HAGKEHA@ Jo=@@=FFlE?=JEonFHoCH=mIKFFoHJBoH=nAM=H?DE­
+JA?JKHA.
+Directory Structure
+)H?DEJA?JKHA-@AFAn@AnJ EnBoHm=JEon BoH JDA nAM FHo?AIIoH EI IJoHA@ En JDA @EHA?­
+JoHO JHAA HooJA@ =J /m MDAHA m EI JDA n=mA oB JDA nAM =H?DEJA?JKHA A.C., mips. 6DA
+nAM @EHA?JoHO IDoKl@ >A EnEJE=lEzA@ MEJD IALAH=l EmFoHJ=nJ IK>@EHA?JoHEAI, noJ=>lO bin,
+include, =n@ lib. 6DA @EHA?JoHO JHAA oB =n ANEIJEnC =H?DEJA?JKHA IAHLAI =I = Coo@
+mo@Al BoH JDA nAM JHAA. 6DA =H?DEJA?JKHA-@AFAn@AnJ mkfile mKIJ >A IJoHA@ En JDA
+nAMlO ?HA=JA@ HooJ @EHA?JoHO BoH JDA =H?DEJA?JKHA. 1J EI A=IEAIJ Jo ?oFO JDA mkBElA BoH =n
+ANEIJEnC =H?DEJA?JKHA =n@ mo@EBO EJ BoH JDA nAM =H?DEJA?JKHA. 9DAn JDA mkBElA EI ?oHHA?J,
+?D=nCA JDA OS =n@ CPUS L=HE=>lAI En JDA /sys/src/mkfile.proto Jo HABlA?J JDA
+=@@EJEonoBJDAnAM=H?DEJA?JKHA.
+Headers
+)H?DEJA?JKHA-@AFAn@AnJ DA=@AHI =HA IJoHA@ En @EHA?JoHO /m/include MDAHA m EI JDA
+n=mA oB JDA =H?DEJA?JKHA A.C., mips. 6Mo DA=@AH BElAI =HA HAGKEHA@: u.h =n@
+ureg.h. 6DA BEHIJ @ABEnAI BKn@=mAnJ=l @=J= JOFAI, >EJ IAJJEnCI BoH JDA Blo=JEnC FoEnJ
+IJ=JKI =n@ ?onJHol HACEIJAHI, =n@ va_list FHo?AIIEnC MDE?D @AFAn@I on JDA IJ=?k
+mo@Al BoH JDA =H?DEJA?JKHA. 6DEI BElA EI >AIJ >KElJ >O ?oFOEnC =n@ mo@EBOEnC JDA u.h BElA
+BHom =n =H?DEJA?JKHA MEJD = IEmEl=H IJ=?k mo@Al. 6DA ureg.h BElA ?onJ=EnI = IJHK?JKHA
+@AI?HE>EnC JDA l=OoKJ oB JDA I=LA@ HACEIJAH IAJ BoH JDA =H?DEJA?JKHA; EJ EI @ABEnA@ >O JDA
+kAHnAl.
+0A=@AH BElA /sys/include/a.out.h ?onJ=EnI JDA @ABEnEJEonI oB JDA m=CE? nKm>AHI
+KIA@ Jo E@AnJEBO ANA?KJ=>lAI BoH A=?D =H?DEJA?JKHA. 9DAn IKFFoHJ BoH = nAM =H?DEJA?JKHA
+
+­ ­
+EI=@@A@,JDAm=CE?nKm>AHBoHJDA=H?DEJA?JKHAmKIJ>A=@@A@JoJDEIBElA.
+6DA DA=@AH BoHm=J oB = >ooJ=>lA ANA?KJ=>lA EI @ABEnA@ >O A=?D m=nKB=?JKHAH. 0A=@AH
+BElA /sys/include/bootexec.h ?onJ=EnI IJHK?JKHAI @AI?HE>EnC JDA DA=@AHI ?KH­
+HAnJlO IKFFoHJA@. 1B JDA nAM =H?DEJA?JKHA KIAI = ?ommon DA=@AH IK?D =I +O.., JDA
+DA=@AH BoHm=J EI FHo>=>lO =lHA=@O @ABEnA@, >KJ EB JDA >ooJ=>lA DA=@AH BoHm=J EI nonIJ=n@=H@,=IJHK?JKHA@ABEnEnCJDABoHm=JmKIJ>A=@@A@JoJDEIBElA.
+Kernel
+)lJDoKCD JDA kAHnAl @AFAn@I ?HEJE?=llO on JDA FHoFAHJEAI oB JDA Kn@AHlOEnC D=H@M=HA,
+moIJ oB JDA DECDAH-lALAl kAHnAl BKn?JEonI, En?lK@EnC FHo?AII m=n=CAmAnJ, F=CEnC,
+FIAK@o-@ALE?AI, =n@ IomA nAJMoHkEnC ?o@A, =HA En@AFAn@AnJ oB FHo?AIIoH =H?DEJA?JKHA.
+6DA FoHJ=>lA kAHnAl ?o@A EI @ELE@A@ EnJo JMo F=HJI: JD=J EmFlAmAnJEnC kAHnAl BKn?JEonI
+=n@ JD=J @ALoJA@ Jo JDA >ooJ FHo?AII. +o@A En JDA BEHIJ ?l=II EI IJoHA@ En @EHA?JoHO
+/sys/src/9/port =n@ JDA FoHJ=>lA >ooJ ?o@A EI IJoHA@ En /sys/src/9/boot.
+)H?DEJA?JKHA-@AFAn@AnJ kAHnAl ?o@A EI IJoHA@ En JDA IK>@EHA?JoHEAI oB /sys/src/9
+n=mA@BoHA=?D=H?DEJA?JKHA.
+6DA HAl=JEonIDEF >AJMAAn JDA kAHnAl ?o@A =n@ JDA >ooJ ?o@A EI ?onLolKJA@ =n@ IK>JlA.
+6DA FoHJ=>lA >ooJ ?o@A EI ?omFElA@ EnJo = lE>H=HO BoH A=?D =H?DEJA?JKHA. )n
+=H?DEJA?JKHA-IFA?EBE? m=En FHoCH=m EI lo=@A@ MEJD JDA =FFHoFHE=JA lE>H=HO =n@ JDA HAIKlJ­
+EnC ANA?KJ=>lA EI ?omFElA@ EnJo JDA kAHnAl MDAHA EJ EI ANA?KJA@ =I = KIAH FHo?AII @KHEnC
+JDA BEn=l IJ=CAI oB kAHnAl EnEJE=lEz=JEon. 6DA >ooJ FHo?AII FAHBoHmI =KJDAnJE?=JEon,
+=JJ=?DAI JDA n=mA IF=?A HooJ Jo JDA =FFHoFHE=JA BElA IOIJAm =n@ IJ=HJI JDA init FHo­
+?AII.
+6DA oHC=nEz=JEon oB JDA FoHJ=>lA kAHnAl IoKH?A ?o@A @EBBAHI BHom JD=J oB moIJ oJDAH
+=H?DEJA?JKHA-IFA?EBE? ?o@A. 1nIJA=@ oB IJoHEnC JDA FoHJ=>lA ?o@A En = lE>H=HO =n@ lo=@EnC
+EJ MEJD JDA =H?DEJA?JKHA-IFA?EBE? ?o@A, JDA FoHJ=>lA ?o@A EI ?omFElA@ @EHA?JlO EnJo JDA
+@EHA?JoHO ?onJ=EnEnC JDA =H?DEJA?JKHA-IFA?EBE? ?o@A =n@ lEnkA@ MEJD JDA o>jA?J BElAI >KElJ
+BHomJDAIoKH?AEnJD=J@EHA?JoHO.
+Compilers and Loaders
+6DA?omFElAHIoKH?A?o@A?onBoHmIJoJDA KIK=l oHC=nEz=JEon: FoHJ=>lA ?o@A EI ?omFElA@
+EnJo = lE>H=HO BoH A=?D =H?DEJA?JKHA =n@ JDA =H?DEJA?JKHA-@AFAn@AnJ ?o@A EI lo=@A@ MEJD
+JD=J lE>H=HO. 6DA ?ommon ?omFElAH ?o@A EI IJoHA@ En /sys/src/cmd/cc. 6DA
+mkfile En JDEI @EHA?JoHO ?omFElAI JDA FoHJ=>lA IoKH?A =n@ =H?DELAI JDA o>jA?JI En =
+lE>H=HO BoH A=?D =H?DEJA?JKHA. 6DA =H?DEJA?JKHA-IFA?EBE? ?omFElAH IoKH?A EI IJoHA@ En =
+IK>@EHA?JoHO oB /sys/src/cmd MEJD JDA I=mA n=mA =I JDA ?omFElAH A.C.,
+/sys/src/cmd/vc.
+6DAHA EI no FoHJ=>lA ?o@A ID=HA@ >O JDA lo=@AHI. -=?D @EHA?JoHO oB lo=@AH IoKH?A ?o@A EI
+IAlB-?onJ=EnA@, AN?AFJ BoH = DA=@AH BElA =n@ =n EnIJHK?JEon n=mA J=>lA En?lK@A@ BHom JDA
+@EHA?JoHOoBJDA=IIo?E=JA@?omFElAH.
+Libraries
+MoIJ + lE>H=HO mo@KlAI =HA FoHJ=>lA; JDA IoKH?A ?o@A EI IJoHA@ En @EHA?JoHEAI
+/sys/src/libc/port =n@ /sys/src/libc/9sys. )H?DEJA?JKHA-@AFAn@AnJ
+lE>H=HO ?o@A EI IJoHA@ En JDA IK>@EHA?JoHO oB /sys/src/libc n=mA@ JDA I=mA =I JDA
+J=HCAJ FHo?AIIoH. Non-FoHJ=>lA BKn?JEonI noJ onlO EmFlAmAnJ =H?DEJA?JKHA-@AFAn@AnJ
+oFAH=JEonI >KJ =lIo IKFFlO =IIAm>lO l=nCK=CA EmFlAmAnJ=JEonI oB BKn?JEonI MDAHA
+IFAA@ EI ?HEJE?=l. ,EHA?JoHO /sys/src/libc/9syscall EI KnKIK=l >A?=KIA EJ ?on­
+J=EnI =H?DEJA?JKHA-@AFAn@AnJ EnBoHm=JEon BoH =ll =H?DEJA?JKHAI. 1J Dol@I onlO = DA=@AH
+BElA @ABEnEnC JDA n=mAI =n@ nKm>AHI oB IOIJAm ?=llI =n@ = mkfile. 6DA mkfile ANA­
+?KJAI =n rc I?HEFJ JD=J F=HIAI JDA DA=@AH BElA, ?onIJHK?JI =IIAm>lAH l=nCK=CA BKn?JEonI
+
+­!­
+EmFlAmAnJEnC JDA IOIJAm ?=ll BoH A=?D =H?DEJA?JKHA, =IIAm>lAI JDA ?o@A, =n@ =H?DELAI
+JDAo>jA?JBElAIEn libc. 6DA=IIAm>lAH l=nCK=CA IOnJ=N =n@ JDA IOIJAm EnJAHB=?A @EBBAH
+BoH A=?D =H?DEJA?JKHA. 6DA rc I?HEFJ En JDEI mkfile mKIJ >A mo@EBEA@ Jo IKFFoHJ = nAM
+=H?DEJA?JKHA.
+Applications
+)FFlE?=JEon FHoCH=mI FHo?AII JMo BoHmI oB =H?DEJA?JKHA-@AFAn@AnJ EnBoHm=JEon: ANA­
+?KJ=>lA Em=CAI =n@ EnJAHmA@E=JA o>jA?J BElAI. )lmoIJ =ll FHo?AIIEnC EI on ANA?KJ=>lA
+BElAI. 5OIJAm lE>H=HO libmach FHoLE@AI BKn?JEonI JD=J ?onLAHJ =H?DEJA?JKHA-IFA?EBE?
+@=J= Jo = FoHJ=>lA BoHm=J Io =FFlE?=JEon FHoCH=mI ?=n FHo?AII JDEI @=J= En@AFAn@AnJ oB
+EJI Kn@AHlOEnC HAFHAIAnJ=JEon. .KHJDAH, MDAn = nAM =H?DEJA?JKHA EI EmFlAmAnJA@ =lmoIJ
+=ll ?o@A ?D=nCAI =HA ?onBEnA@ Jo JDA lE>H=HO; moIJ =BBA?JA@ =FFlE?=JEon FHoCH=mI nAA@
+onlO>AHAlo=@A@. 6DAIoKH?A?o@ABoHJDAlE>H=HOEIIJoHA@En /sys/src/libmach.
+)n =FFlE?=JEon FHoCH=m HKnnEnC on onA JOFA oB FHo?AIIoH mKIJ >A =>lA Jo EnJAHFHAJ
+=H?DEJA?JKHA-@AFAn@AnJ EnBoHm=JEon BoH =ll IKFFoHJA@ FHo?AIIoHI. .oH AN=mFlA, =
+@A>KCCAH mKIJ >A =>lA Jo @A>KC JDA ANA?KJ=>lAI oB =ll =H?DEJA?JKHAI, noJ jKIJ JDA =H?DE­
+JA?JKHA on MDE?D EJ EI ANA?KJEnC, IEn?A /proc m=O >A EmFoHJA@ BHom = @EBBAHAnJ
+m=?DEnA.
+) Im=ll F=HJ oB JDA =FFlE?=JEon lE>H=HO FHoLE@AI BKn?JEonI Jo ANJH=?J IOm>ol HABAHAn?AI
+BHom o>jA?J BElAI. 6DA HAm=En@AH FHoLE@AI JDA BolloMEnC FHo?AIIEnC oB ANA?KJ=>lA BElAI
+oHmAmoHOEm=CAI:
+
+
+0A=@AHEnJAHFHAJ=JEon.
+
+
+
+5Om>olJ=>lAEnJAHFHAJ=JEon.
+
+
+
+-NA?KJEon ?onJANJ EnJAHFHAJ=JEon, IK?D =I IJ=?k JH=?AI =n@ IJ=?k BH=mA lo?=­
+JEon.
+
+
+
+1nIJHK?JEon EnJAHFHAJ=JEon En?lK@EnC @EI=IIAm>lO =n@ EnIJHK?JEon IEzA =n@
+BolloM-IAJ?=l?Kl=JEonI.
+
+
+
+-N?AFJEon=n@Blo=JEnCFoEnJnKm>AHEnJAHFHAJ=JEon.
+
+
+
+)H?DEJA?JKHA-En@AFAn@AnJHA=@=n@MHEJA=??AIIJDHoKCD=HAlo?=JEonm=F.
+
+0A=@AH BElA /sys/include/mach.h @ABEnAI JDA EnJAHB=?AI Jo JDA =FFlE?=JEon lE>H=HO.
+M=nK=l F=CAI mach , symbol , =n@ object  @AI?HE>A JDA @AJ=ElI oB JDA lE>H=HO BKn?­
+JEonI.
+6Mo @=J= IJHK?JKHAI, ?=llA@ Mach =n@ Machdata, ?onJ=En =H?DEJA?JKHA-@AFAn@AnJ
+F=H=mAJAHI =n@ = jKmF J=>lA oB BKn?JEonI. /lo>=l L=HE=>lAI mach =n@ machdata FoEnJ
+JoJDA Mach =n@ Machdata @=J= IJHK?JKHAI =IIo?E=JA@ MEJD JDA J=HCAJ =H?DEJA?JKHA. )n
+=FFlE?=JEon @AJAHmEnAI JDA J=HCAJ =H?DEJA?JKHA oB = BElA oH ANA?KJ=>lA Em=CA, IAJIJDAClo­
+>=l FoEnJAHI Jo JDA @=J= IJHK?JKHAI =IIo?E=JA@ MEJD JD=J =H?DEJA?JKHA, =n@ IK>IAGKAnJlO
+FAHBoHmI =ll HABAHAn?AI En@EHA?JlO JDHoKCD JDA FoEnJAHI. )I = HAIKlJ, @EHA?J HABAHAn?AI Jo
+JDA J=>lAI BoH A=?D =H?DEJA?JKHA =HA =LoE@A@ =n@ JDA =FFlE?=JEon ?o@A EnJHEnIE?=llO IKF­
+FoHJI=ll=H?DEJA?JKHAIJDoKCDonlOonA=J=JEmA.
+O>jA?J BElA FHo?AIIEnC EI D=n@lA@ IEmEl=HlO: =H?DEJA?JKHA-@AFAn@AnJ BKn?JEonI E@AnJEBO
+=n@ @A?o@A JDA EnJAHmA@E=JA BElAI BoH JDA FHo?AIIoH. 6DA =FFlE?=JEon En@EHA?JlO EnLokAI =
+?l=IIEBE?=JEon BKn?JEon Jo E@AnJEBO JDA =H?DEJA?JKHA oB JDA o>jA?J ?o@A =n@ Jo IAlA?J JDA
+=FFHoFHE=JA @A?o@EnC BKn?JEon. 5K>IAGKAnJ ?=llI JDAn KIA JD=J BKn?JEon Jo @A?o@A A=?D
+HA?oH@. )C=En, JDA l=OAH oB En@EHA?JEon =lloMI JDA =FFlE?=JEon ?o@A Jo IKFFoHJ =ll =H?DE­
+JA?JKHAIMEJDoKJmo@EBE?=JEon.
+5FlEJJEnC JDA =H?DEJA?JKHA-@AFAn@AnJ EnBoHm=JEon >AJMAAn JDA Mach =n@ Machdata
+@=J= IJHK?JKHAI =lloMI =FFlE?=JEonI Jo ?DooIA =n =FFHoFHE=JA lALAl oB IAHLE?A. -LAn
+JDoKCD =n =FFlE?=JEon @oAI noJ @EHA?JlO HABAHAn?A JDA =H?DEJA?JKHA-IFA?EBE? @=J= IJHK?­
+JKHAI, EJ mKIJ lo=@ JDA =H?DEJA?JKHA-@AFAn@AnJ J=>lAI =n@ ?o@A BoH =ll =H?DEJA?JKHAI EJ
+
+­"­
+IKFFoHJI. 6DA IEzA oB JDEI @=J= ?=n >A IK>IJ=nJE=l =n@ m=nO =FFlE?=JEonI @o noJ HAGKEHA
+JDA BKll H=nCA oB =H?DEJA?JKHA-@AFAn@AnJ BKn?JEon=lEJO. .oH AN=mFlA, JDA size ?om­
+m=n@ @oAI noJ HAGKEHA JDA @EI=IIAm>lAHI BoH ALAHO =H?DEJA?JKHA; EJ onlO nAA@I Jo @A?o@A
+JDA DA=@AH. 6DA Mach @=J= IJHK?JKHA ?onJ=EnI = BAM =H?DEJA?JKHA-IFA?EBE? F=H=mAJAHI
+=n@ = @AI?HEFJEon oB JDA FHo?AIIoH HACEIJAH IAJ. 6DA IEzA oB JDA IJHK?JKHA L=HEAI MEJD JDA
+IEzA oB JDA HACEIJAH IAJ >KJ EI CAnAH=llO Im=ll. 6DA Machdata @=J= IJHK?JKHA ?onJ=EnI =
+jKmF J=>lA oB =H?DEJA?JKHA-@AFAn@AnJ BKn?JEonI; JDA =moKnJ oB ?o@A =n@ @=J= HABAH­
+An?A@>OJDEIJ=>lAEIKIK=llOl=HCA.
+Libmach Source Code Organization
+6DA libmach lE>H=HOFHoLE@AIBoKH?l=IIAIoBBKn?JEon=lEJO:
+0A=@AH =n@ 5Om>ol 6=>lA ,A?o@EnC-.ElAI executable.c =n@ sym.c ?onJ=En ?o@A
+Jo EnJAHFHAJ JDA DA=@AH =n@ IOm>ol J=>lAI oB =n ANA?KJ=>lA BElA oH ANA?KJEnC Em=CA.
+.Kn?JEon crackhdr @A?o@AI JDA DA=@AH, HABoHm=JI JDA EnBoHm=JEon EnJo =n Fhdr
+@=J= IJHK?JKHA, =n@ FoEnJI Clo>=l L=HE=>lA mach Jo JDA Mach @=J= IJHK?JKHA oB JDA
+J=HCAJ =H?DEJA?JKHA. 6DA IOm>ol J=>lA FHo?AIIEnC KIAI JDA @=J= En JDA Fhdr IJHK?­
+JKHA Jo @A?o@A JDA IOm>ol J=>lA. ) L=HEAJO oB IOm>ol J=>lA =??AII BKn?JEonI JDAn
+IKFFoHJGKAHEAIonJDAHABoHm=JJA@J=>lA.
+,A>KCCAH 5KFFoHJ-.ElAI n=mA@ m.c, MDAHA m EI JDA ?o@A lAJJAH =IIECnA@ Jo JDA =H?DE­
+JA?JKHA, ?onJ=En JDA EnEJE=lEzA@ Mach @=J= IJHK?JKHA =n@ JDA @ABEnEJEon oB JDA HACEI­
+JAHIAJBoH A=?D =H?DEJA?JKHA. )H?DEJA?JKHA-IFA?EBE? @A>KCCAH IKFFoHJ BKn?JEonI =n@
+=n EnEJE=lEzA@ Machdata IJHK?JKHA =HA IJoHA@ En BElAI n=mA@ mdb.c. .ElAI
+machdata.c =n@ setmach.c ?onJ=En @A>KCCAH IKFFoHJ BKn?JEonI ID=HA@ >O
+mKlJEFlA=H?DEJA?JKHAI.
+)H?DEJA?JKHA-1n@AFAn@AnJ )??AII-.ElAI map.c, access.c, =n@ swap.c FHoLE@A
+=??AIIAI JDHoKCD = HAlo?=JEon m=F Jo @=J= En =n ANA?KJ=>lA BElA oH ANA?KJEnC
+Em=CA. *OJA-IM=FFEnC EI FAHBoHmA@ =I nAA@A@. /lo>=l L=HE=>lAI mach =n@
+machdata mKIJ FoEnJ Jo JDA Mach =n@ Machdata @=J= IJHK?JKHAI oB JDA J=HCAJ
+=H?DEJA?JKHA.
+O>jA?J .ElA 1nJAHFHAJ=JEon-6DAIA BElAI ?onJ=En BKn?JEonI Jo E@AnJEBO JDA J=HCAJ =H?DEJA?­
+JKHA oB =n EnJAHmA@E=JA o>jA?J BElA =n@ ANJH=?J HABAHAn?AI Jo IOm>olI. .ElA obj.c
+?onJ=EnI ?o@A ?ommon Jo =ll =H?DEJA?JKHAI; BElA mobj.c ?onJ=EnI JDA
+=H?DEJA?JKHA-IFA?EBE?IoKH?A?o@ABoHJDAm=?DEnAMEJD?o@A?D=H=?JAH m.
+6DA Machdata @=J= IJHK?JKHA EI FHEm=HElO = jKmF J=>lA oB =H?DEJA?JKHA-@AFAn@AnJ
+@A>KCCAH IKFFoHJ BKn?JEonI. .Kn?JEonI IAlA?J JDA Machdata IJHK?JKHA BoH = J=HCAJ
+=H?DEJA?JKHA >=IA@ on JDA L=lKA oB JDA type ?o@A En JDA Fhdr IJHK?JKHA oH JDA n=mA oB
+JDA =H?DEJA?JKHA. 6DA jKmF J=>lA FHoLE@AI BKn?JEonI Jo IM=F >OJAI, EnJAHFHAJ m=?DEnA
+EnIJHK?JEonI,FAHBoHmIJ=?kJH=?AI,BEn@IJ=?kBH=mAI,BoHm=JBlo=JEnCFoEnJnKm>AHI,=n@
+@A?o@A m=?DEnA AN?AFJEonI. 5omA BKn?JEonI, IK?D =I m=?DEnA AN?AFJEon @A?o@EnC, =HA
+E@EoIOn?H=JE? =n@ mKIJ >A IKFFlEA@ BoH A=?D =H?DEJA?JKHA. OJDAHI @AFAn@ on JDA ?om­
+FElAH HKn-JEmA mo@Al =n@ IALAH=l =H?DEJA?JKHAIm=OID=HA?o@A?ommonJo=mo@Al. .oH
+AN=mFlA, m=nO =H?DEJA?JKHAI ID=HA JDA ?o@A Jo FHo?AII JDA BENA@-BH=mA IJ=?k mo@Al
+EmFlAmAnJA@ >O IALAH=l oB JDA ?omFElAHI. .En=llO, IomA BKn?JEonI, IK?D =I >OJAIM=FFEnC, FHoLE@A = CAnAH=l ?=F=>ElEJO =n@ JDA jKmF J=>lA nAA@ onlO IAlA?J =n EmFlA­
+mAnJ=JEon=FFHoFHE=JAJoJDA=H?DEJA?JKHA.
+Adding Application Support for a New Architecture
+6DEI IA?JEon @AI?HE>AI JDA IJAFI HAGKEHA@ Jo =@@ =FFlE?=JEon-lALAl IKFFoHJ BoH = nAM
+=H?DEJA?JKHA. 9A =IIKmA JDA kAHnAl, ?omFElAHI, lo=@AHI =n@ IOIJAm lE>H=HEAI BoH JDA nAM
+=H?DEJA?JKHA =HA =lHA=@O En Fl=?A. 6DEI EmFlEAI JD=J = ?o@A-?D=H=?JAH D=I >AAn =IIECnA@
+=n@ JD=J JDA =H?DEJA?JKHA-IFA?EBE? DA=@AHI D=LA >AAn KF@=JA@. 9EJD JDA AN?AFJEon oB
+JMo FHoCH=mI, =FFlE?=JEon-lALAl ?D=nCAI =HA ?onBEnA@ Jo DA=@AH BElAI =n@ JDA IoKH?A
+
+­#­
+?o@AEn /sys/src/libmach.
+.
+
+.
+
+*ACEn
+>O
+KF@=JEnC
+JDA
+=FFlE?=JEon
+lE>H=HO
+DA=@AH
+BElA
+En
+/sys/include/mach.h. )@@ JDA BolloMEnC IOm>olE? ?o@AI Jo JDA enum IJ=JA­
+mAnJnA=HJDA>ACEnnEnCoBJDABElA:
+
+
+6DAFHo?AIIoHJOFA?o@A,A.C., MSPARC.
+
+
+
+6DA JOFA oB JDA ANA?KJ=>lA. 6DAHA =HA KIK=llO JMo ?o@AI nAA@A@: onA BoH =
+>ooJ=>lAANA?KJ=>lAE.A.,=kAHnAl=n@onABoH=n=FFlE?=JEonANA?KJ=>lA.
+
+
+
+6DA @EI=IIAm>lAH JOFA ?o@A. )@@ onA AnJHO BoH A=?D IKFFoHJA@ @EI=IIAm>lAH
+BoHJDA=H?DEJA?JKHA.
+
+
+
+)IOm>olE??o@ABoHJDAo>jA?JBElA.
+
+1n = BElA n=mA /sys/src/libmach/m.c MDAHA m EI JDA E@AnJEBEAH ?D=H=?JAH
+=IIECnA@ Jo JDA =H?DEJA?JKHA, EnEJE=lEzA Reglist =n@ Mach @=J= IJHK?JKHAI MEJD
+L=lKAI @ABEnEnC JDA HACEIJAH IAJ =n@ L=HEoKI IOIJAm F=H=mAJAHI. 6DA IoKH?A BElA BoH
+= IEmEl=H =H?DEJA?JKHA ?=n IAHLA =I JAmFl=JA. MoIJ oB JDA BEAl@I oB JDA Mach @=J=
+IJHK?JKHA=HAo>LEoKI>KJ=BAMHAGKEHABKHJDAHANFl=n=JEon.
+kbase -6DEI BEAl@ ?onJ=EnI JDA =@@HAII oB JDA kAHnAl ublock. 6DA @A>KCCAHI
+=IIKmA JDA BEHIJ AnJHO oB JDA kAHnAl ublock FoEnJI Jo JDA Proc IJHK?JKHA BoH
+=kAHnAlJDHA=@.
+ktmask -6DEI BEAl@ EI = >EJ m=Ik KIA@ Jo ?=l?Kl=JA JDA kAHnAl JANJ =@@HAII BHom
+JDA kAHnAl ublock =@@HAII. 6DA BEHIJ F=CA oB JDA kAHnAl JANJ IACmAnJ EI ?=l­
+?Kl=JA@>O)N,EnCJDAnAC=JEonoBJDEIm=IkMEJD kbase.
+kspoff -6DEI BEAl@ ?onJ=EnI JDA >OJA oBBIAJ En JDA Proc @=J= IJHK?JKHA Jo JDA
+I=LA@ kAHnAl IJ=?k FoEnJAH BoH = IKIFAn@A@kAHnAlJDHA=@. 6DEIEIJDAoBBIAJJo
+JDA sched.sp BEAl@oB= Proc J=>lAAnJHO.
+kpcoff -6DEI BEAl@ ?onJ=EnI JDA >OJA oBBIAJ EnJo JDA Proc @=J= IJHK?JKHA oB JDA
+FHoCH=m ?oKnJAH oB = IKIFAn@A@ kAHnAl JDHA=@. 6DEI EI JDA oBBIAJ Jo BEAl@
+sched.pc EnJD=JIJHK?JKHA.
+kspdelta =n@ kpcdelta -6DAIA BEAl@I ?onJ=En ?oHHA?JEonI Jo >A =@@A@ Jo JDA
+IJ=?k FoEnJAH =n@ FHoCH=m ?oKnJAH, HAIFA?JELAlO, Jo FHoFAHlO lo?=JA JDA IJ=?k
+=n@ nANJ EnIJHK?JEon oB = kAHnAl JDHA=@. 6DAIA L=lKAI >E=I JDA I=LA@ HACEIJAHI
+HAJHEALA@ BHom JDA Label IJHK?JKHA n=mA@ sched En JDA Proc @=J= IJHK?­
+JKHA. MoIJ=H?DEJA?JKHAIHAGKEHAno>E=I=n@JDAIABEAl@I?onJ=EnzAHoI.
+scalloff -6DEI BEAl@ ?onJ=EnI JDA >OJA oBBIAJ oB JDA scallnr BEAl@ En JDA
+ublock @=J= IJHK?JKHA =IIo?E=JA@ MEJD = FHo?AII. 6DA scallnr BEAl@ ?on­
+J=EnI JDA nKm>AH oB JDA l=IJ IOIJAm ?=ll ANA?KJA@ >O JDA FHo?AII. 6DA lo?=­
+JEon oB JDA BEAl@ L=HEAI @AFAn@EnC on JDA IEzA oB JDA Blo=JEnC FoEnJ HACEIJAH IAJ
+MDE?DFHA?A@AIEJEnJDA ublock.
+
+!.
+
+)@@ =n AnJHO Jo JDA EnEJE=lEz=JEon oB JDA ExecTable @=J= IJHK?JKHA =J JDA >ACEn­
+nEnC oB BElA /sys/src/libmach/executable.c. MoIJ =H?DEJA?JKHAI HAGKEHA
+JMo AnJHEAI: onA BoH = noHm=l ANA?KJ=>lA =n@ onA BoH = >ooJ=>lA Em=CA. -=?D J=>lA
+AnJHO?onJ=EnI:
+
+
+M=CE? NKm>AH 6DA >EC-An@E=n m=CE? nKm>AH =IIECnA@ Jo JDA =H?DEJA?JKHA
+En /sys/include/a.out.h.
+
+
+
+N=mA )IJHEnC@AI?HE>EnCJDAANA?KJ=>lA.
+
+
+
+-NA?KJ=>lA
+JOFA
+?o@A
+/sys/include/mach.h.
+
+
+
+Mach FoEnJAH 6DA =@@HAII oB JDA EnEJE=lEzA@ Mach @=J= IJHK?JKHA ?on­
+IJHK?JA@ En 5JAF . ;oK mKIJ =lIo =@@ JDA n=mA oB JDEI J=>lA Jo JDA lEIJ oB
+
+6DA
+
+ANA?KJ=>lA
+
+?o@A
+
+=IIECnA@
+
+En
+
+­$­
+Mach J=>lA@ABEnEJEonIEmmA@E=JAlOFHA?A@EnCJDA ExecTable EnEJE=lEz=JEon.
+
+
+0A=@AH IEzA 6DA nKm>AH oB >OJAI En JDA ANA?KJ=>lA BElA DA=@AH. 6DA IEzA oB
+= noHm=l ANA?KJ=>lA DA=@AH EI =lM=OI sizeof(Exec). 6DA IEzA oB = >ooJ­
+=>lA DA=@AH EI @AJAHmEnA@ >O JDA IEzA oB JDA IJHK?JKHA BoH JDA =H?DEJA?JKHA
+@ABEnA@En /sys/include/bootexec.h.
+
+
+
+*OJA-IM=FFEnC BKn?JEon 6DA =@@HAII oB beswal oH leswal BoH >ECAn@E=n=n@lEJJlA-An@E=n=H?DEJA?JKHAI,HAIFA?JELAlO.
+
+
+
+,A?o@AHBKn?JEon-6DA =@@HAII oB = BKn?JEon Jo @A?o@A JDA DA=@AH. .Kn?JEon
+adotout @A?o@AI JDA ?ommon DA=@AH ID=HA@ >O =ll noHm=l E.A., non>ooJ=>lA ANA?KJ=>lA BElAI. 6DA DA=@AH BoHm=J oB >ooJ=>lA ANA?KJ=>lA BElAI EI
+@ABEnA@ >O JDA m=nKB=?JKHAH =n@ = ?KIJom BKn?JEon EI =lmoIJ =lM=OI HAGKEHA@
+Jo @A?o@A EJ. 0A=@AH BElA /sys/include/bootexec.h ?onJ=EnI @=J=
+IJHK?JKHAI @ABEnEnC JDA >ooJ=>lA DA=@AHI BoH =ll =H?DEJA?JKHAI. 1B JDA nAM
+=H?DEJA?JKHA KIAI =n ANEIJEnC BoHm=J, JDA =FFHoFHE=JA @A?o@EnC BKn?JEon
+IDoKl@ =lHA=@O >A En executable.c. 1B JDA DA=@AH BoHm=J EI KnEGKA, JDAn =
+nAM BKn?JEon mKIJ >A =@@A@ Jo JDEI BElA. 7IK=llO JDA @A?o@EnC BKn?JEon BoH =n
+ANEIJEnC=H?DEJA?JKHA?=n>A=@oFJA@MEJDmEnoHmo@EBE?=JEonI.
+
+".
+
+9HEJA =n o>jA?J BElA F=HIAH =n@ IJoHA EJ En BElA /sys/src/libmach/mobj.c
+MDAHA m EI JDA E@AnJEBEAH ?D=H=?JAH =IIECnA@ Jo JDA =H?DEJA?JKHA. 6Mo BKn?JEonI =HA
+HAGKEHA@: = FHA@E?=JA Jo E@AnJEBO =n o>jA?J BElA BoH JDA =H?DEJA?JKHA =n@ = BKn?JEon Jo
+ANJH=?J IOm>ol HABAHAn?AI BHom JDA o>jA?J ?o@A. 6DA o>jA?J ?o@A BoHm=J EI o>I?KHA
+>KJ EJ EI oBJAn FoIIE>lA Jo =@oFJ JDA ?o@A oB =n ANEIJEnC =H?DEJA?JKHA MEJD mEnoH
+mo@EBE?=JEonI. 9DAn JDAIA BKn?JEonI =HA En D=n@, EnIAHJ JDAEH =@@HAIIAI En JDA
+jKmFJ=>lA=JJDA>ACEnnEnCoBBElA /sys/src/libmach/obj.c.
+
+#.
+
+1mFlAmAnJ JDA HAGKEHA@ @A>KCCAH IKFFoHJ BKn?JEonI =n@ EnEJE=lEzA JDA F=H=mAJAHI
+=n@ jKmF J=>lA oB JDA Machdata @=J= IJHK?JKHA BoH JDA =H?DEJA?JKHA. 6DEI ?o@A EI
+?onLAnJEon=llO IJoHA@ En = BElA n=mA@ /sys/src/libmach/mdb.c MDAHA m EI
+JDA E@AnJEBEAH ?D=H=?JAH =IIECnA@ Jo JDA =H?DEJA?JKHA. 6DA BEAl@I oB JDA Machdata
+IJHK?JKHA=HA:
+bpinst =n@ bpsize -6DAIA BEAl@I ?onJ=En JDA >HA=kFoEnJ EnIJHK?JEon =n@ JDA
+IEzAoBJDAEnIJHK?JEon,HAIFA?JELAlO.
+swab -6DEI BEAl@ ?onJ=EnI JDA =@@HAII oB = BKn?JEon Jo >OJA-IM=F = $->EJ L=lKA.
++DooIA leswab oH beswab BoH lEJJlA-An@E=n oH >EC-An@E=n =H?DEJA?JKHAI,
+HAIFA?JELAlO.
+swal -6DEI BEAl@ ?onJ=EnI JDA =@@HAII oB = BKn?JEon Jo >OJA-IM=F = ! ->EJ L=lKA.
++DooIA leswal oH beswal BoH lEJJlA-An@E=n oH >EC-An@E=n =H?DEJA?JKHAI,
+HAIFA?JELAlO.
+ctrace -6DEI BEAl@ ?onJ=EnI JDA =@@HAII oB = BKn?JEon Jo FAHBoHm = +-l=nCK=CA
+IJ=?k JH=?A. 6Mo CAnAH=l JH=?A BKn?JEonI, risctrace =n@ cisctrace, JH=­
+LAHIA BENA@-BH=mA =n@ HAl=JELA-BH=mA IJ=?kI, HAIFA?JELAlO. 1B JDA ?omFElAH BoH
+JDA nAM =H?DEJA?JKHA ?onBoHmI Jo onA oB JDAIA mo@AlI, IAlA?J JDA =FFHoFHE=JA
+BKn?JEon. 1BJDAIJ=?kmo@AlEIKnEGKA,IKFFlO=?KIJomIJ=?kJH=?ABKn?JEon.
+findframe -6DEI BEAl@ ?onJ=EnI JDA =@@HAII oB = BKn?JEon Jo lo?=JA JDA IJ=?k
+BH=mA =IIo?E=JA@ MEJD = JANJ =@@HAII. /AnAHE? BKn?JEonI riscframe =n@
+ciscframe FHo?AIIBENA@-BH=mA=n@HAl=JELA-BH=mAIJ=?kmo@AlI.
+ufixup -6DEI BEAl@ ?onJ=EnI JDA =@@HAII oB = BKn?JEon Jo =@jKIJ JDA >=IA =@@HAII
+oB JDA HACEIJAH I=LA =HA=. +KHHAnJlO, onlO JDA $&  HAGKEHAI JDEI >E=I Jo oBB­
+IAJoLAHJDA=?JELAAN?AFJEonBH=mA.
+excep -6DEI BEAl@ ?onJ=EnI JDA =@@HAII oB = BKn?JEon Jo FHo@K?A = JANJ IJHEnC
+@AI?HE>EnC JDA ?KHHAnJ AN?AFJEon. -=?D =H?DEJA?JKHA IJoHAI AN?AFJEon
+
+­%­
+EnBoHm=JEonKnEGKAlO,IoJDEI?o@AmKIJ=lM=OI>AIKFFlEA@.
+bpfix -6DEI BEAl@ ?onJ=EnI JDA =@@HAII oB = BKn?JEon Jo =@jKIJ =n =@@HAII FHEoH Jo
+l=OEnC@oMn=>HA=kFoEnJ.
+sftos -6DEI BEAl@ ?onJ=EnI JDA =@@HAII oB = BKn?JEon Jo ?onLAHJ = IEnClA FHA?EIEon
+Blo=JEnC FoEnJ L=lKA Jo = IJHEnC. +DooIA leieeesftos BoH lEJJlA-An@E=n oH
+beieeesftos BoH>EC-An@E=n=H?DEJA?JKHAI.
+dftos -6DEI BEAl@ ?onJ=EnI JDA =@@HAII oB = BKn?JEon Jo ?onLAHJ = @oK>lA FHA?E­
+IEon Blo=JEnC FoEnJ L=lKA Jo = IJHEnC. +DooIA leieeedftos BoH lEJJlA-An@E=n
+oH beieeedftos BoH>EC-An@E=n=H?DEJA?JKHAI.
+foll, das, hexinst, =n@ instsize -6DAIA BEAl@I FoEnJ Jo BKn?JEonI JD=J
+EnJAHFHAJ m=?DEnA EnIJHK?JEonI. 6DAO HAlO on @EI=IIAm>lO oB JDA EnIJHK?JEon
+=n@ =HA KnEGKA Jo A=?D =H?DEJA?JKHA. Foll ?=l?Kl=JAI JDA BolloM IAJ oB =n
+EnIJHK?JEon. Das @EI=IIAm>lAI = m=?DEnA EnIJHK?JEon Jo =IIAm>lO l=nCK=CA.
+Hexinst BoHm=JI = m=?DEnA EnIJHK?JEon =I = JANJ IJHEnC oB DAN=@A?Em=l @EC­
+EJI. Instsize ?=l?Kl=JAI JDA IEzA En >OJAI, oB =n EnIJHK?JEon. On?A JDA @EI­
+=IIAm>lAH EI MHEJJAn, JDA oJDAH BKn?JEonI ?=n KIK=llO >A EmFlAmAnJA@ =I JHELE=l
+ANJAnIEonIoBEJ.
+1J EI FoIIE>lA Jo FHoLE@A IKFFoHJ BoH = nAM =H?DEJA?JKHA En?HAmAnJ=llO >O BEllEnC JDA
+jKmF J=>lA AnJHEAI oB JDA Machdata IJHK?JKHA =I ?o@A EI MHEJJAn. 1n CAnAH=l, EB =
+jKmF J=>lA AnJHO ?onJ=EnI = zAHo, =FFlE?=JEon FHoCH=mI HAGKEHEnC JD=J BKn?JEon MEll
+EIIKA =n AHHoH mAII=CA EnIJA=@oB=JJAmFJEnCJo?=llJDABKn?JEon. .oHAN=mFlA,JDA
+foll, das, hexinst,=n@ instsize jKmFJ=>lAIloJI ?=n >A zAHoA@ KnJEl = @EI­
+=IIAm>lAH EI MHEJJAn. OJDAH ?=F=>ElEJEAI, IK?D =I IJ=?k JH=?A oH L=HE=>lA EnIFA?JEon,
+?=n >A IKFFlEA@ =n@ MEll >A =L=El=>lA Jo JDA @A>KCCAHI >KJ =JJAmFJI Jo KIA JDA @EI­
+=IIAm>lAHMEllHAIKlJEn=nAHHoHmAII=CA.
+$.
+
+7F@=JA
+JDA
+J=>lA
+n=mA@
+machines
+nA=H
+JDA
+>ACEnnEnC
+oB
+/sys/src/libmach/setmach.c. 6DEI J=>lA >En@I JDA BElA JOFA ?o@A =n@
+m=?DEnA n=mA Jo JDA Mach =n@ Machdata IJHK?JKHAI oB =n =H?DEJA?JKHA. 6DA
+n=mAI oB JDA EnEJE=lEzA@ Mach =n@ Machdata IJHK?JKHAI >KElJ En IJAFI
+=n@ #
+mKIJ >A =@@A@ Jo JDA lEIJ oB IJHK?JKHA @ABEnEJEonI EmmA@E=JAlO FHA?A@EnC JDA J=>lA
+EnEJE=lEz=JEon. 1B >oJD 2l=n ' =n@ n=JELA @EI=IIAm>lO=HAIKFFoHJA@,=@@=nAnJHOBoH
+A=?D @EI=IIAm>lAH Jo JDA J=>lA. 6DA AnJHO BoH JDA @AB=KlJ @EI=IIAm>lAH KIK=llO
+2l=n'mKIJ>ABEHIJ.
+
+%.
+
+)@@ =n AnJHO @AI?HE>EnC JDA =H?DEJA?JKHA Jo JDA J=>lA n=mA@ trans nA=H JDA An@
+oB /sys/src/cmd/prof.c.
+
+&.
+
+)@@ =n AnJHO @AI?HE>EnC JDA =H?DEJA?JKHA Jo JDA J=>lA n=mA@ objtype nA=H JDA
+IJ=HJoB /sys/src/cmd/pcc.c.
+
+'.
+
+4A?omFElA =n@ EnIJ=ll =ll =FFlE?=JEon FHoCH=mI JD=J En?lK@A DA=@AH BElA mach.h
+=n@lo=@MEJD libmach.a.
+
+
